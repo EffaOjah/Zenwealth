@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenwealth - user dashboard</title>
+    <link rel="stylesheet" href="/css/newstyles.css">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
+</head>
+<body class="">
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      <div class="offcanvas-cover"></div>
+      <div class="offcanvas-header bg- d-flex">
+        <div class="w-100 text-center" style=" z-index: 5;">
+          <img src="/img/ZEN logo.png" class="img-fluid" style="width: 90%; height: 80px;">
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-flex align-items-center justify-content-center">
+        <div class="sidenav-wrapper">
+          <ul class="mobile-sidenav-nav h-100">
+              <li class="unactive-item">
+                  <a href="/user/dashboard"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
+                  </a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
+              </li>
+              <li class="unactive-item">
+                  <a href="#"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
+              </li>
+              <li class="unactive-item">
+                <a href="youtube-earning.html"><ion-icon name="phone-portrait-outline"></ion-icon><span>Youtube Earning</span>
+                </a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
+              </li>
+              <li class="active-item">
+                <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+              </li>
+              <li class="logout unactive-item">
+                  <a href="logout"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-wrapper">
+      <!-- Sidebar -->
+      <div class="d-flex align-items-center justify-content-center" id="mySidebar">
+        <div class="sidenav-wrapper p-3 bg-white radius-three">
+          <div class="w-100 text-center mt-2" style=" z-index: 5;">
+            <img src="/img/Zenwealth Logo Alone-02.png" class="img-fluid" style="width: 50px; height: 50px;">
+          </div>
+          <ul class="sidenav-nav ps-0 h-100" style="margin-top: 40px;">
+              <li class="unactive-item">
+                  <a href="/user/dashboard"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
+                  </a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
+              </li>
+              <li class="unactive-item">
+                  <a href="#"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
+              </li>
+              <li class="unactive-item">
+                <a href="youtube-earning.html"><ion-icon name="phone-portrait-outline"></ion-icon><span>Youtube Earning</span>
+                </a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
+              </li>
+              <li class="active-item">
+                <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+              </li>
+              <li class="logout unactive-item">
+                <a href="/logout"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
+              </li>
+          </ul>
+        </div>
+      </div>
+   <!-- Sidebar ends -->
+
+    <!-- Main content -->
+    <div id="main" class="bottom-space" style="overflow-y: scroll;">
+      <div class="trydiv2"></div>
+
+      <!-- Navbar Start -->
+      <nav class="navbar navbar-expand px-2 py-2 pt-3" id="navbar">
+          <a href="#" class="sidebar-toggler flex-shrink-0" onclick="togglenav()">
+            <i class="fa fa-bars color-one" style="transform: translateY(-3px);"></i>
+          </a>
+          <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+            <label class="hamburger" id="hamburger">
+              <svg viewBox="0 0 32 32">
+                <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+                <path class="line" d="M7 16 27 16"></path>
+              </svg>
+            </label>
+          </button>
+          <div class="ms-4 align-items-center lg" style="display: flex;">
+            <h4 class="fw-bold text-white">Hello, Joe-Hansen</h4>
+            <img src="/img/icon1.png" class="img-fluid" style="width: 35px; height: 35px; transform: translateY(-0.2rem);">
+          </div>
+
+          <div class="navbar-nav align-items-center ms-auto dashboard-nav">
+              <div class="nav-item dropdown">
+                  <a href="#" class="nav-link postion-relative" data-bs-toggle="dropdown">
+                    <div class="profile border">
+                      <img class="rounded-circle img-fluid profile-img" src="/img/dax.jpeg">
+                      <img src="/img/icon1.png" class="img-fluid rounded-circle profile-icon" style="width: 25px; height: 25px;">
+                    </div>
+                    <span class="d-none">Joe-Hansen Emeka</span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end bg-white border-0 rounded-0 rounded-bottom m-0">
+                    <a href="/user/bank-details" class="dropdown-item">My Profile</a>
+                    <a href="#" class="dropdown-item">Settings</a>
+                      <a href="/logout" class="dropdown-item">Log Out</a>
+                  </div>
+              </div>
+          </div>
+      </nav>
+      <!-- Navbar End -->
+
+      <div class="ms-4 sm vendor-name">
+        <h4 class="fw-bold text-white">Hello, Joe-Hansen</h4>
+        <img src="/img/icon1.png" class="img-fluid" style="width: 35px; height: 35px; transform: translateY(-0.2rem);">
+      </div>
+
+
+      <div class="container-fluid d-flex align-items-center content" style="height: 85%;">
+        <div class="w-100">
+        <div class="row g-4" style="position: relative;">
+          <div class="col-lg-12 sm">
+            <div class="" style="overflow-x: scroll;">
+              <div class="px-4 pb-0 radius-three progress-div" style="margin-bottom: 0px !important;">
+                <h5 class="text-white mb-3">Total Sales</h5><br>
+                <p class="fs-1 text-white"><strong>$<%= getUsedCoupons.length * 5200 %></strong></p>
+                <span class="d-flex justify-content-between mt-4">
+                  <p class="text-white text-end">Affiliate</p>
+                  <a href="/downlines" class="text-white text-end">view downlines</a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="bg-overlay radius-three p-3">
+              <h6 class="mt-2 ms-2 mb-3 text-white">Coupon Codes</h6>
+            
+              <div class="standard-tab">
+                <ul class="nav rounded-lg mb-2 p-2 shadow-sm radius-three" id="affanTabs1" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="btn text-white active" id="bootstrap-tab" data-bs-toggle="tab" data-bs-target="#bootstrap" type="button" role="tab" aria-controls="bootstrap" aria-selected="true">Active (<strong><%= getActiveCoupons.length %></strong>)</button>
+                  </li>
+                  <li class="nav-item tab-pill" role="presentation">
+                    <button class="btn text-white" id="dark-tab" data-bs-toggle="tab" data-bs-target="#dark" type="button" role="tab" aria-controls="dark" aria-selected="false" tabindex="-1">Used (<strong><%= getUsedCoupons.length %></strong>)</button>
+                  </li>
+                </ul>
+                <div class="tab-content rounded-lg p-3 shadow-sm radius-three" id="affanTabs1Content">
+                  <!-- Active Codes Tab -->
+                  <div class="tab-pane fade show active" id="bootstrap" role="tabpanel" aria-labelledby="bootstrap-tab">
+                    <div class="d-flex justify-content-between">
+                      <div class="">
+                        <label>
+                          <select class="form-select">
+                            <option value="10" selected>10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                          </select>
+                        </label>
+                      </div>
+                      <div class="">
+                        <input type="search" class="form-control search" placeholder="search username" id="search-active">
+                      </div>
+                    </div>
+                    <div class="dataTable-container mt-3">
+                      <table class="w-100 dataTable-table table text-white" id="dataTable-active">
+                        <thead>
+                          <tr>
+                            <th data-sortable="" style="width: 12.2727%;">SN</th>
+                            <th data-sortable="" style="width: 67.5%;">Code</th>
+                            <th data-sortable="" style="width: 20.2841%;">Value</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for( let i = 0; i < getActiveCoupons.length; i++ ) { %>
+                            <tr>
+                              <td><%= i + 1 %></td>
+                              <td><%= getActiveCoupons[i].token %></td>
+                              <td>4,500</td>
+                            </tr>
+                          <% } %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- Used Codes Tab -->
+                  <div class="tab-pane fade" id="dark" role="tabpanel" aria-labelledby="dark-tab">
+                    <div class="d-flex justify-content-between">
+                      <div class="">
+                        <label>
+                          <select class="form-select">
+                            <option value="10" selected>10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                          </select>
+                        </label>
+                      </div>
+                      <div class="">
+                        <input type="search" class="form-control" placeholder="search username" id="search-used">
+                      </div>
+                    </div>
+                    <div class="dataTable-container mt-3">
+                      <table class="w-100 dataTable-table table text-white" id="dataTable-used">
+                        <thead>
+                          <tr>
+                            <th data-sortable="" style="width: 12.2727%;">SN</th>
+                            <th data-sortable="" style="width: 67.5%;">Code</th>
+                            <th data-sortable="" style="width: 20.2841%;">Value</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for( let i = 0; i < getUsedCoupons.length; i++ ) { %>
+                            <tr>
+                              <td><%= i + 1 %></td>
+                              <td><%= getUsedCoupons[i].token %></td>
+                              <td>4,500</td>
+                            </tr>
+                          <% } %>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="bg-white radius-three p-3">
+            <h6 class="mb-3 ms-2 color-one">Earnings</h6>
+            <div class="row g-3">
+              <div class="col-lg-12">
+                <div class="bg-two-faint state py-2 radius-two">
+                  <p class="text-center color-two light-paste">Total Sales</p>
+                  <p class="text-center blue-paste radius-two"><%= referrals %></p>
+                </div>
+              </div>
+              <div class="col-lg-12 lg">
+                <div class="bg-two-faint state py-2 radius-two">
+                  <p class="text-center color-two light-paste">Sales Balance</p>
+                  <p class="text-center blue-paste radius-two">$23,000</p>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="bg-two-faint state py-2 radius-two">
+                  <p class="text-center color-two light-paste">Direct Sales</p>
+                  <p class="text-center blue-paste radius-two"><span class="directReferralBalance spinner-border spinner-border-md" aria-hidden="true"></span></p>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="bg-two-faint state py-2 radius-two">
+                    <p class="text-center color-two light-paste">Indirect Sales</p>
+                    <p class="blue-paste radius-two"><span class="indirectReferralBalance spinner-border spinner-border-md" aria-hidden="true"></span></p>
+                </div>
+              </div>
+            </div>
+          </div>  
+        </div>
+      </div>
+      </div>
+      </div>
+      
+      </div>
+
+      
+      <footer class="dashboard-footer shadow">
+        <div class="bg- h-100 w-25 d-flex align-items-center justify-content-center">
+          <div class="h-100 w-50 position-relative">
+            <a href="/user/dashboard">
+              <ion-icon name="home-outline" style="font-size: 25px !important;"></ion-icon>
+            </a>
+          </div>          
+        </div>
+        <div class="bg- h-100 w-25 d-flex align-items-center justify-content-center">
+          <div class="h-100 w-50 position-relative">
+            <a href="/user/bank-details">
+              <ion-icon name="person-outline" style="font-size: 25px !important;"></ion-icon>
+            </a>
+          </div>          
+        </div>
+        <div class="bg- h-100 w-25 d-flex align-items-center justify-content-center">
+          <div class="h-100 w-50 position-relative">
+            <a href="mining.html">
+              <ion-icon name="diamond-outline" style="font-size: 25px !important;"></ion-icon>
+            </a>
+          </div>          
+        </div>
+        <div class="bg- h-100 w-25 d-flex align-items-center justify-content-center">
+          <div class="h-100 w-50 position-relative">
+            <a href="#">
+              <ion-icon name="cart-outline" style="font-size: 25px !important;"></ion-icon>
+            </a>
+          </div>          
+        </div>
+      </footer>
+    </div>
+  </div>
+
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"></script>
+    <script>
+      var mainDiv = document.getElementById("main");
+      var sideBar = document.getElementById("mySidebar");
+      var menuIcon = document.getElementById("hamburger");
+      var mobileSideBar = document.getElementById("myMobileSidebar");
+      const checkbox = document.querySelector('.hamburger input');
+
+      function togglenav() {
+        if (mainDiv.style.marginLeft === "0%"){
+          mainDiv.style.marginLeft = "19.2%";
+          mainDiv.style.borderTopLeftRadius = "25px";
+          mainDiv.style.borderBottomLeftRadius = "25px";
+          sideBar.style.width = "19.2%";
+        } else {
+          mainDiv.style.marginLeft = "0%";
+          sideBar.style.width = "0%";
+          mainDiv.style.borderRadius = "0";
+        }
+      }
+      
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          mobileSideBar.style.width = '61%';
+          menuIcon.style.marginLeft = '61%';
+        } else {
+          mobileSideBar.style.width = '0%';
+          menuIcon.style.marginLeft = '0%';
+        }
+      });
+
+    </script>
+    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script to load user balances -->
+    <script src="/js/loadBalancesForVendorPage.js"></script>
+</body>
+</html>

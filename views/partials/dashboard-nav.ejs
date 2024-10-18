@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand px-2 py-2 pt-3" id="navbar">
+  <a href="#" class="sidebar-toggler flex-shrink-0" onclick="togglenav()">
+    <i class="fa fa-bars color-one" style="transform: translateY(-3px);"></i>
+  </a>
+  <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+    <label class="hamburger" id="hamburger">
+      <svg viewBox="0 0 32 32">
+        <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+        <path class="line" d="M7 16 27 16"></path>
+      </svg>
+    </label>
+  </button>
+  
+  <div class="ms-4">
+    <h4 class="fw-bold greeting text-white">Hello, Joe-Hansen</h4>
+  </div>
+  <div class="navbar-nav align-items-center ms-auto dashboard-nav">
+      <div class="nav-item dropdown">
+          <a href="#" class="nav-link" data-bs-toggle="dropdown">
+            <img class="rounded-circle border me-lg-2" src="/img/dax.jpeg" alt="" style="width: 47px; height: 45px;">
+            <span class="d-none d-lg-inline-fle">Joe-Hansen Emeka</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end bg-white border-0 rounded-0 rounded-bottom m-0">
+            <a href="/user/profile" class="dropdown-item">My Profile</a>
+            <a href="#" class="dropdown-item">Settings</a>
+              <a href="#" class="dropdown-item">Log Out</a>
+          </div>
+      </div>
+  </div>
+</nav>

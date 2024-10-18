@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenwealth - submit withdrawal</title>
+    <link rel="stylesheet" href="/css/newstyles.css">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/iziToast-master/dist/css/iziToast.min.css">
+    <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-one">
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      <div class="offcanvas-cover"></div>
+
+      <div class="offcanvas-header d-flex">
+        <div class="w-100 text-center" style=" z-index: 5;">
+          <img src="/img/ZEN logo.png" class="img-fluid" style="width: 90%; height: 80px;">
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-flex align-items-center justify-content-center">
+        <div class="sidenav-wrapper">
+          <ul class="mobile-sidenav-nav h-100">
+              <li class="unactive-item">
+                  <a href="/user/dashboard"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
+                  </a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
+              </li>
+              <li class="unactive-item">
+                  <a href="#"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
+              </li>
+              <li class="unactive-item">
+                <a href="youtube-earning.html"><ion-icon name="phone-portrait-outline"></ion-icon><span>Youtube Earning</span>
+                </a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
+              </li>
+              <li class="unactive-item">
+                <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+              </li>
+              <li class="logout unactive-item">
+                  <a href="#"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="page-wrapper">
+      <!-- Sidebar -->
+      <div class="d-flex align-items-center justify-content-center" id="mySidebar">
+        <div class="sidenav-wrapper p-3 bg-white radius-three">
+          <div class="w-100 text-center mt-2" style=" z-index: 5;">
+            <img src="/img/Zenwealth Logo Alone-02.png" class="img-fluid" style="width: 50px; height: 50px;">
+          </div>
+          <ul class="sidenav-nav ps-0 h-100" style="margin-top: 40px;">
+              <li class="unactive-item">
+                  <a href="/user/dashboard"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
+                  </a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
+              </li>
+              <li class="unactive-item">
+                  <a href="#"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
+              </li>
+              <li class="unactive-item">
+                <a href="youtube-earning.html"><ion-icon name="phone-portrait-outline"></ion-icon><span>Youtube Earning</span>
+                </a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
+              </li>
+              <li class="unactive-item">
+                <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+              </li>
+              <li class="logout unactive-item">
+                <a href="#"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    <!-- Sidebar ends -->
+
+    <!-- Main content -->
+    <div id="main" class="bottom-space" style="overflow-y: scroll;">
+      <div class="trydiv2"></div>
+
+      <!-- Navbar Start -->
+      <%- include('./partials/dashboard-nav') %>
+      <!-- Navbar End -->
+
+      <div class="ms-4 greeting-mobile">
+        <h4 class="fw-bold text-white">Hello, <%= user.username %></h4>
+      </div>
+
+      
+      <div class="container-fluid d-flex align-items-center justify-content-center content mt-3" style="height: 85%;">
+        <div class="row g-4" style="position: relative;">
+
+      <div class="col-lg-4">
+        <div class="atm">
+          <p class="fs-4 fw-bold color-four" style="position: absolute; right: 25px; top: 10px;"><%= !user.bank_name ? 'NULL' : user.bank_name %></p>
+          <div class="chip"><img src="/img/chip.png" alt="chip"></div>
+          <div class="number ms-4 color-four"><%= !user.account_number ? 'NULL' : user.account_number %></div><br>
+          <div class="name ms-4 color-four" style="position: absolute; bottom: 20px;"><%= !user.account_name ? 'NULL' : user.account_name %></div><br>
+          <div class="from" style="position: absolute; bottom: 20px; right: 25px;"><a href="/user/bank-details" class="text- color-two">edit</a></div><br>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="bg-overlay radius-three p-4 pb-5">
+          <h6 class="mt-2 mb-3 text-white">Withdraw</h6>
+
+          <form id="withdrawalForm">
+            <div class="row g-3">
+              <div class="col-md-12">
+                <div class="form-floating">
+                  <select class="form-select" id="type" name="withdrawalType" required="">
+                    <option>Select Withdrawal Type</option>
+                    
+                    <option value="affiliate" class="affiliateBalance text-secondary"></option>
+                    
+                    <option value="earnings" disabled="" class="nonAffiliateBalance text-secondary"></option>
+                  </select>
+                </div>  
+              </div>
+
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-floating">
+                      <input class="form-control" placeholder="amount" type="number" name="amount" required="">
+                      <label class="form-label">Withdrawal Amount</label>
+                    </div>
+                  </div>
+    
+                  <div class="col-md-6">
+                    <div class="form-floating mtop">
+                      <input class="form-control" placeholder="pin" type="pin" name="pin" maxlength="4" required="">
+                      <label class="form-label">Withdrawal Pin</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12 mt-4">
+                <button class="btn btn-zen px-4 py-2 w-100 text-white" type="submit">Submit Now</button>
+            </div>            
+          </div>
+          </form>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    
+      
+    <footer class="dashboard-footer shadow">
+      <div class="h-100 w-25 d-flex align-items-center justify-content-center">
+        <div class="h-100 w-50 position-relative">
+          <a href="/user/dashboard">
+            <ion-icon name="home-outline" style="font-size: 25px !important;"></ion-icon>
+          </a>
+        </div>          
+      </div>
+      <div class="h-100 w-25 d-flex align-items-center justify-content-center">
+        <div class="h-100 w-50 position-relative">
+          <a href="/user/bank-details">
+            <ion-icon name="person-outline" style="font-size: 25px !important;"></ion-icon>
+          </a>
+        </div>          
+      </div>
+      <div class="h-100 w-25 d-flex align-items-center justify-content-center">
+        <div class="h-100 w-50 position-relative">
+          <a href="mining.html">
+            <ion-icon name="diamond-outline" style="font-size: 25px !important;"></ion-icon>
+          </a>
+        </div>          
+      </div>
+      <div class="h-100 w-25 d-flex align-items-center justify-content-center">
+        <div class="h-100 w-50 position-relative">
+          <a href="#">
+            <ion-icon name="cart-outline" style="font-size: 25px !important;"></ion-icon>
+          </a>
+        </div>          
+      </div>
+    </footer>
+    </div>
+  </div>
+
+
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"></script>
+    <script>
+      var mainDiv = document.getElementById("main");
+      var sideBar = document.getElementById("mySidebar");
+      var menuIcon = document.getElementById("hamburger");
+      var mobileSideBar = document.getElementById("myMobileSidebar");
+      const checkbox = document.querySelector('.hamburger input');
+
+
+      function togglenav() {
+        if (mainDiv.style.marginLeft === "0%"){
+          mainDiv.style.marginLeft = "19.2%";
+          mainDiv.style.borderTopLeftRadius = "25px";
+          mainDiv.style.borderBottomLeftRadius = "25px";
+          sideBar.style.width = "19.2%";
+        } else {
+          mainDiv.style.marginLeft = "0%";
+          sideBar.style.width = "0%";
+          mainDiv.style.borderRadius = "0";
+        }
+      }
+
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          mobileSideBar.style.width = '60%';
+          menuIcon.style.marginLeft = '60%';
+        } else {
+          mobileSideBar.style.width = '0%';
+          menuIcon.style.marginLeft = '0%';
+        }
+      });
+
+
+    </script>
+    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/iziToast-master/dist/js/iziToast.min.js"></script>
+    <script src="/js/alert.js"></script>
+
+    <!-- Script to load balances for withdrawal page -->
+    <script src="/js/loadBalancesForWithdrawalPage.js"></script>
+
+    <!-- Script for withdrawal -->
+    <script src="/js/withdrawal.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!-- <footer class="shadow dashboard-footer bg-">
+    <div class="d-flex align-items-center justify-content-around py-2">
+      <a href="/user/dashboard">
+        <div class="text-center">
+          <ion-icon name="home" style="font-size: 25px !important;"></ion-icon>
+        </div>
+      </a>
+      <a href="/user/profile">
+        <div class="text-center">
+          <ion-icon name="person-outline" style="font-size: 25px !important;"></ion-icon>
+        </div>
+      </a>
+      <a href="/downlines">
+        <div class="text-center">
+          <ion-icon name="people-outline" style="font-size: 27px !important;"></ion-icon>
+        </div>
+      </a>
+      <div class="text-center">
+        <ion-icon name="cart-outline" style="font-size: 25px !important;"></ion-icon>          
+      </div>
+    </div>
+  </footer> -->
+
+  <span class="d-none" id="alertTitle"><%= locals.alertTitle %></span>
+    <span class="d-none" id="alertMessage"><%= locals.alertMessage %></span>
+    <span class="d-none" id="alertColor"><%= locals.alertColor %></span>
+
+
+    <script>
+      var alertTitle = document.getElementById("alertTitle");
+      var alertMessage = document.getElementById("alertMessage");
+      var alertColor = document.getElementById("alertColor");
+
+      // Check if there is a response message
+      document.addEventListener('DOMContentLoaded', ()=>{
+        if (alertTitle.innerHTML || alertMessage.innerHTML || alertColor.innerHTML) {
+          // alert('h')
+          izitoastAlert(alertTitle.innerHTML, alertMessage.innerHTML, 'light', alertColor.innerHTML);
+        } else {
+          return;
+        }
+      })
+
+     </script>

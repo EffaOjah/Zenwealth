@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenwealth - upload product</title>
+    <link rel="stylesheet" href="/css/newstyles.css">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-one">
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      <div class="offcanvas-cover"></div>
+      <div class="offcanvas-header d-flex">
+        <div class="w-100 text-center" style="z-index: 5;">
+          <img src="/img/ZEN logo.png" class="img-fluid" style="width: 90%; height: 80px;">
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-flex align-items-center justify-content-center">
+        <div class="sidenav-wrapper">
+          <ul class="mobile-sidenav-nav h-100">
+              <li class="unactive-item">
+                  <a href="/user/dashboard"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
+                  </a>
+              </li>
+              <li class="active-item">
+                  <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
+              </li>
+              <li class="unactive-item">
+                  <a href="#"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
+              </li>
+              <li class="unactive-item">
+                <a href="youtube-earning.html"><ion-icon name="phone-portrait-outline"></ion-icon><span>Youtube Earning</span>
+                </a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
+              </li>
+              <li class="unactive-item">
+                <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+              </li>
+              <li class="logout unactive-item">
+                  <a href="#"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-wrapper">
+      <!-- Sidebar -->
+      <div class="d-flex align-items-center justify-content-center" id="mySidebar">
+        <div class="sidenav-wrapper p-3 bg-white radius-three">
+          <div class="w-100 text-center mt-2" style=" z-index: 5;">
+            <img src="/img/Zenwealth Logo Alone-02.png" class="img-fluid" style="width: 50px; height: 50px;">
+          </div>
+          <ul class="sidenav-nav ps-0 h-100" style="margin-top: 40px;">
+              <li class="unactive-item">
+                  <a href="/user/dashboard"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
+                  </a>
+              </li>
+              <li class="active-item">
+                  <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
+              </li>
+              <li class="unactive-item">
+                  <a href="#"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
+              </li>
+              <li class="unactive-item">
+                <a href="youtube-earning.html"><ion-icon name="phone-portrait-outline"></ion-icon><span>Youtube Earning</span>
+                </a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
+              </li>
+              <li class="unactive-item">
+                <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+              </li>
+              <li class="logout unactive-item">
+                <a href="#"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
+              </li>
+          </ul>
+        </div>
+      </div>
+   <!-- Sidebar ends -->
+
+    <!-- Main content -->
+    <div id="main" class="bottom-space" style="overflow-y: scroll;">
+      <div class="trydiv2"></div>
+
+      <!-- Navbar Start -->
+      <%- include('./partials/dashboard-nav') %>
+      <!-- Navbar End -->
+
+      <div class="ms-4 greeting-mobile">
+        <h4 class="fw-bold text-white">Hello, <%= user.username %></h4>
+      </div>
+
+
+      <div class="container-fluid d-flex align-items-center justify-content-center content">
+        <div class="bg-overlay fixed-width radius-three p-4 pb-5 mt-4">
+          <h6 class="text-white mt-2 mb-3">Upload Product</h6>
+            <form action="#" method="post" enctype="multipart/form-data">
+                <div class="row g-3">
+    
+                  <div class="form-floating">
+                    <!-- <label class="form-label" for="firstname">Porduct/Gig Image</label> -->
+                    <input class="form-control p-2" id="bank" type="file" accept="image/*" name="image" required="">
+                  </div>
+                  
+                  <div class="col-md-12">
+                    <div class="form-floating">
+                      <input type="text" class="form-control" name="title" placeholder="title" autocomplete="off">
+                      <label>Title</label>
+                    </div>
+                  </div>
+      
+                  <div class="col-md-12">
+                    <div class="form-floating">
+                      <input type="text" class="form-control" name="price" placeholder="price" autocomplete="off">
+                      <label>Price</label>
+                    </div>
+                  </div>
+                      
+                      <div class="col-md-12">
+                        <div class="form-floating">
+                          <input class="form-control" id="account_number" type="text" placeholder="link" name="link">
+                          <label>Contact Link</label>
+                        </div>
+                      </div>
+                  
+    
+                  <div class="col-md-12">
+                    <div class="form-floating">
+                      <input class="form-control" id="account_number" type="text" placeholder="description" name="description">
+                      <label>Description</label>
+                    </div>
+                  </div>
+    
+                  <div class="col-md-12 mt-4">
+                    <button class="btn btn-zen px-4 py-2 w-100 text-white" type="submit">Update Now</button>
+                  </div>
+
+                </div>
+              </form>
+        </div>
+      </div>
+
+
+      
+      <footer class="dashboard-footer shadow">
+        <div class="bg- h-100 w-25 d-flex align-items-center justify-content-center">
+          <div class="h-100 w-50 position-relative">
+            <a href="/user/dashboard">
+              <ion-icon name="home-outline" style="font-size: 25px !important;"></ion-icon>
+            </a>
+          </div>          
+        </div>
+        <div class="bg- h-100 w-25 d-flex align-items-center justify-content-center">
+          <div class="h-100 w-50 position-relative">
+            <a href="/user/bank-details">
+              <ion-icon name="person-outline" style="font-size: 25px !important;"></ion-icon>
+            </a>
+          </div>          
+        </div>
+        <div class="bg- h-100 w-25 d-flex align-items-center justify-content-center">
+          <div class="h-100 w-50 position-relative">
+            <a href="mining.html">
+              <ion-icon name="diamond-outline" style="font-size: 25px !important;"></ion-icon>
+            </a>
+          </div>          
+        </div>
+        <div class="bg- h-100 w-25 d-flex align-items-center justify-content-center">
+          <div class="h-100 w-50 position-relative">
+            <a href="#">
+              <ion-icon name="cart-outline" style="font-size: 25px !important;"></ion-icon>
+            </a>
+          </div>          
+        </div>
+      </footer>
+    </div>
+  </div>
+
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"></script>
+    <script>
+      var mainDiv = document.getElementById("main");
+      var sideBar = document.getElementById("mySidebar");
+      var menuIcon = document.getElementById("hamburger");
+      var mobileSideBar = document.getElementById("myMobileSidebar");
+      const checkbox = document.querySelector('.hamburger input');
+
+
+      function togglenav() {
+        if (mainDiv.style.marginLeft === "0%"){
+          mainDiv.style.marginLeft = "19.2%";
+          mainDiv.style.borderTopLeftRadius = "25px";
+          mainDiv.style.borderBottomLeftRadius = "25px";
+          sideBar.style.width = "19.2%";
+        } else {
+          mainDiv.style.marginLeft = "0%";
+          sideBar.style.width = "0%";
+          mainDiv.style.borderRadius = "0";
+        }
+      }
+
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          mobileSideBar.style.width = '60%';
+          menuIcon.style.marginLeft = '60%';
+        } else {
+          mobileSideBar.style.width = '0%';
+          menuIcon.style.marginLeft = '0%';
+        }
+      });
+
+    </script>
+    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

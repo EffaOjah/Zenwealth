@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neon Glowing Progress Bar</title>
+  <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .progress-container {
+      position: relative;
+      width: 80%;
+      height: 30px;
+      border: 2px solid cyan;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 0 10px cyan, 0 0 20px cyan, 0 0 30px cyan;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background-color: cyan;
+      width: 0;
+      transition: width 0.4s ease;
+      box-shadow: 0 0 10px cyan, 0 0 20px cyan, 0 0 30px cyan;
+    }
+
+    .progress-text {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Arial', sans-serif;
+      font-size: 20px;
+      color: cyan;
+      font-weight: bold;
+      text-shadow: 0 0 10px cyan, 0 0 20px cyan;
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+    <div class="progress-text" id="progress-text">0%</div>
+  </div>
+
+  <script>
+    function setProgress(value) {
+      // Ensure the progress value is between 0 and 100
+      const progress = Math.min(100, Math.max(0, value));
+
+      const progressBar = document.getElementById('progress-bar');
+      const progressText = document.getElementById('progress-text');
+
+      // Update progress bar width and text based on the value
+      progressBar.style.width = progress + "%";
+      progressText.textContent = progress + "%";
+    }
+
+    // Example of setting progress manually
+    setProgress(40); // Change this value to set the progress bar percentage
+  </script>
+</body>
+</html>

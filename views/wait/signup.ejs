@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenwealth - Signup</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
+    <style>
+     
+    </style>
+</head>
+<body class="bg-one">
+    <!-- Sidebar -->
+    <div class="d-flex justify-content-center bg-one" id="mySidebar">
+      <div class="sidenav-wrapper p-3 d-flex align-items-center justify-content-center">
+        <div>
+            <h1 class="title fw-bolder text-white">Zenwealth</h1>
+            <p class="text-center color-three" style="margin-top: -10px;">...the zenith of wealth</p>
+        </div>
+      </div>
+    </div>
+    <!-- Sidebar ends -->
+
+    <!-- Main content -->
+    <div id="main" class="bg-light d-flex align-items-center justify-content-center" style="overflow-y: scroll; height: 100vh;">
+      <div class="bg-hero shadow" style="position: absolute; top: 0; width: 100%;">
+        <span class="text-center">
+          <h1 class="fw-bolder text-white mt-5">Zenwealth</h1>
+          <p class="color-three motto text-center">...the zenith of wealth</p>
+        </span>
+      </div>
+
+      <div class="container-fluid d-flex align-items-center justify-content-center">
+        <div>
+                <!-- Alert -->
+        <div class="alert alert-dismissible fade <%= locals.messageStyle %> custom-toast-1 bg-<%= locals.messageColor %> text-white toast-danger %> home-page-toast" role="alert" data-bs-delay="7000" data-bs-autohide="true">
+          <div class="">
+              <small class="d-block">
+                <%= locals.message %>
+              </small>
+          </div>
+          <button class="btn btn-close btn-close-white" data-bs-dismiss="alert"></button>
+          <span class="toast-autohide-animation" style="animation-duration: 7000ms;"></span>
+        </div>
+
+          <!-- End of Alert -->
+            <div class="bg-white radius-three signup-div">
+
+                <h3 class="fw-bold text-center mt-4">Signup</h3>
+                <p class="color-one text-center mt-3">sign up to create an account...</p><br>
+    
+                <form action="/register" method="post">
+                    <div class="row g-3">
+    
+                      <div class="col-md-12 mb-2">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" name="firstName" placeholder="first name" autocomplete="off" required>
+                          <label>First name</label>
+                        </div>
+                      </div>
+                      <div class="col-md-12 mb-2">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" name="lastName" placeholder="last name" autocomplete="off" required>
+                          <label>Last name</label>
+                        </div>
+                      </div>
+                      <div class="col-md-12 mb-2">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" name="username" placeholder="username" autocomplete="off" required>
+                          <label>Username</label>
+                        </div>
+                      </div>
+                      <div class="col-md-12 mb-2">
+                        <div class="form-floating">
+                          <input type="email" class="form-control" name="email" placeholder="email" autocomplete="off" required>
+                          <label>Email</label>
+                        </div>
+                      </div>
+                      <div class="col-md-12 mb-2">
+                        <div class="form-floating">
+                          <input type="tel" class="form-control" name="phone" placeholder="phone number" autocomplete="off" required>
+                          <label>Phone number</label>
+                        </div>
+                      </div>
+                      <div class="col-md-12 mb-2">
+                        <div class="form-floating">
+                          <input type="text" id="referralcode" class="form-control" name="referrer" placeholder="referral code" autocomplete="off" required readonly>
+                          <label>Referral Code</label>
+                        </div>
+                      </div>
+                      <div class="col-md-12 mb-2">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" name="coupon" placeholder="coupon code" autocomplete="off" required>
+                          <label>Coupon code</label>
+                        </div>
+                      </div>
+                      <div class="col-md-12 mb-2">
+                        <div class="form-floating">
+                          <input type="password" class="form-control" name="password" placeholder="password" autocomplete="off" required>
+                          <label>Password</label>
+                        </div>
+                      </div>
+                      <div class="col-md-12 mb-2">
+                        <div class="form-floating">
+                          <input type="password" class="form-control" name="passwordConfirmation" placeholder="confirm password" autocomplete="off" required>
+                          <label>Confirm Password</label>
+                        </div>
+                      </div>
+                      <div class="form-check mb-3">
+                        <div class="ms-2">
+                            <input class="form-check-input " id="checkedCheckbox" type="checkbox" value="" required>
+                            <label class="form-check-label text-muted fw-normal" for="checkedCheckbox">
+                                I agree with the terms &amp; policy.
+                            </label>
+                        </div>
+                      </div>            
+                      <div class="col-md-12">
+                          <button class="bg-three w-100 radius-four text-white fw-bold py-2 text-center" style="border: none;">signup</button>
+                      </div>              
+                    </div>
+                </form>
+            </div>
+            <p class="color-one text-center mt-3">Already have an account? <a href="/user/login">login</a></p>
+            <p class="color-one text-center" style="margin-top: -10px;">Dont Have Coupon Code? <a href="/coupon-code/purchase">buy Coupon</a></p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Get the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Check if the 'reference' parameter exists in the URL
+        if(urlParams.has('reference')) {
+            // Get the value of the 'reference' parameter
+            const referenceValue = urlParams.get('reference');
+    
+            // Display the reference value in the HTML element
+            document.getElementById('referralcode').value = referenceValue;
+        } else {
+            // If 'reference' parameter is not found, display a message
+            console.log("Reference parameter not found");;
+        }
+    });
+    
+    </script>
+
+    <script>
+      setTimeout(function() {
+        var alertElement = document.querySelector('.alert');
+        alertElement.style.display = 'none';
+        // alertElement.classList.remove('show');
+        // alertElement.classList.add('hidden'); // Optional: Add a hide class for custom CSS animations or styling
+      }, 5000);
+
+
+      var mainDiv = document.getElementById("main");
+      var sideBar = document.getElementById("mySidebar");
+      var menuIcon = document.getElementById("hamburger");
+      var mobileSideBar = document.getElementById("myMobileSidebar");
+      const checkbox = document.querySelector('.hamburger input');
+
+      function togglenav() {
+        if (mainDiv.style.marginLeft === "0%"){
+          mainDiv.style.marginLeft = "19.2%";
+          mainDiv.style.borderTopLeftRadius = "25px";
+          mainDiv.style.borderBottomLeftRadius = "25px";
+          sideBar.style.width = "19.2%";
+        } else {
+          mainDiv.style.marginLeft = "0%";
+          sideBar.style.width = "0%";
+          mainDiv.style.borderRadius = "0";
+        }
+      }
+
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          mobileSideBar.style.width = '60%';
+          menuIcon.style.marginLeft = '60%';
+        } else {
+          mobileSideBar.style.width = '0%';
+          menuIcon.style.marginLeft = '0%';
+        }
+      });
+
+      
+        
+    </script>
+    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

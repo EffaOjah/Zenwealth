@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenwealth - VTU history</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-one">
+
+    <!-- Sidebar -->
+    <div class="d-flex justify-content-center bg-one" id="mySidebar">
+      <div class="sidenav-wrapper p-3">
+        <span class="text-center">
+          <h3 class="fw-bolder text-white mt-1">Zenwealth</h3>
+          <p class="color-three motto text-center mb-5">...the zenith of wealth</p>
+        </span>
+        <ul class="sidenav-nav ps-0 h-100">
+            <li class="unactive-item">
+                <a href="/user/dashboard"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
+            </li>
+            <li class="unactive-item">
+                <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
+                </a>
+            </li>
+            <li class="unactive-item">
+                <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
+            </li>
+            <li class="unactive-item">
+                <a href="/courses/purchased"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
+            </li>
+            <li class="unactive-item">
+                <a href="/registration/p2p"><ion-icon name="person-add-outline"></ion-icon><span>P2P Registration</span></a>
+            </li>
+            <li class="active-item">
+                <a href="/history/earnings"><ion-icon name="phone-portrait-outline"></ion-icon><span>Earning History</span>
+                </a>
+            </li>
+            <li class="unactive-item">
+                <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
+            </li>
+            <li class="logout unactive-item">
+                <a href="/logout"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
+            </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Sidebar ends -->
+
+
+    <div class="bg-one d-flex justify-content-center" id="myMobileSidebar">
+      <div class="sidenav-wrapper p-3">
+        <span class="text-center">
+          <h3 class="fw-bolder text-white mt-3">Zenwealth</h3>
+          <p class="color-three motto text-center mb-4">...the zenith of wealth</p>
+        </span>
+        <ul class="mobile-sidenav-nav ps-0 h-100">
+            <li class="unactive-item">
+                <a href="/user/dashboard"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
+            </li>
+            <li class="unactive-item">
+                <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
+                </a>
+            </li>
+            <li class="unactive-item">
+                <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
+            </li>
+            <li class="unactive-item">
+                <a href="/courses/purchased"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
+            </li>
+            <li class="unactive-item">
+                <a href="/registration/p2p"><ion-icon name="person-add-outline"></ion-icon><span>P2P Registration</span></a>
+            </li>
+            <li class="active-item">
+                <a href="/history/earnings"><ion-icon name="phone-portrait-outline"></ion-icon><span>Earning History</span>
+                </a>
+            </li>
+            <li class="unactive-item">
+                <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
+            </li>
+            <li class="logout unactive-item">
+                <a href="/logout"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <!-- Main content -->
+    <div id="main" class="bg-light" style="overflow-y: scroll; height: 100vh;">
+      <div class="bg-hero shadow" style="position: absolute; top: 0; width: 100%;"></div>
+
+      <!-- Navbar Start -->
+      <%- include('./partials/dashboard-nav') %>
+      <!-- Navbar End -->
+
+      <div class="ms-4 greeting-mobile">
+        <h4 class="fw-bold text-white">Hello, Joe-Hansen! </h4>
+      </div>
+
+
+      <div class="container-fluid d-flex align-items-center justify-content-center content">
+        <div class="bg-white fixed-width radius-three p-3 mt-4">
+            <!-- <div class="card shadow mt-3">
+                <div class="card-body p-4"> -->
+                    
+                  <% if (earnings.length < 1) { %>
+                    <h2>No Earnings</h2>
+                  <% } %>
+                  <% for( let i = 0; i < earnings.length; i++ ) { %>
+                        <!-- Single Notification -->
+                        <a href="#">
+                          <div class="bg-two-faint px-4 py-2 radius-three mb-4" role="alert">
+                            <i class="fa-regular fa-circle-check mt-0"></i>
+                            <div class="alert-text w-100">
+                              <span class="d-flex justify-content-between">
+                                <h6 class="text-truncate text-info"><%= earnings[i].amount %></h6>
+                                <h6><%= earnings[i].earning_date.toDateString() %></h6>
+                              </span>
+                              <span class="text-truncate color-one"><%= earnings[i].earning %></span>
+                            </div>
+                          </div>
+                        </a>
+                  <% } %>
+        </div>
+      </div>
+
+
+      
+      <footer class="bg-white shadow dashboard-footer">
+        <div class="d-flex align-items-center justify-content-around" style="transform: translateY(10px);">
+          <a href="user-dashboard.html">
+            <div class="text-center">
+              <ion-icon name="home-outline" style="font-size: 25px !important; margin-bottom: -5px;"></ion-icon>
+              <p class="color-one">Dashboard</p>
+            </div>
+          </a>
+          <a href="update-profile.html">
+            <div class="text-center">
+              <ion-icon name="person-outline" style="font-size: 25px !important; margin-bottom: -5px;"></ion-icon>
+              <p class="color-one">Profile</p>
+            </div>
+          </a>
+          <div class="text-center">
+            <ion-icon name="call-outline" style="font-size: 25px !important;"></ion-icon>
+            <!-- <ion-icon name="call" style="font-size: 30px !important;"></ion-icon> -->
+            <p class="color-one">Airtime</p>
+          </div>
+          <div class="text-center">
+            <ion-icon name="flash-outline" style="font-size: 25px !important;"></ion-icon>
+            <!-- <ion-icon name="flash" style="font-size: 30px !important;"></ion-icon> -->
+            <p class="color-one">Data</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"></script>
+    <script>
+      var mainDiv = document.getElementById("main");
+      var sideBar = document.getElementById("mySidebar");
+      var menuIcon = document.getElementById("hamburger");
+      var mobileSideBar = document.getElementById("myMobileSidebar");
+      const checkbox = document.querySelector('.hamburger input');
+
+      function togglenav() {
+        if (mainDiv.style.marginLeft === "0%"){
+          mainDiv.style.marginLeft = "19.2%";
+          mainDiv.style.borderTopLeftRadius = "25px";
+          mainDiv.style.borderBottomLeftRadius = "25px";
+          sideBar.style.width = "19.2%";
+        } else {
+          mainDiv.style.marginLeft = "0%";
+          sideBar.style.width = "0%";
+          mainDiv.style.borderRadius = "0";
+        }
+      }
+
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          mobileSideBar.style.width = '60%';
+          menuIcon.style.marginLeft = '60%';
+        } else {
+          mobileSideBar.style.width = '0%';
+          menuIcon.style.marginLeft = '0%';
+        }
+      });
+
+    </script>
+    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

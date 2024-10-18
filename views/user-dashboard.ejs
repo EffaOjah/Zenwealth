@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenwealth - user dashboard</title>
+    <link rel="stylesheet" href="/css/newstyles.css">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-one">
+    
+    <!-- <div class="offcanvas-bg color-one"> -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      <div class="offcanvas-cover "></div>
+      <div class="offcanvas-header d-flex bg-">
+        <div class="w-100 text-center" style=" z-index: 5;">
+          <img src="/img/ZEN logo.png" class="img-fluid" style="width: 90%; height: 80px;">
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body d-flex align-items-center justify-content-center">
+        <div class="sidenav-wrapper">
+          <ul class="mobile-sidenav-nav h-100">
+              <li class="active-item">
+                  <a href="/user/dashboard"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
+                  </a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
+              </li>
+              <li class="unactive-item">
+                  <a href="#"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
+              </li>
+              <li class="unactive-item">
+                <a href="youtube-earning.html"><ion-icon name="phone-portrait-outline"></ion-icon><span>Youtube Earning</span>
+                </a>
+              </li>
+              <li class="unactive-item">
+                  <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
+              </li>
+              <li class="unactive-item">
+                <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+              </li>
+              <li class="logout unactive-item">
+                  <a href="#"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+
+    <div class="page-wrapper">
+      <!-- Sidebar -->
+    <div class="d-flex align-items-center justify-content-center" id="mySidebar">
+      <div class="sidenav-wrapper p-3 bg-white radius-three">
+        <div class="w-100 text-center mt-2" style=" z-index: 5;">
+          <img src="/img/Zenwealth Logo Alone-02.png" class="img-fluid" style="width: 50px; height: 50px;">
+        </div>
+        <ul class="sidenav-nav ps-0 h-100" style="margin-top: 40px;">
+            <li class="active-item">
+                <a href="/user/dashboard"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
+            </li>
+            <li class="unactive-item">
+                <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
+                </a>
+            </li>
+            <li class="unactive-item">
+                <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
+            </li>
+            <li class="unactive-item">
+                <a href="#"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
+            </li>
+            <li class="unactive-item">
+              <a href="youtube-earning.html"><ion-icon name="phone-portrait-outline"></ion-icon><span>Youtube Earning</span>
+              </a>
+            </li>
+            <li class="unactive-item">
+                <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
+            </li>
+            <li class="unactive-item">
+              <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+            </li>
+            <li class="logout unactive-item">
+              <a href="#"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
+            </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Sidebar ends -->
+
+    <!-- Main content -->
+    <div id="main" class="bottom-space" style="overflow-y: scroll;">
+      <!-- <div class="trydiv2"></div> -->
+
+      <!-- Navbar Start -->
+      <%- include('./partials/dashboard-nav') %>
+      <!-- Navbar End -->
+
+      <div class="ms-4 greeting-mobile">
+        <h4 class="fw-bold text-white">Hello, <%= user.username %></h4>
+      </div>
+
+      
+      <div class="container-fluid content">
+        <div class="row g-4" style="position: relative;">
+
+          <div class="col-lg-8">
+            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+              <div class="backdrop radius-three"></div>
+      
+              <!-- Carousel Indicators (dots) -->
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              </div>
+      
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="px-4 pt-3 pb-0 radius-three progress-div">
+                    <h5 class="text-white mb-3">Total Balance</h5><br>
+                    <p class="fs-1 text-white"><strong><span class="totalAffiliateBalance spinner-border spinner-border-md" aria-hidden="true"></span></strong></p>
+                    <span class="d-flex justify-content-between mt-4">
+                      <p class="text-white text-end">Affiliate</p>
+                      <p class="text-white text-end">convert to dollar</p>
+                    </span>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="px-4 pt-3 pb-0 radius-three progress-div">
+                    <h5 class="text-white mb-3">Sales</h5><br>
+                    <p class="fs-1 text-white"><strong><%= referrals %></strong></p>
+                    <span class="d-flex justify-content-between mt-4">
+                      <p class="text-white text-end">Affiliate</p>
+                      <a href="/downlines" class="text-white text-end">view downlines</a>
+                    </span>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="px-4 pt-3 pb-0 radius-three progress-div">
+                    <h5 class="text-white mb-3">Total Withdrawal</h5><br>
+                    <p class="fs-1 text-white"><strong>$<%= totalWithdrawal == null ? 0 : totalWithdrawal / 1000 %></strong></p>
+                    <span class="d-flex justify-content-between mt-4">
+                      <p class="text-white text-end">Affiliate</p>
+                      <p class="text-white text-end">convert to dollar</p>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="container-fluid sm mt-4">
+            <div class="">
+              <div class="d-flex gap-4 align-items-center justify-content-center">
+                <div class="text-center">
+                  <a href="/withdraw">
+                    <div class="icon-div d-flex align-items-center justify-content-center mb-2">
+                      <ion-icon name="cash-outline" class="fs-3 text-white"></ion-icon>
+                    </div>
+                    <p class="text-white fs-6">Withdraw</p>
+                  </a>
+                </div>
+                <div class="text-center">
+                  <a href="/user/bank-details">
+                    <div class="icon-div d-flex align-items-center justify-content-center mb-2">
+                      <ion-icon name="wallet-outline" class="fs-4 text-white"></ion-icon>
+                    </div>
+                    <p class="text-white">Bank</p>
+                  </a>
+                </div>
+                <div class="text-center">
+                  <a href="/user/set-pin">
+                    <div class="icon-div d-flex align-items-center justify-content-center mb-2">
+                      <ion-icon name="options-outline" class="fs-4 text-white"></ion-icon>
+                    </div>
+                    <p class="text-white">Set Pin</p>
+                  </a>
+                </div>
+                <div class="text-center">
+                  <a href="">
+                    <div class="icon-div d-flex align-items-center justify-content-center mb-2">
+                      <ion-icon name="pricetags-outline" class="fs-4 text-white"></ion-icon>
+                    </div>
+                    <p class="text-white">Courses</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-4 position-relative">
+            <div class="radius-three bg-overlay px-4" style="padding: 14px 0 14px 0;">
+              <h6 class="mt-2 mb-3 text-white">Daily Tasks</h6>
+              <div class="pb-3">
+                <div class="progress-container">
+                  <div class="progress-bar" id="progress-bar"></div>
+                  <div class="progress-text" id="progress-text">0%</div>
+                </div>             
+                <button class="btn btn-zen px-4 py-2 w- text-white mt-4">claim task 2</button>                
+              </div>
+            </div>
+
+            <div class="bg-white lg radius-three p-3 progress2 mt-3 position-absolute" style="width: 93%;">
+              <h6 class="mb-3 ms-2 color-one">Earnings</h6>
+              <div class="row g-3">
+                <div class="col-lg-12">
+                  <div class="bg-two-faint state py-2 radius-two">
+                    <p class="text-center color-two light-paste">Total Sales</p>
+                    <p class="text-center blue-paste radius-two"><%= referrals %></p>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="bg-two-faint state py-2 radius-two">
+                    <p class="text-center color-two light-paste">Direct Sales</p>
+                    <p class="text-center blue-paste radius-two"><span class="directReferralBalance spinner-border spinner-border-md" aria-hidden="true"></span></p>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="bg-two-faint state py-2 radius-two">
+                      <p class="text-center color-two light-paste">Indirect Sales</p>
+                      <p class="blue-paste radius-two"><span class="indirectReferralBalance spinner-border spinner-border-md" aria-hidden="true"></span></p>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="bg-two-faint state py-2 radius-two">
+                    <p class="text-center color-two light-paste">Activity Balance</p>
+                    <p class="blue-paste radius-two">$23,000</p>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </div>
+          
+          <div class="col-lg-8">
+            <div class="lg" style="margin-top: 35px;">
+              <div class="d-flex gap-5 align-items-center justify-content-center" style="transform: translateY(8px);">
+                <div class="text-center">
+                  <a href="/withdraw">
+                    <div class="bg-three icon-div d-flex align-items-center justify-content-center mb-2">
+                      <i class="fa-solid fa-money-bill-transfer text-white"></i>
+                    </div>
+                    <p class="color-two fs-6">Withdraw</p>
+                  </a>
+                </div>
+                <div class="text-center">
+                  <a href="/user/bank-details">
+                    <div class="bg-gold icon-div d-flex align-items-center justify-content-center mb-2">
+                      <i class="fa-solid fa-building-columns text-white"></i>
+                    </div>
+                    <p class="color-two">Bank</p>
+                  </a>
+                </div>
+                <div class="text-center">
+                  <a href="/user/set-pin">
+                    <div class="bg-five icon-div d-flex align-items-center justify-content-center mb-2">
+                      <i class="fa-solid fa-sliders fs-4 text-secondary text-white"></i>
+                    </div>
+                    <p class="color-two">Set Pin</p>
+                  </a>
+                </div>
+                <div class="text-center">
+                  <div class="bg-six icon-div d-flex align-items-center justify-content-center mb-2">
+                    <i class="fa-solid fa-sliders fs-4 text-secondary text-white"></i>
+                  </div>
+                  <p class="color-two">Courses</p>
+                </div>
+                <div class="text-center">
+                  <a href="youtube-earning.html">
+                    <div class="bg-five icon-div d-flex align-items-center justify-content-center mb-2">
+                      <i class="fa-solid fa-sliders fs-4 text-secondary text-white"></i>
+                    </div>
+                    <p class="color-two">YT Earning</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class=" radius-three px-4 py-1 pb-3 mt-3" style="border: 1px solid #ffffff56;">
+              <h6 class="mt-3 text-white">Referral Link</h6>
+              <div class="link d-flex align-items-center justify-content-between w-100">
+                <p id="referral-link" class="color-two ">http:8080/user/register/?reference=@<%= user.referral_code %></p>
+                <button id="copy-link-btn" class="btn btn-zen px-4 py-2 text-white">copy</button>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-lg-4">
+            <div class="bg-white sm radius-three p-3 mt-2">
+              <h6 class="mb-3 ms-2 color-one">Earnings</h6>
+              <div class="row g-3">
+                <div class="col-lg-12">
+                  <div class="bg-two-faint state py-2 radius-two">
+                    <p class="text-center color-two light-paste">Total Sales</p>
+                    <p class="text-center blue-paste radius-two"><%= referrals %></p>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="bg-two-faint state py-2 radius-two">
+                    <p class="text-center color-two light-paste">Direct Sales</p>
+                    <p class="text-center blue-paste radius-two"><span class="directReferralBalance spinner-border spinner-border-md" aria-hidden="true"></span></p>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="bg-two-faint state py-2 radius-two">
+                      <p class="text-center color-two light-paste">Indirect Sales</p>
+                      <p class="blue-paste radius-two"><span class="indirectReferralBalance spinner-border spinner-border-md" aria-hidden="true"></span></p>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="bg-two-faint state py-2 radius-two">
+                    <p class="text-center color-two light-paste">Activity Balance</p>
+                    <p class="blue-paste radius-two">$23,000</p>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </div>
+        </div>
+      </div>
+
+
+      <footer class="dashboard-footer shadow">
+        <div class="bg- h-100 w-25 d-flex align-items-center justify-content-center">
+          <div class="h-100 w-50 active position-relative">
+            <a href="/user/dashboard">
+              <ion-icon name="home" style="font-size: 25px !important;"></ion-icon>
+            </a>
+          </div>          
+        </div>
+        <div class="bg- h-100 w-25 d-flex align-items-center justify-content-center">
+          <div class="h-100 w-50 position-relative">
+            <a href="/user/profile">
+              <ion-icon name="person-outline" style="font-size: 25px !important;"></ion-icon>
+            </a>
+          </div>          
+        </div>
+        <div class="bg- h-100 w-25 d-flex align-items-center justify-content-center">
+          <div class="h-100 w-50 position-relative">
+            <a href="mining.html">
+              <ion-icon name="diamond-outline" style="font-size: 25px !important;"></ion-icon>
+            </a>
+          </div>          
+        </div>
+        <div class="bg- h-100 w-25 d-flex align-items-center justify-content-center">
+          <div class="h-100 w-50 position-relative">
+            <a href="#">
+              <ion-icon name="cart-outline" style="font-size: 25px !important;"></ion-icon>
+            </a>
+          </div>          
+        </div>
+      </footer>
+    </div>
+
+    </div>
+
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"></script>
+    <script>
+      var mainDiv = document.getElementById("main");
+      var sideBar = document.getElementById("mySidebar");
+      var menuIcon = document.getElementById("hamburger");
+      var mobileSideBar = document.getElementById("myMobileSidebar");
+      const checkbox = document.querySelector('.hamburger input');
+
+      function togglenav() {
+        if (mainDiv.style.marginLeft === "0%"){
+          mainDiv.style.marginLeft = "19.2%";
+          mainDiv.style.borderTopLeftRadius = "25px";
+          mainDiv.style.borderBottomLeftRadius = "25px";
+          sideBar.style.width = "19.2%";
+        } else {
+          mainDiv.style.marginLeft = "0%";
+          sideBar.style.width = "0%";
+          mainDiv.style.borderRadius = "0";
+        }
+      }
+      
+      // checkbox.addEventListener('change', function() {
+      //   if (this.checked) {
+      //     mobileSideBar.style.width = '61%';
+      //     menuIcon.style.marginLeft = '61%';
+      //   } else {
+      //     mobileSideBar.style.width = '0%';
+      //     menuIcon.style.marginLeft = '0%';
+      //   }
+      // });
+
+      function setProgress(value) {
+        // Ensure the progress value is between 0 and 100
+        const progress = Math.min(100, Math.max(0, value));
+
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+
+        // Update progress bar width and text based on the value
+        progressBar.style.width = progress + "%";
+        progressText.textContent = progress + "%";
+      }
+
+      // Example of setting progress manually
+      setProgress(50); // Change this value to set the progress bar percentage
+    </script>
+    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script for referral code copying -->
+    <script>
+      document.getElementById("copy-link-btn").addEventListener("click", function() {
+        // Get the text from the referral link element
+        var referralLink = document.getElementById("referral-link").innerText;
+    
+        // Create a temporary input element to copy the text to the clipboard
+        var tempInput = document.createElement("input");
+        tempInput.value = referralLink;
+        document.body.appendChild(tempInput);
+    
+        // Select the text in the input element
+        tempInput.select();
+        tempInput.setSelectionRange(0, 99999); // For mobile devices
+    
+        // Copy the text to the clipboard
+        document.execCommand("copy");
+    
+        // Remove the temporary input element
+        document.body.removeChild(tempInput);
+    
+        // Show the alert message
+        alert("Referral Link Has Been Copied");
+      });
+    </script>
+
+    <!-- Script to load user balances -->
+    <script src="/js/loadBalances.js"></script>
+</body>
