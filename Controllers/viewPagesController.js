@@ -2,6 +2,12 @@ const express = require('express');
 
 const router = express.Router();
 
+// Middleware to verify JWT token
+const verifyToken = require('../Functions/verifyToken');
+
+// Middleware to restrict users from accesing the site before launch
+// router.use(verifyToken.verifyToken);
+
 // Route for the home page
 router.get('/', (req, res)=>{
     res.render('index');

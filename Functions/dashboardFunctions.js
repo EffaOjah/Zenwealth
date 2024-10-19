@@ -92,60 +92,60 @@ async function getTotalReferralBalanceView(type) {
 }
 
 
-// Function to create the user non affiliate balance view
-async function createNonAffiliateBalanceView(userId) {
+// Function to create the user zenpoints view
+async function createZenpointsView(userId) {
     return new Promise((resolve, reject) => {
-        connection.query('CREATE OR REPLACE VIEW non_affiliate_balance AS SELECT amount, transaction_type, transaction_date FROM non_affiliate_transactions WHERE user_id = ?', userId, (err, result)=>{
+        connection.query('CREATE OR REPLACE VIEW zenpoints AS SELECT amount, transaction_date FROM activity_transactions WHERE user_id = ?', userId, (err, result)=>{
             if (err) {
-                console.log('Error creating non_affiliate_balance view: ', err);
+                console.log('Error creating zenpoints view: ', err);
                 reject(err);
             } else {
-                console.log('Non Affiliate balance: ', result);
+                console.log('zenpoints: ', result);
                 resolve(result);
             }
         })
     })
 }
 
-// Function to get the user total non affiliate balance view
-async function getTotalNonAffiliateBalanceView() {
+// Function to get the user total zenpoints view
+async function getTotalZenPointsView() {
     return new Promise((resolve, reject) => {
-        connection.query('SELECT SUM(amount) AS nonAffiliateBalance FROM non_affiliate_balance', (err, result)=>{
+        connection.query('SELECT SUM(amount) AS ZenPoints FROM zenpoints', (err, result)=>{
             if (err) {
-                console.log('Error fetching the total non affiliate balance: ', err);
+                console.log('Error fetching the total zenpoints: ', err);
                 reject(err);
             } else{
-                console.log('Total non affiliate balance: ', result);
+                console.log('Total zenpoints: ', result);
                 resolve(result);
             }
         })
     })
 }
 
-// Function to create the user game balance view
-async function createGameBalanceView(userId) {
+// Function to create the user zencoins view
+async function createZenCoinsView(userId) {
     return new Promise((resolve, reject) => {
-        connection.query('CREATE OR REPLACE VIEW game_balance AS SELECT amount, transaction_date FROM game_transactions WHERE user_id = ?', userId, (err, result)=>{
+        connection.query('CREATE OR REPLACE VIEW zencoins AS SELECT amount, transaction_type, transaction_date FROM non_affiliate_transactions WHERE user_id = ?', userId, (err, result)=>{
             if (err) {
-                console.log('Error creating game_balance view: ', err);
+                console.log('Error creating zencoins view: ', err);
                 reject(err);
             } else {
-                console.log('Game balance: ', result);
+                console.log('zencoins: ', result);
                 resolve(result);
             }
         })
     })
 }
 
-// Function to get the user total game balance view
-async function getTotalGameBalanceView() {
+// Function to get the user total zencoins view
+async function getTotalZenCoinsView() {
     return new Promise((resolve, reject) => {
-        connection.query('SELECT SUM(amount) AS gameBalance FROM game_balance', (err, result)=>{
+        connection.query('SELECT SUM(amount) AS zenCoins FROM zencoins', (err, result)=>{
             if (err) {
-                console.log('Error fetching the total game balance: ', err);
+                console.log('Error fetching the total zencoins: ', err);
                 reject(err);
             } else{
-                console.log('Total game balance: ', result);
+                console.log('Total zencoins: ', result);
                 resolve(result);
             }
         })
@@ -176,6 +176,21 @@ async function insertIntoNonAffiliateTransactions(amount, transactionType, userI
                 reject(err);
             } else {
                 console.log('Successfully inserted into the non affiliate transactions table');
+                resolve(result);
+            }
+        })
+    })
+}
+
+// Function to insert into activity_transactions table
+async function insertIntoActivityTransactions(amount, transactionType, userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('INSERT INTO activity_transactions (amount, type, user_id) VALUES (?, ?, ?)', [amount, transactionType, userId], (err, result)=>{
+            if (err) {
+                console.log('Error inserting into activity_transactions table: ', err);
+                reject(err);
+            } else {
+                console.log('Successfully inserted into the activity_transactions table');
                 resolve(result);
             }
         })
@@ -228,4 +243,4 @@ async function getYoutubeVideoCode() {
     });
 }
 
-module.exports = {fetchUserByUsername, getReferrals, getTotalWithdrawal, createAffiliateBalanceView, getTotalAffiliateBalanceView, getTotalReferralBalanceView, createNonAffiliateBalanceView, getTotalNonAffiliateBalanceView, createGameBalanceView, getTotalGameBalanceView, insertIntoAffiliateTransactions, insertIntoNonAffiliateTransactions, insertIntoWithdrawals, getCoupons, getYoutubeVideoCode};
+module.exports = {fetchUserByUsername, getReferrals, getTotalWithdrawal, createAffiliateBalanceView, getTotalAffiliateBalanceView, getTotalReferralBalanceView, createZenpointsView, getTotalZenPointsView, createZenCoinsView, getTotalZenCoinsView, insertIntoAffiliateTransactions, insertIntoNonAffiliateTransactions, insertIntoActivityTransactions, insertIntoWithdrawals, getCoupons, getYoutubeVideoCode};

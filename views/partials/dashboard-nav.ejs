@@ -12,13 +12,13 @@
   </button>
   
   <div class="ms-4">
-    <h4 class="fw-bold greeting text-white">Hello, Joe-Hansen</h4>
+    <h4 class="fw-bold greeting text-white">Hello, <%= user.username %></h4>
   </div>
   <div class="navbar-nav align-items-center ms-auto dashboard-nav">
       <div class="nav-item dropdown">
           <a href="#" class="nav-link" data-bs-toggle="dropdown">
             <img class="rounded-circle border me-lg-2" src="/img/dax.jpeg" alt="" style="width: 47px; height: 45px;">
-            <span class="d-none d-lg-inline-fle">Joe-Hansen Emeka</span>
+            <span class="d-none d-lg-inline-fle"><%= user.first_name %> <%= user.last_name %></span>
           </a>
           <div class="dropdown-menu dropdown-menu-end bg-white border-0 rounded-0 rounded-bottom m-0">
             <a href="/user/profile" class="dropdown-item">My Profile</a>

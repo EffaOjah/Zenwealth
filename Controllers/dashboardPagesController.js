@@ -35,19 +35,19 @@ router.get('/loadBalances', verifyToken.verifyToken, async(req, res)=>{
        // Get the user's total indirect referral balance
        const getTotalIndirectReferralBalance = await dashboardFunctions.getTotalReferralBalanceView('InDirect Referral');
 
-       // Create the user's non affiliate balance view
-       const createNonAffiliateBalanceView = await dashboardFunctions.createNonAffiliateBalanceView(fetchUserByUsername[0].user_id);
+       // Create the user's zenpoints view
+       const createZenpointsView = await dashboardFunctions.createZenpointsView(fetchUserByUsername[0].user_id);
 
-       // Get the user's total non affiliate balance view
-       const getTotalNonAffiliateBalanceView = await dashboardFunctions.getTotalNonAffiliateBalanceView();
+       // Get the user's total zenpoints view
+       const getTotalZenPointsView = await dashboardFunctions.getTotalZenPointsView();
 
-       // Create the user's game balance view
-       const createGameBalanceView = await dashboardFunctions.createGameBalanceView(fetchUserByUsername[0].user_id);
+       // Create the user's zencoins view
+       const createZenCoinsView = await dashboardFunctions.createZenCoinsView(fetchUserByUsername[0].user_id);
 
-       // Get the user's total game balance view
-       const getTotalGameBalanceView = await dashboardFunctions.getTotalGameBalanceView();
+       // Get the user's total zencoins view
+       const getTotalZenCoinsView = await dashboardFunctions.getTotalZenCoinsView();
 
-       res.status(200).json({getTotalAffiliateBalanceView, getTotalDirectReferralBalance, getTotalIndirectReferralBalance, getTotalNonAffiliateBalanceView, getTotalGameBalanceView})
+       res.status(200).json({getTotalAffiliateBalanceView, getTotalDirectReferralBalance, getTotalIndirectReferralBalance, getTotalZenPointsView, getTotalZenCoinsView})
     } catch (error) {
         console.log('Error: ', error);
         res.status(404).json(error);
@@ -331,17 +331,17 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
         // Get the user's total affiliate balance view
         const getTotalAffiliateBalanceView = await dashboardFunctions.getTotalAffiliateBalanceView();
 
-        // Create the user's non affiliate balance view
-        const createNonAffiliateBalanceView = await dashboardFunctions.createNonAffiliateBalanceView(fetchUserByUsername[0].user_id);
+        // Create the user's zenpoints view
+        const createZenpointsView = await dashboardFunctions.createZenpointsView(fetchUserByUsername[0].user_id);
 
-        // Get the user's total non affiliate balance view
-        const getTotalNonAffiliateBalanceView = await dashboardFunctions.getTotalNonAffiliateBalanceView();
+        // Get the user's total zenpoints view
+        const getTotalZenPointsView = await dashboardFunctions.getTotalZenPointsView();
 
-        // Create the user's game balance view
-        const createGameBalanceView = await dashboardFunctions.createGameBalanceView(fetchUserByUsername[0].user_id);
+        // Create the user's zencoins view
+        const createZenCoinsView = await dashboardFunctions.createZenCoinsView(fetchUserByUsername[0].user_id);
 
-        // Get the user's total game balance view
-        const getTotalGameBalanceView = await dashboardFunctions.getTotalGameBalanceView();
+        // Get the user's total zencoins view
+        const getTotalZenCoinsView = await dashboardFunctions.getTotalZenCoinsView();
 
 
         // Check if user has updated his/her bank details
@@ -402,13 +402,13 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
             }
 
             // Check if user balance is up to 45000
-            if (getTotalNonAffiliateBalanceView[0].nonAffiliateBalance < 45000) {
+            if (getTotalZenPointsView[0].nonAffiliateBalance < 45000) {
                 console.log('Insufficient Balance');
                 return res.status(404).json({error: 'Insufficient Balance'});
             }
 
             // Ensure that earnings affiliate amount is not more than user's balance
-            if (amount > getTotalNonAffiliateBalanceView[0].nonAffiliateBalance) {
+            if (amount > getTotalZenPointsView[0].nonAffiliateBalance) {
                 console.log('You cannot withdraw more than your affiliate balance');
                 return res.status(404).json({error: 'You cannot withdraw more than your affiliate balance'});
             }
@@ -518,6 +518,9 @@ router.post('/update-profile', verifyToken.verifyToken, async(req, res)=>{
 
 // POST route to confirm youtube video code
 router.post('/youtube-reward', verifyToken.verifyToken, async(req, res)=>{
+    // Fetch user details using username
+    const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
+
     const videoCode = req.body.code;
 
     // Check if code was provided
@@ -534,6 +537,10 @@ router.post('/youtube-reward', verifyToken.verifyToken, async(req, res)=>{
     // Check if the code provided is correct
     if (videoCode === correctVideoCode) {
         console.log('Video Code is correct.');
+
+        // Insert into the activity transactions table
+        const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(600, 'Affiliate Withdrawal', fetchUserByUsername[0].user_id);
+
         return res.json({success: 'Video Code is correct'});
     } else{
         console.log('Video Code is not correct');
