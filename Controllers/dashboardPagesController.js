@@ -199,6 +199,10 @@ router.get('/user/set-pin', verifyToken.verifyToken, async(req, res)=>{
     res.render('set-pin', {user: fetchUserByUsername[0]});
 });
 
+// Route for youtube earning page
+router.get('/youtube-earning', verifyToken.verifyToken, (req, res)=>{
+    res.render('youtube-earning');
+});
 
 // POST ROUTES
 // Route for p2p-registration
@@ -522,6 +526,12 @@ router.post('/youtube-reward', verifyToken.verifyToken, async(req, res)=>{
     const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
 
     const videoCode = req.body.code;
+
+    // Check if user has already completed yt task
+    if (fetchUserByUsername[0].has_completed_yt_reward == true) {
+        console.log('User has already gotten youtube reward');
+        return res.json({error: 'You have already completed this task'});
+    }
 
     // Check if code was provided
     if(!videoCode){
