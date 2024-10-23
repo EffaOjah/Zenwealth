@@ -4,38 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zenwealth - login</title>
-    <link rel="stylesheet" href="/css/newstyles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/iziToast-master/dist/css/iziToast.min.css">
-
     <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
 </head>
-<body class="bg-one">
+<body class="">
 
-    <!-- Sidebar -->
-    <div class="d-flex justify-content-center bg-one" id="mySidebar">
-      <div class="sidenav-wrapper p-3">
-        <div>
-            <h1 class="title fw-bolder text-white">Zenwealth</h1>
-            <p class="text-center color-three" style="margin-top: -10px;">...the zenith of wealth</p>
-        </div>
-      </div>
-    </div>
-    <!-- Sidebar ends -->
-
-
+  <div class="page-wrapper" style="height: 100vh;">
     <!-- Main content -->
-    <div id="main" class="" style="overflow-y: scroll; height: 100vh;">
-
-      <!-- <div class="trydiv2" style="position: absolute; top: 0; width: 100%;">
-        <span class="text-center">
-          <h1 class="fw-bolder text-white mt-5">Zenwealth</h1>
-          <p class="color-three motto text-center">...the zenith of wealth</p>
-        </span>
-      </div> -->
-
-      <div class="container-fluid" style="margin-top: 40%;">
-        <h1 class="color-three mt-5 fw-bold position-relative sign2 display-5" style="margin-bottom: 30px;">Sign In</h1>
+    <div class="container h-100 d-flex justify-content-center">
+      <div class="fixed-width h-100 position-relative">
+        <h1 class="color-three mt-5 fw-bold display-5">Sign In</h1>
           <div class="bg-white radius-three text-center p-4 py-4">
 
             <img src="/img/Zenwealth Logo Alone-02.png" class="img-fluid" width="40px"><br><br>
@@ -45,85 +25,54 @@
 
                   <div class="input-group flex-nowrap">
                     <span class="input-group-text px-3"><ion-icon name="person"></ion-icon></span>
-                    <input type="text" name="username" class="form-control py-3" placeholder="Username" required>
+                    <input type="text" class="form-control py-3" name="username" placeholder="Username">
                   </div>
 
                   <div class="input-group flex-nowrap">
                     <span class="input-group-text px-3"><ion-icon name="lock-closed"></ion-icon></span>
-                    <input type="password" name="password" class="form-control py-3" placeholder="Password" required>
+                    <input type="password" name="password" class="form-control py-3" placeholder="Password">
                   </div>
                   
                   <div class="col-md-12 mt-4">
-                      <button class="btn btn-zen px-4 py-2 w-100 text-white" style="border: none;">login</button>
+                      <button class="btn btn-zen px-4 py-2 w-100 text-white" style="border: none;">Login</button>
                   </div>
                   
                 </div>
             </form>
           </div>
-          <span class="account w-100 text-center">
-            <p class="color-two">Don't have an account? <a href="/user/register" class="color-three">signup</a></p>
-          </span>
+          <div class="position-absolute w-100 text-center" style="bottom: 15px;">
+            <p class="text-white">Don't have an account? <a href="/user/register" class="color-three">Sign Up</a></p>
+          </div>
       </div>
-
     </div>
+  </div>
 
-    <span class="d-none" id="alertTitle"><%= locals.alertTitle %></span>
-    <span class="d-none" id="alertMessage"><%= locals.alertMessage %></span>
-    <span class="d-none" id="alertColor"><%= locals.alertColor %></span>
+  <span class="d-none" id="alertTitle"><%= locals.alertTitle %></span>
+  <span class="d-none" id="alertMessage"><%= locals.alertMessage %></span>
+  <span class="d-none" id="alertColor"><%= locals.alertColor %></span>
+
+
+  <script>
+    var alertTitle = document.getElementById("alertTitle");
+    var alertMessage = document.getElementById("alertMessage");
+    var alertColor = document.getElementById("alertColor");
+
+    // Check if there is a response message
+    document.addEventListener('DOMContentLoaded', ()=>{
+      if (alertTitle.innerHTML || alertMessage.innerHTML || alertColor.innerHTML) {
+        // alert('h')
+        izitoastAlert(alertTitle.innerHTML, alertMessage.innerHTML, 'light', alertColor.innerHTML);
+      } else {
+        return;
+      }
+    })
+
+   </script>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"></script>
-    <script>
-      var mainDiv = document.getElementById("main");
-      var sideBar = document.getElementById("mySidebar");
-      var menuIcon = document.getElementById("hamburger");
-      var mobileSideBar = document.getElementById("myMobileSidebar");
-      const checkbox = document.querySelector('.hamburger input');
-
-      function togglenav() {
-        if (mainDiv.style.marginLeft === "0%"){
-          mainDiv.style.marginLeft = "19.2%";
-          mainDiv.style.borderTopLeftRadius = "25px";
-          mainDiv.style.borderBottomLeftRadius = "25px";
-          sideBar.style.width = "19.2%";
-        } else {
-          mainDiv.style.marginLeft = "0%";
-          sideBar.style.width = "0%";
-          mainDiv.style.borderRadius = "0";
-        }
-      }
-
-      checkbox.addEventListener('change', function() {
-        if (this.checked) {
-          mobileSideBar.style.width = '60%';
-          menuIcon.style.marginLeft = '60%';
-        } else {
-          mobileSideBar.style.width = '0%';
-          menuIcon.style.marginLeft = '0%';
-        }
-      });
-
-    </script>
     <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
     <script src="/iziToast-master/dist/js/iziToast.min.js"></script>
-
-     <script src="/js/alert.js"></script>
-    <script>
-      var alertTitle = document.getElementById("alertTitle");
-      var alertMessage = document.getElementById("alertMessage");
-      var alertColor = document.getElementById("alertColor");
-
-      // Check if there is a response message
-      document.addEventListener('DOMContentLoaded', ()=>{
-        if (alertTitle.innerHTML || alertMessage.innerHTML || alertColor.innerHTML) {
-          // alert('h')
-          izitoastAlert(alertTitle.innerHTML, alertMessage.innerHTML, 'light', alertColor.innerHTML);
-        } else {
-          return;
-        }
-      })
-
-     </script>
+    <script src="/js/alert.js"></script>
 </body>
 </html>

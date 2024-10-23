@@ -39,29 +39,25 @@ router.post('/register', async (req, res)=>{
             // First, make sure that there's no null field
         if (!firstName || !lastName || !username || !email || !phone || !country || !coupon || !password || !passwordConfirmation) {
             console.log('Please provide all details');
-            // return res.render('signup', {message: 'Please provide all details', messageStyle: 'show', messageColor: 'danger'});
-            return res.status(401).json({error: 'Please provide all details'});
+            return res.render('signup', {alertTitle: 'Error', alertMessage: 'Please Provide all details', alertColor: 'red'});
         }
 
         // Check if email is valid
         if (!functions.validateEmail(email)) {
             console.log('Please insert valid email');
-            // return res.render('signup', {message: 'Please insert valid email', messageStyle: 'show', messageColor: 'danger'});
-            return res.status(401).json({error: 'Please insert valid email'});
+            return res.render('signup', {alertTitle: 'Error', alertMessage: 'Please insert valid email', alertColor: 'red'});
         }
 
         // Check that the password is not less than 8 characters
         if (password.length < 8) {
             console.log('Password must be 8 characters or above');
-            // return res.render('signup', {message: 'Password must be 8 characters or above', messageStyle: 'show', messageColor: 'danger'});
-            return res.status(401).json({error: 'Password must be 8 characters or above'});
+            return res.render('signup', {alertTitle: 'Error', alertMessage: 'Password must be 8 characters or above', alertColor: 'red'});
         }
 
         // Check if the password match
         if (password !== passwordConfirmation) {
             console.log('Passwords do not match');
-            // return res.render('signup', {message: 'Passwords do not match', messageStyle: 'show', messageColor: 'danger'});
-            return res.status(401).json({error: 'Passwords do not match'});
+            return res.render('signup', {alertTitle: 'Error', alertMessage: 'Passwords do not match', alertColor: 'red'});
         }
 
         // Check if email exists
@@ -70,8 +66,7 @@ router.post('/register', async (req, res)=>{
         
         if (checkEmail.length > 0) {
             console.log('Email has already been used by another user');
-            // return res.render('signup', {message: 'Email has already been used by another user', messageStyle: 'show', messageColor: 'danger'});
-            return res.status(401).json({error: 'Email has already been used by another user'});
+            return res.render('signup', {alertTitle: 'Error', alertMessage: 'Email has already been used by another user', alertColor: 'red'});
         }
 
         // Check if username exists
@@ -80,14 +75,13 @@ router.post('/register', async (req, res)=>{
         
         if (checkUsername.length > 0) {
             console.log('Username has already been used by another user');
-            // return res.render('signup', {message: 'Username has already been used by another user', messageStyle: 'show', messageColor: 'danger'});
-            return res.status(401).json({error: 'Username has already been used by another user'});
+            return res.render('signup', {alertTitle: 'Error', alertMessage: 'Username has already been used by another user', alertColor: 'red'});
         }
 
         // Check if coupon code is valid for the selected country
         if (country !== coupon.slice(0, 3)) {
             console.log('This coupon code is not for your country');
-            return res.status(401).json({error: 'This coupon code is not for your country'});
+            return res.render('signup', {alertTitle: 'Error', alertMessage: 'This coupon code is not for your country', alertColor: 'red'});
         }
 
         // Check if coupon code is valid
@@ -96,8 +90,7 @@ router.post('/register', async (req, res)=>{
         
         if (checkCoupon.length < 1) {
             console.log('Please insert a valid coupon code');
-            // return res.render('signup', {message: 'Please insert a valid coupon code', messageStyle: 'show', messageColor: 'danger'});
-            return res.status(401).json({error: 'Please insert a valid coupon code'});
+            return res.render('signup', {alertTitle: 'Error', alertMessage: 'TPlease insert a valid coupon code', alertColor: 'red'});
         }
 
         // Check if there's a referral code
@@ -132,8 +125,7 @@ router.post('/register', async (req, res)=>{
 
             if (checkReferralCode.length < 1) {
                 console.log('Invalid referral code');
-                // return res.render('signup', {message: 'Invalid refferral code', messageStyle: 'show', messageColor: 'danger'});
-                return res.status(401).json({error: 'Invalid referral code'});
+                return res.render('signup', {alertTitle: 'Error', alertMessage: 'Invalid referral code', alertColor: 'red'});
             }
 
             // Now insert the user's details into the users table
@@ -216,8 +208,7 @@ router.post('/register', async (req, res)=>{
         }
     } catch (error) {
         console.log('An error occurred: ', error);
-        // return res.render('signup', {message: 'Internal server error', messageStyle: 'show', messageColor: 'danger'});
-        return res.status(500).json({error: 'Internal server error'});
+        return res.render('signup', {alertTitle: 'Error', alertMessage: 'An error occurred', alertColor: 'red'});
     }
 });
 
@@ -290,13 +281,13 @@ router.post('/admin-login', (req, res)=>{
     connection.query('SELECT * FROM admin WHERE username = ? AND password = ?', [username, password], async (err, result)=>{
         if (err) {
             console.log(err);
-            res.status(500).json({error: err});
+            return res.render('Admin Login', {alertTitle: 'Error', alertMessage: 'An error occurred', alertColor: 'red'});
         } else {
             console.log('Admin details: ', result);
 
             if (result.length < 1) {
                 console.log('Invalid credentials');
-                return res.status(404).json({error: 'Invalid credentials'});
+                return res.render('Admin Login', {alertTitle: 'Error', alertMessage: 'Invalid credentials', alertColor: 'red'});
             }
 
             // Generate the JWT

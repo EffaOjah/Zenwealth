@@ -551,6 +551,8 @@ router.post('/youtube-reward', verifyToken.verifyToken, async(req, res)=>{
         // Insert into the activity transactions table
         const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(600, 'Affiliate Withdrawal', fetchUserByUsername[0].user_id);
 
+        // Update the user's has_completed_yt_reward column to true
+        const updateYtStatus = await dashboardFunctions.updateYtStatus(true, fetchUserByUsername[0].user_id);
         return res.json({success: 'Video Code is correct'});
     } else{
         console.log('Video Code is not correct');

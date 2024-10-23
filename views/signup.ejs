@@ -4,36 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zenwealth - Signup</title>
-    <link rel="stylesheet" href="/css/newstyles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/iziToast-master/dist/css/iziToast.min.css">
     <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
 </head>
-<body class="bg-one">
+<body class="">
 
-    <!-- Sidebar -->
-    <div class="d-flex justify-content-center bg-one" id="mySidebar">
-      <div class="sidenav-wrapper p-3 d-flex align-items-center justify-content-center">
-        <div>
-            <h1 class="title fw-bolder text-white">Zenwealth</h1>
-            <p class="text-center color-three" style="margin-top: -10px;">...the zenith of wealth</p>
-        </div>
-      </div>
-    </div>
-    <!-- Sidebar ends -->
-
-
-    <!-- Main content -->
-    <div id="main" class="bg-light" style="overflow-y: scroll; height: 100vh;">
-
-      <!-- <div class="bg-hero shadow" style="position: absolute; top: 0; width: 100%;">
-        <span class="text-center">
-          <h1 class="fw-bolder text-white mt-5">Zenwealth</h1>
-          <p class="color-three motto text-center">...the zenith of wealth</p>
-        </span>
-      </div> -->
-
-      <div class="container-fluid">
-        <h1 class="color-three mt-5 fw-bold sign display-5" style="margin-bottom: 30px;">Sign Up</h1>
+    <div class="page-wrapper" style="height: 100vh;">
+    <div class="container h-100 d-flex justify-content-center">
+      <div class="fixed-width h-100 position-relative">
+        <h1 class="color-three mt-5 fw-bold display-5">Sign Up</h1>
 
             <div class="bg-white radius-three signup-div p-4 text-center">
 
@@ -44,64 +25,68 @@
     
                       <div class="input-group flex-nowrap">
                         <span class="input-group-text px-3"><ion-icon name="person"></ion-icon></span>
-                        <input type="text" class="form-control py-3" placeholder="First name" name="firstName" autocomplete="off">
+                        <input type="text" class="form-control py-3" placeholder="First name" name="firstName" required autocomplete="off">
                       </div>
 
                       <div class="input-group flex-nowrap">
                         <span class="input-group-text px-3"><ion-icon name="person"></ion-icon></span>
-                        <input type="text" class="form-control py-3" placeholder="Last name" name="lastName" autocomplete="off">
+                        <input type="text" class="form-control py-3" placeholder="Last name" name="lastName" required autocomplete="off">
                       </div>
 
                       <div class="input-group flex-nowrap">
                         <span class="input-group-text px-3"><ion-icon name="id-card"></ion-icon></span>
-                        <input type="text" class="form-control py-3" placeholder="Username" name="username" autocomplete="off">
+                        <input type="text" class="form-control py-3" placeholder="Username" name="username" required autocomplete="off">
                       </div>
 
                       <div class="input-group flex-nowrap">
                         <span class="input-group-text px-3"><ion-icon name="mail"></ion-icon></span>
-                        <input type="email" class="form-control py-3" placeholder="Email" name="email" autocomplete="off">
+                        <input type="email" class="form-control py-3" placeholder="Email" name="email" required autocomplete="off">
                       </div>
 
                       <div class="input-group flex-nowrap">
                         <span class="input-group-text px-3"><ion-icon name="call"></ion-icon></span>
-                        <input type="text" class="form-control py-3" placeholder="Phone Number" name="phone" autocomplete="off">
-                      </div> 
+                        <input type="tel" class="form-control py-3" placeholder="Phone Number" name="phone"required autocomplete="off">
+                      </div>
 
                       <div class="input-group flex-nowrap">
-                        <select name="country" id="country" autocomplete="off" class="form-select form-control py-3">
+                        <span class="input-group-text px-3"><ion-icon name="flag"></ion-icon></span>
+                        <select class="form-control form-select py-3" name="country" required autocomplete="off">
                           <option value="">Select a country</option>
                           <option value="NGA">Nigeria</option>
                           <option value="CMR">Cameroon</option>
                           <option value="GHA">Ghana</option>
-                          <option value="SIR">Sierra Leone</option>
+                          <option value="SLE">Sierra Leone</option>
                           <option value="KEN">Kenya</option>
                           <option value="IVY">Ivory Coast</option>
+                          <option value="SA">South Africa</option>
+                          <option value="TGO">Togo</option>
+                          <option value="UGA">Uganda</option>
                         </select>
                       </div>
 
                       <div class="input-group flex-nowrap">
-                        <span class="input-group-text px-3"><ion-icon name="person"></ion-icon></span>
-                        <input type="text" class="form-control py-3" id="referralcode" placeholder="Referral Code" name="referrer" autocomplete="off" readonly>
-                      </div>
-
-                      <div class="input-group flex-nowrap">
                         <span class="input-group-text px-3"><ion-icon name="ticket"></ion-icon></span>
-                        <input type="text" class="form-control py-3" placeholder="Coupon Code" name="coupon" autocomplete="off">
+                        <input type="text" class="form-control py-3" placeholder="Coupon Code" name="coupon" required autocomplete="off">
+                      </div>
+
+                      <div class="input-group flex-nowrap">
+                        <span class="input-group-text px-3"><ion-icon name="person"></ion-icon></span>
+                        <input type="text" class="form-control py-3" placeholder="Referral code" name="referrer" readonly autocomplete="off">
                       </div>
 
                       <div class="input-group flex-nowrap">
                         <span class="input-group-text px-3"><ion-icon name="lock-closed"></ion-icon></span>
-                        <input type="password" class="form-control py-3" placeholder="Password" name="password" autocomplete="off">
+                        <input type="password" class="form-control py-3" placeholder="Password" name="password" required autocomplete="off">
                       </div>
 
                       <div class="input-group flex-nowrap">
                         <span class="input-group-text px-3"><ion-icon name="lock-closed"></ion-icon></span>
-                        <input type="password" class="form-control py-3" placeholder="Password" name="passwordConfirmation" autocomplete="off">
+                        <input type="password" class="form-control py-3" placeholder="Confirm Password" name="passwordConfirmation" required autocomplete="off">
                       </div>
 
                       <div class="form-check">
                         <div class="ms-2">
-                            <input class="form-check-input " id="checkedCheckbox" type="checkbox" value="">
+                            <input class="form-check-input " id="checkedCheckbox" type="checkbox" required>
                             <label class="form-check-label text-muted fw-normal" for="checkedCheckbox">
                                 I agree with the terms &amp; policy.
                             </label>
@@ -109,72 +94,47 @@
                       </div>    
 
                       <div class="col-md-12 mt-4">
-                        <button class="btn btn-zen px-4 py-2 w-100 text-white" style="border: none;">signup</button>
+                        <button class="btn btn-zen px-4 py-2 w-100 text-white" style="border: none;">Sign Up</button>
                     </div>
-                                  
+                      </div>              
                     </div>
                 </form>
             </div>
-            <p class="color-two text-center mt-3">Already have an account? <a href="/user/login" class="color-three">login</a></p>
-            <p class="color-two text-center" style="margin-top: -10px;">Dont Have Coupon Code? <a href="/coupon/purchase" class="color-three">buy Coupon</a></p>
+            <div class="position-absolute w-100 text-center" style="bottom: 10px;">
+              <p class="text-white mt-3">Already have an account? <a href="/user/login" class="color-three">Login</a></p>
+              <p class="text-white" style="margin-top: -10px;">Dont Have Coupon Code? <a href="/coupon-code/purchase" class="color-three">Buy Coupon</a></p>  
+            </div>
       </div>
 
     </div>
+    </div>
+
+    <span class="d-none" id="alertTitle"><%= locals.alertTitle %></span>
+    <span class="d-none" id="alertMessage"><%= locals.alertMessage %></span>
+    <span class="d-none" id="alertColor"><%= locals.alertColor %></span>
+
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Get the URL parameters
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        // Check if the 'reference' parameter exists in the URL
-        if(urlParams.has('reference')) {
-            // Get the value of the 'reference' parameter
-            const referenceValue = urlParams.get('reference');
-    
-            // Display the reference value in the HTML element
-            document.getElementById('referralcode').value = referenceValue;
+      var alertTitle = document.getElementById("alertTitle");
+      var alertMessage = document.getElementById("alertMessage");
+      var alertColor = document.getElementById("alertColor");
+
+      // Check if there is a response message
+      document.addEventListener('DOMContentLoaded', ()=>{
+        if (alertTitle.innerHTML || alertMessage.innerHTML || alertColor.innerHTML) {
+          // alert('h')
+          izitoastAlert(alertTitle.innerHTML, alertMessage.innerHTML, 'light', alertColor.innerHTML);
         } else {
-            // If 'reference' parameter is not found, display a message
-            console.log("Reference parameter not found");;
+          return;
         }
-    });
-    
-    </script>
+      })
+
+     </script>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"></script>
-    <script>
-      var mainDiv = document.getElementById("main");
-      var sideBar = document.getElementById("mySidebar");
-      var menuIcon = document.getElementById("hamburger");
-      var mobileSideBar = document.getElementById("myMobileSidebar");
-      const checkbox = document.querySelector('.hamburger input');
-
-      function togglenav() {
-        if (mainDiv.style.marginLeft === "0%"){
-          mainDiv.style.marginLeft = "19.2%";
-          mainDiv.style.borderTopLeftRadius = "25px";
-          mainDiv.style.borderBottomLeftRadius = "25px";
-          sideBar.style.width = "19.2%";
-        } else {
-          mainDiv.style.marginLeft = "0%";
-          sideBar.style.width = "0%";
-          mainDiv.style.borderRadius = "0";
-        }
-      }
-
-      checkbox.addEventListener('change', function() {
-        if (this.checked) {
-          mobileSideBar.style.width = '60%';
-          menuIcon.style.marginLeft = '60%';
-        } else {
-          mobileSideBar.style.width = '0%';
-          menuIcon.style.marginLeft = '0%';
-        }
-      });
-
-    </script>
     <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/iziToast-master/dist/js/iziToast.min.js"></script>
+    <script src="/js/alert.js"></script>
 </body>
 </html>

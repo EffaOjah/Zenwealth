@@ -2,7 +2,7 @@
 function izitoastAlert(title, message, theme, color) {
     var alertOptions = {
         id: null, 
-        title: title,
+        title: title + ':',
         titleColor: color,
         message: message,
         theme: theme,

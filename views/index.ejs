@@ -12,24 +12,71 @@
       .line {
         stroke: #f9ede7;
       }
+      .blue-paste {
+        background-color: #211e5b;
+        /* position: absolute; */
+        right: 0;
+        height: 100%;
+        width: 30%;
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        font-size: 19px;
+        color: #00e189;
+      }
+      .light-paste {
+        position: absolute;
+        left: 0;
+        height: 100%;
+        /* padding: 10px 60px 10px 60px; */
+        width: 70%;
+        font-weight: 700;
+        font-size: 19px;
+        display: grid;
+        place-items: center;
+      }
+      .state {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        position: relative;
+        height: 50px;
+      }
+
+      .state p {
+        margin: 0;
+        /* padding: 20px; */
+      }
+      .hero-img{
+        scale: 0.8 !important;
+      }
     </style>
 </head>
 <body>
-
-    <%- include('partials/nav') %>
+<div class="page-wrapper">
+      <%- include('./partials/nav') %>
       <!-- navbar ends -->
 
-    <div class="container-fluid hero-section bg-one" id="up">
-      <div class="hero-section-blur pb-5">
+    <div class="container-fluid hero-section" id="up">
+      <div class="">
         
-        <div class="container">
-          <div class="row align-items-center justify-content-between">
-            <div class="col-lg-5 mt-5 mb-5">
-              <h1 class="fw-bold display-5 color-four mt-3">Unlock the Gateway to <span class="color-three">Unlimited Cashflow</span> and Earn Daily.</h1>
-              <p class="fw-semibold fs-5 color-four" style="font-size: 17px;">Join us at Zenwealth and start earning today!</p><br>
-              <a href="/user/register">
-                <button class="cssbuttons-io-button fw-bold">
-                  Get started
+        <div class="mt-5">
+          <div class="row p-0 align-items-center justify-content-between">
+            <div class="col-lg-6 p-0">
+              <div class="container headline">
+                <div class="py-3 ps-5">
+                  <p class="fw-bold fs-2 color-four mt-3">Unlock the Gateway to</p>
+                  <h1 class="color-three fw-bold display-1" style="margin-top: -25px;">Unlimited</h1>
+                  <h1 class="color-three fw-bold display-1" style="margin-top: -25px;">Cashflow</h1>
+                  <p class="fs-2 fw-bold" style="margin-top: -25px;"> with <span class="color-three fw-bold display-4">Zenwealth</span></p>
+                </div>
+              </div>
+              <!-- <p class="fw-semibold fs-5 color-four" style="font-size: 17px;">Join Zenwealth today!</p><br> -->
+              <div class="container mt-5 ms-5">
+                <!-- <button class="btn btn-zen px-4 py-2 text-white">Get Started</button> -->
+                 <a href="/user/login">
+                <button class="cssbuttons-io-button fw-bold mt-4 mb-4">
+                  Get Started
                   <div class="icon">
                     <svg
                       height="24"
@@ -46,10 +93,11 @@
                   </div>
                 </button>
               </a>
+              </div>
             </div>
-            <div class="col-lg-5 mt-1">
-              <div class="circle bg-four mt-5 d-flex align-items-center justify-content-center">
-                <img src="/img/mockup1.png" alt="" style="transform: scale(1);">
+            <div class="col-lg-5">
+              <div class="hero-img">
+                <img src="img/hero-mockup.png" class="img-fluid" alt="hero mockup">
               </div>
             </div>
           </div>
@@ -58,13 +106,11 @@
     </div>
     <!-- hero-section ends -->
 
-    
-
-    <div class="container-fluid pb-4">
-      <div class="radius-one welcome-div">
-        <div class="container p-3">
-          <h1 class="row align-items-center justify-content-center pt-5 fw-bold color-one mt-4">Welcome to Zenwealth</h1>
-          <p class="fw-semibold pb-5 color-one" style="font-size: 17px;">
+    <div class="container-fluid">
+      <div class="mtop">
+        <div class="container px-3">
+          <h1 class="row align-items-center justify-content-center fw-bold color-three">Welcome to Zenwealth</h1>
+          <p class="fw-semibold pb-5" style="font-size: 17px;">
             <span class="color-three fs-2">“</span>
             your go-to place for affiliate success! Step into a world where every little task means big rewards. At Zenwealth, we've turned everyday hustle into cash flow. Our platform is buzzing with action as folks like you jump into easy and rewarding tasks that put money in your pocket. Join us at Zenwealth and start earning today!
             <span class="color-three fs-2">”</span>
@@ -73,239 +119,205 @@
       </div>
       <!-- welcome-div ends -->
   
-      <div class="container radius-two white-div bg-one">
-        <div class="container pt-5 pb-4">
-          <div class="row g-3">
-            <div class="col-lg-4">
-              <div>
-                <div class="bg-white we-do-div m-auto">
-                  <i class="fa-solid fa-user-plus color-one"></i>
-                </div>
-                <h6 class="text-center pt-2 color-three" style="font-size: 24px;">Register</h6>
-                <p class="color- text-white text-center">Click the "Get Started" button to create your own Zenwealth account. Start earning daily with a single click!</p>
-              </div>
-            </div>
-  
-            <div class="col-lg-4">
-              <div>
-                <div class="bg-white we-do-div m-auto">
-                  <i class="fa-solid fa-coins color-one"></i>
-                </div>
-                <h4 class="text-center pt-2 color-three" style="font-size: 24px;">Earn Diversely</h4>
-                <p class="text-white text-center">Explore diverse earning opportunities within Zenwealth. Earn with the littlest effort.</p>
-              </div>
-            </div>
-  
-            <div class="col-lg-4">
-              <div>
-                <div class="bg-white we-do-div m-auto">
-                  <i class="fa-solid fa-sack-dollar color-one"></i>
-                </div>
-                <h6 class="text-center pt-2 color-three" style="font-size: 24px;">Reap big as-you-go</h6>
-                <p class="text-white text-center">Zenwealth believes in rewarding your dedication as-you-go. Enjoy timely disbursement of your earnings and refer more.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div><br><br>
-      <!-- highlights div end -->
-    </div>
-
-
-
-    <div class="container-fluid bg-four-faint pt-5 pb-5">
-      <h1 class="text-center color-one fw-bold pt-5 pb-4">How to earn on Zenwealth</h1>
-      <div class="pb-5">
-        <div class="container rates radius-three pt-3">
-          <div class="row g-2 pt-4 pb-4">
-            <div class="col-lg-2">
-              <div class="earnings-div radius-three px-3">
-                <h6 class="fw-bold pt-3 color-one text-white">Registeration</h6>
-                <p class="color-one pb-2">₦5,000</p>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <div class="earnings-div radius-three px-3">
-                <h6 class="fw-bold pt-3 color-one text-white">Welcome Bonus</h6>
-                <p class="color-one pb-2">3000 ZP</p>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <div class="earnings-div radius-three px-3">
-                <h6 class="fw-bold pt-3 color-one text-white">Referral Bonus</h6>
-                <p class="color-one pb-2">₦4,000</p>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <div class="earnings-div radius-three px-3">
-                <h6 class="fw-bold pt-3 color-one text-white">Zenwealth post 1</h6>
-                <p class="color-one pb-2">300 ZP</p>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <div class="earnings-div radius-three px-3">
-                <h6 class="fw-bold pt-3 color-one text-white">Zenwealth post 2</h6>
-                <p class="color-one pb-2">₦200</p>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <div class="earnings-div radius-three px-3">
-                <h6 class="fw-bold pt-3 color-one text-white">Daily Login</h6>
-                <p class="color-one pb-2">300 ZP</p>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <div class="earnings-div radius-three px-3">
-                <h6 class="fw-bold pt-3 color-one text-white">1st Indirect Reff Bonus</h6>
-                <p class="color-one pb-2">₦300</p>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <div class="earnings-div radius-three px-3">
-                <h6 class="fw-bold pt-3 color-one text-white">2nd Indirect Reff Bonus</h6>
-                <p class="color-one pb-2">₦150</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div><br><br>
-
-
-
-    <div class="container-fluid">
-      <div class="container pt-5 bg-one assistance-div mt-5 mb-5 radius-three overflow-hidden">
-          <div class="row justify-content-between align-items-center px-4">
-              <div class="col-lg-7">
-                  <div class="">
-                      <h1 class="color-four display-5 mb-3 fw-bold">Need Assistance? Our Support Team is Here to Help!</h1>
-                      <p class="mb-4" style="color: #f9ede7; font-size: 17px;">Whether you have questions about tasks, payouts, or navigating the platform, our dedicated support team is ready to assist you. We're here to ensure your Zenwealth experience is smooth and rewarding. Contact us for prompt and friendly support.</p><br>
-                      <button class="cssbuttons-io-button fw-bold" style="z-index: 2;">
-                        Join Community
-                        <div class="icon">
-                          <svg
-                            height="24"
-                            width="24"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M0 0h24v24H0z" fill="none"></path>
-                            <path
-                              d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                              fill="currentColor"
-                            ></path>
-                          </svg>
-                        </div>
-                      </button><br><br>
-                  </div>
-              </div>
-              <div class="col-lg-5">
-                  <div class="d-flex align-items-center justify-content-between mt-5">
-                      <img src="/img/mockup12.png" alt="assistance image" class="img-fluid assistant mt-3" style="transform: scale(1.3);">
-                  </div>
-              </div>
-          </div>          
-      </div>
-    </div>
-    <br><br>
-
-    <div class="bg-four-faint container-fluid wp-container pb-4">
       <div class="container">
-        <div class="col-lg-7 wp-div-mobile pt-5">
-          <div class="row g-3 pt-5">
-            <div class="col-6 text-start bg-one rounded wp-img">
-              <img src="/img/mockup13.png" class="img-fluid">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <div class="glass">
+              <div class="bg-overlay we-do-div m-auto">
+                <i class="fa-solid fa-user-plus text-white"></i>
+              </div>
+              <h6 class="text-center pt-2 color-three" style="font-size: 24px;">Register</h6>
+              <p class="color- text-white text-center">Click the "Get Started" button to create your own Zenwealth account. Start earning daily with a single click!</p>
             </div>
-            <div class="col-6 text-start ms-1 bg-two rounded wp-img1" style="transform: translateY(50px);">
-              <img src="/img/mockup14.png" class="img-fluid">
+          </div>
+
+          <div class="col-lg-4">
+            <div class="glass">
+              <div class="bg-overlay we-do-div m-auto">
+                <i class="fa-solid fa-coins color- text-white"></i>
+              </div>
+              <h4 class="text-center pt-2 color-three" style="font-size: 24px;">Earn Diversely</h4>
+              <p class="text-white text-center">Explore diverse earning opportunities within the Zenwealth platform. Earn with the littlest effort.</p>
             </div>
-            <div class="col-6 text-start bg-three rounded wp-img" style="transform: translateY(-21px);">
-              <img src="/img/mockup18.png" class="img-fluid">
+          </div>
+
+          <div class="col-lg-4">
+            <div class="glass">
+              <div class="bg-overlay we-do-div m-auto">
+                <i class="fa-solid fa-sack-dollar text-white"></i>
+              </div>
+              <h6 class="text-center pt-2 color-three" style="font-size: 24px;">Reap big as-you-go</h6>
+              <p class="text-white text-center">Zenwealth rewards your dedication as-you-go. Enjoy timely disbursement of your earnings and refer more.</p>
             </div>
           </div>
         </div>
-        <div class="container pt-5 pb-5 row g-3">
+      </div>
+      <!-- highlights div end -->
+
+      <div class="container mtop">
+        <h1 class="text-center color-three fw-bold pb-4">How to earn on Zenwealth</h1>
+        <div class="bg-white radius-three pt-3">
+          <h6 class="mb-3 ms-3 color-one">Non-affliate</h6>
+          <div class="row d-flex justify-content-center gap-5 py-4 px-4">
+            <div class="col-lg-5">
+              <div class="d-grid" style="place-items: center;">
+                <p class="px-3 py-2 shadow topic bg-one radius-three">Daily Task Commissions</p>
+                <div class="table-responsive w-100">
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <td>Daily Login</td>
+                        <td>500 Zencoins</td>
+                      </tr>
+                      <tr>
+                        <td>Trend Posting</td>
+                        <td>500 Zencoins</td>
+                      </tr>
+                      <tr>
+                        <td>Advert Post</td>
+                        <td>300 Zencoins</td>
+                      </tr>
+                      <tr>
+                        <td>Zen Mining</td>
+                        <td>200 Zencoins</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-5">
+              <div class="d-grid" style="place-items: center;">
+                <p class="px-3 py-2 shadow topic text-center bg-one radius-three">Extra Weekly Engagement Earnings</p>
+                <div class="table-responsive w-100">
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <td>Mystery Box</td>
+                        <td>$0.067 - $0.33</td>
+                      </tr>
+                      <tr>
+                        <td>Youtube Engagement</td>
+                        <td>2000 points</td>
+                      </tr>
+                      <tr>
+                        <td>TikTok Monetization</td>
+                        <td>$0.5 - $0.7</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container mtop">
+        <div class="col-lg-7 wp-div-mobile">
+          <div class="row g-3 pt-5">
+            <div class="col-6 text-start border-green bg-overlay wp-img">
+              <img src="img/mockup13.png" class="img-fluid">
+            </div>
+            <div class="col-6 text-start ms-1 bg-overlay border-green wp-img1" style="transform: translateY(50px);">
+              <img src="img/mockup14.png" class="img-fluid">
+            </div>
+            <div class="col-6 text-start bg-overlay border-green wp-img" style="transform: translateY(-21px);">
+              <img src="img/mockup18.png" class="img-fluid">
+            </div>
+          </div>
+        </div>
+        <div class="pt-5 row g-0">
           <div class="col-lg-7 wp-div-large">
             <div class="row g-3">
-  
-              <div class="col-6 text-start bg-one rounded wp-img2" style="width: 250px; height: 180px;">
-                <img src="/img/mockup13.png" class="img-fluid">
+              <div class="col-6 text-start border-green bg-overlay wp-img2" style="width: 220px; height: 150px;">
+                <img src="img/mockup13.png" class="img-fluid">
               </div>
-              <div class="col-6 text-start bg-two rounded ms-4 wp-img2" style="width: 300px; height: 200px; transform: translateY(60px);">
-                <img src="/img/mockup14.png" class="img-fluid scaled-wp-img" style="transform: scale(0.8);">
+              <div class="col-6 text-start border-green bg-overlay ms-4 wp-img2" style="width: 270px; height: 170px; transform: translateY(60px);">
+                <img src="img/mockup14.png" class="img-fluid scaled-wp-img" style="transform: scale(0.8);">
               </div>
-              <div class="col-6 text-start pt-2 bg-three rounded wp-img2" style="width: 250px; height: 180px;">
-                <img src="/img/mockup18.png" class="img-fluid">
+              <div class="col-6 text-start border-green pt-2 bg-overlay wp-img2" style="width: 220px; height: 150px;">
+                <img src="img/mockup18.png" class="img-fluid">
               </div>
             </div>
           </div>
+
           <div class="col-lg-5">
-            <h4 class="fs-3 text-center color-one fw-bold pb-3">Withdrawal Process</h4>
-            <table class="table table-responsive table-bordered table-striped">
-              <thead>
-                <tr>
-                  <td class="fw-bold color-one">Affiliate</td>
-                  <td class="fw-bold color-one">Non-affiliate</td>
-                </tr>
-              </thead>
-  
-              <tbody>
-                <tr>
-                  <td>
-                    Minimum withdrawal of ₦8000
-                  </td>
-                  <td>
-                    Minimum withdrawal of 25,000VP
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Tuesday, Thursday & Saturday
-                  </td>
-                  <td>
-                    Every last day of the month
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Cash out your earnings
-                  </td>
-                  <td>
-                    Withdrawals will be automatic
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <!-- <h4 class="fs-3 text-center color-three fw-bold pb-3">Withdrawal Process</h4> -->
+            <div class="bg-white radius-three p-3">
+              <h6 class="mb-3 ms-2 color-one">Affiliate</h6>
+              <div class="row g-3">
+                <div class="col-lg-12">
+                  <div class="bg-two-faint state py-2 radius-two">
+                    <p class="text-center color-two light-paste">Registration Fee</p>
+                    <p class="text-center blue-paste radius-two">$4.33</p>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="bg-two-faint state py-2 radius-two">
+                    <p class="text-center color-two light-paste">Sales Commission</p>
+                    <p class="text-center blue-paste radius-two">$3.33</p>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="bg-two-faint state py-2 radius-two">
+                    <p class="text-center color-two light-paste">Indirect Commission</p>
+                    <p class="text-center blue-paste radius-two">$0.2</p>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="bg-two-faint state py-2 radius-two">
+                    <p class="text-center color-two light-paste">2nd Indirect</p>
+                    <p class="text-center blue-paste radius-two">$0.1</p>
+                  </div>
+                </div>
+              </div>
+            </div>  
           </div>
         </div>
-      </div><br>
-    </div>
+      </div>
 
-    <div class="container-fluid ">
-      <div class="container">
-        <div class="row align-items-center justify-content-between container">
+      <div class="container mtop assistance-div radius-three overflow-hidden">
+        <div class="row justify-content-between align-items-center px-4 pt-3">
+            <div class="col-lg-7">
+                <div class="">
+                    <h1 class="color-three display-5 mb-3 fw-bold">Need Assistance? Our Support Team is Here to Help!</h1>
+                    <div class=" w-75">
+                      <p class="mb-4 color-" style="font-size: 17px;">We're here to ensure your Zenwealth experience is smooth and rewarding. Contact us for prompt and friendly support.</p><br>
+                    </div>
+                    <a href="/user/register" class="btn btn-zen px-4 py-2 text-white">Join Community</a>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="d-flex align-items-center justify-content-between mt-5">
+                    <img src="img/mockup12.png" alt="assistance image" class="img-fluid assistant mt-3" style="transform: scale(1.3);">
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="container mtop">
+        <div class="row">
           <div class="col-lg-6">
-            <h1 class="text- color-one fw-bold pt-5 pb-4">Increase Your Daily Income with Zenwealth</h1>
-            <p class="color-one">
-              Unlock a whole new level of earning on Zenwealth. With our unique 3 Level Affiliate System and a diverse array of tasks, we offer unmatched avenues for you to thrive. Seamlessly convert your dedication into tangible rewards through our transparent payout process. Take good advantage of this platform to amass wealth.
+            <h1 class="color-three fw-bold">Increase Your Daily Income with Zenwealth</h1>
+            <p class="">
+              Unlock a whole new level of earning on Zenwealth. With a diverse array of tasks, we offer unmatched avenues for you to thrive. Seamlessly convert your dedication into tangible rewards through our transparent payout process. Take good advantage of this platform to amass wealth.
             </p>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-5">
             <div class="d-flex align-items-center justify-content-center">
-              <img src="/img/Google-Pixel5-.png" style="transform: scale(0.6);" alt="mockup">
+              <img src="img/Zenwealth 4.png" class="img-fluid rounded" alt="Zen flier">
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-
-
-    <div class="container-fluid">
-      <div class="container pt-4 pb-4">
-        <h1 class="text-center color-one fw-bold pt-5 pb-3">Frequently Asked Questions</h1>
+      <div class="mtop">
+        <h1 class="text-center color-three fw-bold pb-3">Frequently Asked Questions</h1>
         <div class="">
-          <div class="container pt-4 pb-3">
+          <div class="container">
             <div class="accordion" id="accordionExample">
               <div class="accordion-item">
                 <h2 class="accordion-header">
@@ -409,20 +421,27 @@
           </div>
         </div>
       </div>
+
     </div>
 
 
-    <!-- Footer start -->
-     <%- include('partials/footer') %>
-     <!-- Footer end -->
-      </footer>
-      
-      
+
+    <div class="container- top-green radius-three mtop">
+      <%- include('./partials/footer') %>
+      <div class="copyright mt-4" style="background-color: #18144d;">
+        <p class="fs-5 text-white ms-4">Copyright © 2024 Zenwealth. All Rights Reserved.</p>
+      </div>
+    </div>
+
+    <a href="#up">
+      <div class="bg-three" id="scrollBtn" style="display: none;">
+        <i class="fa-solid fa-angle-up text-white"></i>
+      </div>
+    </a>
+  </div>
 
     
-
-
-    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/script.js"></script>
+    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

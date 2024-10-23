@@ -11,60 +11,131 @@
 </head>
 <body>
 
-    <%- include('partials/nav') %>
-      <!-- navbar ends -->
+  <div class="page-wrapper">
+    <%- include('./partials/nav') %>
+  <!-- navbar ends -->
 
-    <div class="container-fluid hero-section bg-one" id="up">
-      <div class="hero-section-blur pb-5">
+    <div class="container-fluid hero-section" id="up">
+      <div class="">
         
-        <div class="container">
+        <div class="mt-5">
           <div class="row align-items-center justify-content-between">
-            <div class="col-lg-5 mt-5 mb-5">
-              <h1 class="fw-bold display-5 color-four mt-3">Buy <span class="color-three">Zenwealth</span> Coupon Codes</h1><br>
-              <p class="fw-semibold fs-5 color-four" style="font-size: 17px;">Buy Coupon Codes From Any Of Our Listed Vendors For Fast Registration</p>
-              <br>  
+            <div class="col-lg-6 p-0">
+              <div class="container headline">
+                <div class="py-3 ps-5">
+                  <p class="fw-bold fs-2 color-four mt-3">Purchase Zenwealth</p>
+                  <h1 class="color-three fw-bold display-1" style="margin-top: -25px;">Coupon</h1>
+                  <h1 class="color-three fw-bold display-1" style="margin-top: -25px;">Code</h1><br>
+                  <!-- <p class="fs-2 fw-bold" style="margin-top: -25px;"> on <span class="color-three fw-bold display-4"></span></p><br> -->
+                  <p class="fs-6 bg-white px-3 py-1 color-one radius-two" style="width: fit-content; font-weight: 500; font-size: 16px !important;">Buy from any of our listed vendors</p>
+                </div>
+              </div>
             </div>
-            <div class="col-lg-5 mt-1">
-              <div class="circle bg-four mt-5 d-flex align-items-center justify-content-center overflow-hidden">
-                <img src="/img/mockup 16.png" alt="" style="transform: scale(0.9 ); margin-top: 60px;">
+            <div class="col-lg-5">
+              <div class="circle hero-img">
+                <img src="/img/mockup 16.png" class="img-" alt="hero image" style="transform: scale(0.9); bottom: -50px;">
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- hero-section ends -->    
+    <!-- hero-section ends -->  
+     <br><br>
 
-    <div class="container-fluid bg-four pt-5 pb-5">
-      <div class="container">
-        <div class="row g-1 gap-3 align-items-center justify-content-center">
-          <span class="bg-light radius-three px-1 py-4 gap-4 mt-1 vendor">
-              <img src="/img/dax.jpeg" alt="vendor image" style="border-radius: 50%; width: 50px; height: 50px;">
-              <h4 class=" fw-bold">LightZap</h4>
-              <i class="fa-brands fa-square-whatsapp color-three fs-1"></i>          
-          </span>
-          <span class="bg-light radius-three px-1 py-4 gap-3 mt-1 vendor">
-              <img src="/img/dax.jpeg" alt="vendor image" style="border-radius: 50%; width: 50px; height: 50px;">
-              <h4 class=" fw-bold">AmbassadorOne</h4>
-              <i class="fa-brands fa-square-whatsapp color-three fs-1"></i>
-          </span>
-          <span class="bg-light radius-three px-1 py-4 gap-4 mt-1 vendor">
-              <img src="/img/dax.jpeg" alt="vendor image" style="border-radius: 50%; width: 50px; height: 50px;">
-              <h4 class=" fw-bold">Diba-concept</h4>
-              <i class="fa-brands fa-square-whatsapp color-three fs-1"></i>          
-          </span>
-          <span class="bg-light radius-three px-1 py-4 gap-4 mt-1 vendor">
-            <img src="/img/dax.jpeg" alt="vendor image" style="border-radius: 50%; width: 50px; height: 50px;">
-            <h4 class=" fw-bold">DavinciTv</h4>
-            <i class="fa-brands fa-square-whatsapp color-three fs-1"></i>          
-          </span>
+    <div class="container-fluid mtop">
+      <div class="d-flex align-items-center justify-content-center">
+        <div class="fixed-width">
+          <div class="bg-white radius-three p-3">
+            <h6 class="mb-3 ms-2 color-one">Coupon Vendors</h6>
+            <div class="row g-3">
+              <div class="col-lg-12">
+                <div class="bg-two-faint state">
+                  <div class="vendor-img">
+                    <img src="/img/dax.jpeg" class="img-fluid" alt="vendor image">
+                  </div>
+                  <div class="text-center light-paste">
+                    <span>
+                      <p class="color-two">Rosieconcept</p>
+                    </span>
+                  </div>
+                  <p class="text-center wp">
+                    <img src="/img/whatsaap-logo3-removebg-preview.png" class="img-fluid" alt="">
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="bg-two-faint state">
+                  <div class="vendor-img">
+                    <img src="/img/burna.jpg" class="img-fluid" alt="vendor image">
+                  </div>
+                  <div class="text-center light-paste">
+                    <span>
+                      <p class="color-two">BigbossTv</p>
+                    </span>
+                  </div>
+                  <p class="text-center wp">
+                    <img src="/img/whatsaap-logo3-removebg-preview.png" class="img-fluid" alt="">
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="bg-two-faint state">
+                  <div class="vendor-img">
+                    <img src="/img/img30.jpg" class="img-fluid" alt="vendor image">
+                  </div>
+                  <div class="text-center light-paste">
+                    <span>
+                      <p class="color-two">BlessingFunds</p>
+                    </span>
+                  </div>
+                  <p class="text-center wp">
+                    <img src="/img/whatsaap-logo3-removebg-preview.png" class="img-fluid" alt="">
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="bg-two-faint state">
+                  <div class="vendor-img">
+                    <img src="/img/mockup 16.png" class="img-fluid" alt="vendor image">
+                  </div>
+                  <div class="text-center light-paste">
+                    <span>
+                      <p class="color-two">RegistrerEmma</p>
+                    </span>
+                  </div>
+                  <p class="text-center wp">
+                    <img src="/img/whatsaap-logo3-removebg-preview.png" class="img-fluid" alt="">
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>  
         </div>
       </div>
     </div>
 
-    <%- include('partials/footer') %>
 
-    <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+
+    <div class="container- top-green radius-three mtop">
+      <%- include('./partials/footer') %>
+      <div class="copyright mt-4" style="background-color: #18144d;">
+        <p class="fs-5 text-white ms-4">Copyright © 2024 Zenwealth. All Rights Reserved.</p>
+      </div>
+    </div>
+
+    <a href="#up">
+      <div class="bg-three" id="scrollBtn" style="display: none;">
+        <i class="fa-solid fa-angle-up text-white"></i>
+      </div>
+    </a>
+  </div>
+
+
+    
+
+
+    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>

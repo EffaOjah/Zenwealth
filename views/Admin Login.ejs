@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/styles.css">
   <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/iziToast-master/dist/css/iziToast.min.css">
   <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
 
 </head>
@@ -64,22 +65,32 @@
   </div>
 </form>
 
-<!-- <script>
-    "use strict";
-    function notify(status,message) {
-        iziToast[status]({
-            message: message,
-            position: "topRight"
-        });
-    }
-</script> -->
+<span class="d-none" id="alertTitle"><%= locals.alertTitle %></span>
+  <span class="d-none" id="alertMessage"><%= locals.alertMessage %></span>
+  <span class="d-none" id="alertColor"><%= locals.alertColor %></span>
 
+
+  <script>
+    var alertTitle = document.getElementById("alertTitle");
+    var alertMessage = document.getElementById("alertMessage");
+    var alertColor = document.getElementById("alertColor");
+
+    // Check if there is a response message
+    document.addEventListener('DOMContentLoaded', ()=>{
+      if (alertTitle.innerHTML || alertMessage.innerHTML || alertColor.innerHTML) {
+        // alert('h')
+        izitoastAlert(alertTitle.innerHTML, alertMessage.innerHTML, 'light', alertColor.innerHTML);
+      } else {
+        return;
+      }
+    })
+
+   </script>
 
  <!--build:js-->
- <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
- <script src="jquery-3.6.0.min.js.download"></script>
- <script src="app.js.download2"></script>
- <script src="active.js.download"></script>
+    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/iziToast-master/dist/js/iziToast.min.js"></script>
+    <script src="/js/alert.js"></script>
  <!--endbuild-->
  
 
