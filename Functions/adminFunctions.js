@@ -52,7 +52,7 @@ async function sumOfWithdrawals(status) {
 // Function to fetch all vendors
 async function allVendors() {
     return new Promise((resolve, reject) => {
-        connection.query('SELECT * FROM users WHERE is_a_vendor = TRUE', (err, result)=>{
+        connection.query('SELECT * FROM users WHERE is_a_vendor = TRUE ORDER BY user_id DESC', (err, result)=>{
             if (err) {
                 console.log('Error fetching all vendors: ', err);
                 reject(err);
@@ -67,7 +67,7 @@ async function allVendors() {
 // Function to fetch all coupon codes
 async function allCouponCodes() {
     return new Promise((resolve, reject) => {
-        connection.query('SELECT * FROM registeration_tokens', (err, result)=>{
+        connection.query('SELECT * FROM registeration_tokens ORDER BY token_id DESC', (err, result)=>{
             if (err) {
                 console.log('Error fetching all coupon codes: ', err);
                 reject(err);
@@ -82,7 +82,7 @@ async function allCouponCodes() {
 // Function to fetch all active users
 async function allUsers() {
     return new Promise((resolve, reject) => {
-        connection.query('SELECT * FROM users', (err, result)=>{
+        connection.query('SELECT * FROM users ORDER BY user_id DESC', (err, result)=>{
             if (err) {
                 console.log('Error fetching all users: ', err);
                 reject(err);
@@ -96,7 +96,7 @@ async function allUsers() {
 // Function to fetch all withdrawals(pending/completed)
 async function withdrawals(withdrawalType, status) {
     return new Promise((resolve, reject) => {
-        connection.query('SELECT * FROM withdrawals WHERE withdrawal_type = ? AND status = ?', [withdrawalType, status], (err, result)=>{
+        connection.query('SELECT * FROM withdrawals WHERE withdrawal_type = ? AND status = ? ORDER BY withdrawal_id DESC', [withdrawalType, status], (err, result)=>{
             if (err) {
                 console.log('Error fetching withdrawals: ', err);
                 reject(err);
@@ -112,7 +112,7 @@ async function withdrawals(withdrawalType, status) {
 // Function to get all sponsored posts
 async function sponsoredPosts() {
     return new Promise((resolve, reject) => {
-        connection.query('SELECT * FROM zenwealth_posts', (err, result)=>{
+        connection.query('SELECT * FROM zenwealth_posts WHERE post_title IS NOT NULL', (err, result)=>{
             if (err) {
                 console.log('Error fetching all sponsored posts: ', err);
                 reject(err);
@@ -169,5 +169,81 @@ async function toggleVendorVerification(userId, state) {
     });
 }
 
+// Function to get notification
+async function getNotification() {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM pop_up_ad', (err, result)=>{
+            if (err) {
+                console.log('Error fetching the notification: ', err);
+                reject(err);
+            } else{
+                console.log('Notification: ', result);
+                resolve(result[0]);
+            }
+        });
+    });
+}
 
-module.exports = {numberOfUsers, couponCodes, sumOfWithdrawals, allVendors, allCouponCodes, allUsers, withdrawals, sponsoredPosts, allProducts, allCourses, toggleVendorVerification};
+
+// Function to get settings
+async function getSettings() {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM withdrawalsettings', (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                console.log('Settings: ', result);
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Function to get approved withdrawals
+async function approvedWithdrawals() {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM approved_withdrawals  ORDER BY withdrawal_id DESC', (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log('Approved Withdrawals: ', result);
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Function to update has_shared_post column of the users table to 0
+async function updateHasSharedPostColumn() {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET has_shared_post = 0', (err, result)=>{
+            if (err) {
+                console.log('Error updating has_shared_post column of the users');
+                reject(err);
+            } else{
+                console.log('Successfully updated has_shared_post column of the users');
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Function to update has_joined_platform column of the users table to 0
+async function updateHasJoinedPlatformColumn() {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET has_joined_platform = 0', (err, result)=>{
+            if (err) {
+                console.log('Error updating has_joined_platform column of the users');
+                reject(err);
+            } else{
+                console.log('Successfully updated has_joined_platform column of the users');
+                resolve(result);
+            }
+        });
+    });
+}
+
+
+module.exports = {numberOfUsers, couponCodes, sumOfWithdrawals, allVendors, allCouponCodes, allUsers, withdrawals, sponsoredPosts, allProducts, allCourses, toggleVendorVerification, getNotification, getSettings, approvedWithdrawals, updateHasSharedPostColumn, updateHasJoinedPlatformColumn};

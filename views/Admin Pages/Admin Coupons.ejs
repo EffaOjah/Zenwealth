@@ -1,15 +1,20 @@
 <!DOCTYPE html>
+
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raven - Generate Coupons</title>
+    <title>Zenwealth - Admin Coupons</title>
 
-    <link rel="shortcut icon" type="image/png" href="/img/zenith.png">
+    <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02.png">
     <link rel="stylesheet" href="/css/app.css">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/iziToast-master/dist/css/iziToast.min.css">
     <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
+
+    <style>
+        .bg-one {
+            background-color: #09063b;
+        }
+    </style>
 
     </head>
 <body>
@@ -19,26 +24,19 @@
             <button class="res-sidebar-close-btn"><i class="fa-solid fa-xmark"></i></button>
             <div class="sidebar__inner">
                 <div class="sidebar__logo">
-                    <a href="/admin/dashboard" class="sidebar__main-logo"><img src="/img/zenith.png" alt="image"></a>
+                    <a href="/admin/dashboard" class="sidebar__main-logo"><img src="/img/Zenwealth Logo Alone-02.png" alt="image"></a>
                 </div>
         
                 <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: calc(100vh - 86.75px);">
                     <div class="sidebar__menu-wrapper" id="sidebar__menuWrapper" style="overflow: scroll; width: auto; height: calc(100vh - 86.75px);">
                     <ul class="sidebar__menu text-white">
-                        <li class="sidebar-menu-item active">
+                        <li class="sidebar-menu-item">
                             <a href="/admin/dashboard" class="nav-link text-white">
                                 <i class="menu-icon fa-solid fa-house"></i>                        
                                 <span class="menu-title text-white">Dashboard</span>
                             </a>
                         </li>
         
-                        <li class="sidebar-menu-item ">
-                            <a href="/admin-withdrawal" class="nav-link text-white ">
-                                <i class="menu-icon fa-solid fa-money-check-dollar"></i>
-                                <span class="menu-title text-white">Auto Withdrawal</span>
-                            </a>
-                        </li>
-                        
                         <li class="sidebar-menu-item ">
                             <a href="/website-settings" class="nav-link text-white ">
                                 <i class="menu-icon fa-solid fa-wrench"></i>
@@ -53,7 +51,7 @@
                             </a>
                         </li>
                         
-                        <li class="sidebar-menu-item ">
+                        <li class="sidebar-menu-item active">
                             <a href="/coupon-codes" class="nav-link text-white ">
                                 <i class="menu-icon fa-solid fa-gift"></i>
                                 <span class="menu-title text-white">Admin Codes</span>
@@ -86,12 +84,12 @@
                                     
         
         
-                                    <li class="sidebar-menu-item ">
+                                    <!-- <li class="sidebar-menu-item ">
                                         <a href="/sendNotifications" class="nav-link text-white">
                                             <i class="menu-icon fa-regular fa-circle-dot"></i>
                                             <span class="menu-title text-white">Notification to All</span>
                                         </a>
-                                    </li>
+                                    </li> -->
         
                                 </ul>
                             </div>
@@ -168,12 +166,12 @@
                                         </a>
                                     </li>
         
-                                    <li class="sidebar-menu-item ">
+                                    <!-- <li class="sidebar-menu-item ">
                                         <a href="Rejected Withdrawals.html" class="nav-link text-white">
                                             <i class="menu-icon fa-regular fa-circle-dot"></i>
                                             <span class="menu-title text-white">Rejected Withdrawals</span>
                                         </a>
-                                    </li>
+                                    </li> -->
         
         
                                 </ul>
@@ -183,7 +181,7 @@
                        
         
         
-                        
+<!--                         
         
                         <li class="sidebar__menu-header">Settings</li>
         
@@ -200,62 +198,36 @@
                                 <i class="menu-icon fa-solid fa-user-tie"></i>
                                 <span class="menu-title text-white">SEO Manager</span>
                             </a>
-                        </li>
+                        </li> -->
                         
-                        <li class="sidebar__menu-header">Sponsored Posts</li>
+                        <li class="sidebar__menu-header">Posts</li>
         
         
                         <li class="sidebar-menu-item ">
-                            <a href="/admin/add-sponsored-post" class="nav-link text-white">
+                            <a href="/add-post" class="nav-link text-white">
                                 <i class="menu-icon fa-regular fa-circle-dot"></i>
-                                <span class="menu-title text-white">Add Sponsored Post</span>
+                                <span class="menu-title text-white">Add Post</span>
                             </a>
                         </li>
                         
                         <li class="sidebar-menu-item ">
                             <a href="/admin/all-sponsored-post" class="nav-link text-white">
                                 <i class="menu-icon fa-regular fa-circle-dot"></i>
-                                <span class="menu-title text-white">All Sponsored Posts</span>
+                                <span class="menu-title text-white">All Posts</span>
                             </a>
                         </li>
-                        
-        
                        
-                        <li class="sidebar__menu-header">Products</li>
+                        <li class="sidebar__menu-header">Tiktok</li>
         
         
                         <li class="sidebar-menu-item ">
-                            <a href="/admin/upload-product" class="nav-link text-white">
-                                <i class="menu-icon fa-regular fa-circle-dot"></i>
-                                <span class="menu-title text-white">Add Products</span>
+                            <a href="/admin/tiktok-details" class="nav-link text-white">
+                                <i class="menu-icon fa-solid fa-tiktok"></i>
+                                <span class="menu-title text-white">Tiktok Details</span>
                             </a>
                         </li>
-                        
-                        <li class="sidebar-menu-item ">
-                            <a href="/admin/all-products" class="nav-link text-white">
-                                <i class="menu-icon fa-regular fa-circle-dot"></i>
-                                <span class="menu-title text-white">Product List</span>
-                            </a>
-                        </li>
-                        
-                        
-                          <li class="sidebar__menu-header">Courses</li>
-        
-        
-                        <li class="sidebar-menu-item ">
-                            <a href="/admin/add-course" class="nav-link text-white">
-                                <i class="menu-icon fa-regular fa-circle-dot"></i>
-                                <span class="menu-title text-white">Add Courses</span>
-                            </a>
-                        </li>
-                        
-                        <li class="sidebar-menu-item ">
-                            <a href="/admin/all-courses" class="nav-link text-white">
-                                <i class="menu-icon fa-regular fa-circle-dot"></i>
-                                <span class="menu-title text-white">Course List</span>
-                            </a>
-                        </li>
-        
+
+
                         <li class="sidebar__menu-header">Extra</li>
         
         
@@ -302,7 +274,108 @@
                                 <span class="caption">Notification</span>
                                                             <p>You have 31214 unread notification</p>
                                                     </div>
-                            
+                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 270px;"><div class="dropdown-menu__body" style="overflow: hidden; width: auto; height: 270px;">
+                                                            <a href="#" class="dropdown-menu__item">
+                                        <div class="navbar-notifi">
+                                            <div class="navbar-notifi__left bg--green b-radius--rounded"><img src="./Admin Dashboard_files/350x300" alt="Profile Image"></div>
+                                            <div class="navbar-notifi__right">
+                                                <h6 class="notifi__title">New member registered</h6>
+                                                <span class="time"><i class="far fa-clock"></i>
+                                                    2 months ago</span>
+                                            </div>
+                                        </div><!-- navbar-notifi end -->
+                                    </a>
+                                                            <a href="#" class="dropdown-menu__item">
+                                        <div class="navbar-notifi">
+                                            <div class="navbar-notifi__left bg--green b-radius--rounded"><img src="./Admin Dashboard_files/350x300" alt="Profile Image"></div>
+                                            <div class="navbar-notifi__right">
+                                                <h6 class="notifi__title">New member registered</h6>
+                                                <span class="time"><i class="far fa-clock"></i>
+                                                    2 months ago</span>
+                                            </div>
+                                        </div><!-- navbar-notifi end -->
+                                    </a>
+                                                            <a href="#" class="dropdown-menu__item">
+                                        <div class="navbar-notifi">
+                                            <div class="navbar-notifi__left bg--green b-radius--rounded"><img src="./Admin Dashboard_files/350x300" alt="Profile Image"></div>
+                                            <div class="navbar-notifi__right">
+                                                <h6 class="notifi__title">New member registered</h6>
+                                                <span class="time"><i class="far fa-clock"></i>
+                                                    2 months ago</span>
+                                            </div>
+                                        </div><!-- navbar-notifi end -->
+                                    </a>
+                                                            <a href="#" class="dropdown-menu__item">
+                                        <div class="navbar-notifi">
+                                            <div class="navbar-notifi__left bg--green b-radius--rounded"><img src="./Admin Dashboard_files/350x300" alt="Profile Image"></div>
+                                            <div class="navbar-notifi__right">
+                                                <h6 class="notifi__title">New member registered</h6>
+                                                <span class="time"><i class="far fa-clock"></i>
+                                                    2 months ago</span>
+                                            </div>
+                                        </div><!-- navbar-notifi end -->
+                                    </a>
+                                                            <a href="#" class="dropdown-menu__item">
+                                        <div class="navbar-notifi">
+                                            <div class="navbar-notifi__left bg--green b-radius--rounded"><img src="./Admin Dashboard_files/350x300" alt="Profile Image"></div>
+                                            <div class="navbar-notifi__right">
+                                                <h6 class="notifi__title">New member registered</h6>
+                                                <span class="time"><i class="far fa-clock"></i>
+                                                    2 months ago</span>
+                                            </div>
+                                        </div><!-- navbar-notifi end -->
+                                    </a>
+                                                            <a href="#" class="dropdown-menu__item">
+                                        <div class="navbar-notifi">
+                                            <div class="navbar-notifi__left bg--green b-radius--rounded"><img src="./Admin Dashboard_files/350x300" alt="Profile Image"></div>
+                                            <div class="navbar-notifi__right">
+                                                <h6 class="notifi__title">New member registered</h6>
+                                                <span class="time"><i class="far fa-clock"></i>
+                                                    2 months ago</span>
+                                            </div>
+                                        </div><!-- navbar-notifi end -->
+                                    </a>
+                                                            <a href="#" class="dropdown-menu__item">
+                                        <div class="navbar-notifi">
+                                            <div class="navbar-notifi__left bg--green b-radius--rounded"><img src="./Admin Dashboard_files/350x300" alt="Profile Image"></div>
+                                            <div class="navbar-notifi__right">
+                                                <h6 class="notifi__title">New member registered</h6>
+                                                <span class="time"><i class="far fa-clock"></i>
+                                                    2 months ago</span>
+                                            </div>
+                                        </div><!-- navbar-notifi end -->
+                                    </a>
+                                                            <a href="#" class="dropdown-menu__item">
+                                        <div class="navbar-notifi">
+                                            <div class="navbar-notifi__left bg--green b-radius--rounded"><img src="./Admin Dashboard_files/350x300" alt="Profile Image"></div>
+                                            <div class="navbar-notifi__right">
+                                                <h6 class="notifi__title">New member registered</h6>
+                                                <span class="time"><i class="far fa-clock"></i>
+                                                    3 months ago</span>
+                                            </div>
+                                        </div><!-- navbar-notifi end -->
+                                    </a>
+                                                            <a href="#" class="dropdown-menu__item">
+                                        <div class="navbar-notifi">
+                                            <div class="navbar-notifi__left bg--green b-radius--rounded"><img src="./Admin Dashboard_files/350x300" alt="Profile Image"></div>
+                                            <div class="navbar-notifi__right">
+                                                <h6 class="notifi__title">New member registered</h6>
+                                                <span class="time"><i class="far fa-clock"></i>
+                                                    3 months ago</span>
+                                            </div>
+                                        </div><!-- navbar-notifi end -->
+                                    </a>
+                                                            <a href="#" class="dropdown-menu__item">
+                                        <div class="navbar-notifi">
+                                            <div class="navbar-notifi__left bg--green b-radius--rounded"><img src="./Admin Dashboard_files/350x300" alt="Profile Image"></div>
+                                            <div class="navbar-notifi__right">
+                                                <h6 class="notifi__title">New member registered</h6>
+                                                <span class="time"><i class="far fa-clock"></i>
+                                                    3 months ago</span>
+                                            </div>
+                                        </div><!-- navbar-notifi end -->
+                                    </a>
+                                                    </div><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
                             <div class="dropdown-menu__footer">
                                 <a href="#" class="view-all-message">View all notification</a>
                             </div>
@@ -331,7 +404,7 @@
                                 <span class="dropdown-menu__caption">Password</span>
                             </a>
         
-                            <a href="#" class="dropdown-menu__item d-flex align-items-center px-3 py-2">
+                            <a href="/logout" class="dropdown-menu__item d-flex align-items-center px-3 py-2">
                                 <i class="dropdown-menu__icon fa-solid fa-arrow-right-from-bracket"></i>                        
                                 <span class="dropdown-menu__caption">Logout</span>
                             </a>
@@ -346,79 +419,109 @@
             <div class="bodywrapper__inner">
 
                 <div class="d-flex mb-30 flex-wrap gap-3 justify-content-between align-items-center">
-    <h6 class="page-title">Generate Coupons</h6>
+    <h6 class="page-title">Admin Coupons</h6>
     <div class="d-flex flex-wrap justify-content-end gap-2 align-items-center breadcrumb-plugins">
-            </div>
+            <form action="#" method="GET" class="d-flex flex-wrap gap-2">
+            <div class="input-group w-auto flex-fill">
+    <input type="search" name="search" class="form-control bg--white" placeholder="Username / Email" value="" id="search">
+    <button class="btn btn--primary" type="submit"><i class="la la-search"></i></button>
+</div>
+        
+</form>
+    </div>
 </div>
 
                     <div class="row">
-        <div class="col-12">
-            <div class="row gy-4">
-
-
-            </div>
-
-            <form action="/generate-coupon-code" method="POST">
-
-            <div class="card mt-30">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Generate Coupons</h5>
-                </div>
-                <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                            <div class="form-group">
-                            <label for="vendor">Vendor</label>
-                            <select class="form-control" name="vendor" id="vendor">
-                               <option value="" selected=""> Select Vendor</option>
-                               <% for( let i = 0; i < vendors.length; i++ ) { %>
-                                <option value="<%= vendors[i].username %>*<%= vendors[i].user_id %>"><%= vendors[i].username %></option>
-                               <% } %>
+        <div class="col-lg-12">
+            <div class="card b-radius--10 ">
+                <div class="card-body p-0">
+                    <div class="table-responsive--md  table-responsive">
+                        <table class="table table--light style--two">
+                            <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                                <th>Created</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <% for( let i = 0; i < allCouponCodes.length; i++ ) { %>
+                                    <tr>
+                                        <td data-label="Code">
+                                            <%= allCouponCodes[i].token %>
+                                        </td>
+                                
+                                                       
+                                
                                
-                                </select>
-                            </div>
-                            </div>
+                                <td data-label="Status">
+                                           <% if (allCouponCodes[i].is_used == 0) { %>
+                                            <a href="#" class="btn btn-sm btn-outline-success">
+                                                <i class="las la-desktop text--shadow"></i>
+                                           ACTIVE            </a>
+                                           <% } else{%>
+                                            <a href="#" class="btn btn-sm btn-outline-danger">
+                                                <i class="las la-desktop text--shadow"></i>
+                                            USED            </a>
+                                        <% } %>
+                           
+                                   
+                                
+                                
+                                                                
+                        </td>
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                <label for="vendor">Country</label>
-                                <select class="form-control" name="country" id="vendor">
-                                   <option value="" selected=""> Select Country</option>
-                                    <option value="NGA">NGA</option>
-                                    <option value="CMR">CMR</option>
-                                    <option value="GHA">GHA</option>
-                                   </select>
-                                </div>
-                                </div>
+                                <td data-label="Action">
+                                    <a href="" class="btn btn-sm btn-danger">
+                                        <i class="las la-bin text--shadow"></i> Delete                                    </a>
+                                </td>
 
-                            <div class="col-md-12">
-                            <div class="form-group">
-                            <label for="number">Number Of Coupons</label>
-                            <input type="number" class="form-control" name="noOfCoupons" id="number" required>
-                            
-                            </div>
-                            </div>
-                            
-                        </div>
+                                <td data-label="Created">
+                                    <%= allCouponCodes[i].date_created %> <br>
+                                </td>
+                               
 
-                        
-
-
-                        <div class="row mt-4">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn--primary w-100 h-45 text-white">Generate Coupon(s)</button>
-                                </div>
-                            </div>
-
-                        </div>
+                            </tr>
+                            <% } %>
+                                                       
+                            </tbody>
+                        </table><!-- table end -->
                     </div>
-            </div>
-        </form>
+                </div>
+                                <div class="card-footer py-4">
+                    <nav class="d-flex justify-content-end">
+        <ul class="pagination">
+            
+                            <li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
+                    <span class="page-link" aria-hidden="true">‹</span>
+                </li>
+            
+            
+                            
                 
-        </div>
-    </div>
+                
+                                                                                        <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                                                                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="#">7</a></li>
+                                                                        
+            
+                            <li class="page-item">
+                    <a class="page-link" href="#" rel="next" aria-label="Next »">›</a>
+                </li>
+                    </ul>
+    </nav>
 
+                </div>
+                            </div>
+        </div>
+
+
+    </div>
 
 
             </div><!-- bodywrapper__inner end -->
@@ -427,30 +530,22 @@
 
 
 
-    <span class="d-none" id="alertTitle"><%= locals.alertTitle %></span>
-    <span class="d-none" id="alertMessage"><%= locals.alertMessage %></span>
-    <span class="d-none" id="alertColor"><%= locals.alertColor %></span>
 
 
-    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/iziToast-master/dist/js/iziToast.min.js"></script>
-    <script src="/js/alert.js"></script>
+
+    <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/app2.js"></script>
 
-<script>
-    var alertTitle = document.getElementById("alertTitle");
-    var alertMessage = document.getElementById("alertMessage");
-    var alertColor = document.getElementById("alertColor");
 
-    // Check if there is a response message
-    document.addEventListener('DOMContentLoaded', ()=>{
-        if (alertTitle.innerHTML || alertMessage.innerHTML || alertColor.innerHTML) {
-          izitoastAlert(alertTitle.innerHTML, alertMessage.innerHTML, 'light', alertColor.innerHTML);
-        } else {
-          return;
-        }
-      })
+<script>
+    "use strict";
+    function notify(status,message) {
+        iziToast[status]({
+            message: message,
+            position: "topRight"
+        });
+    }
 </script>
 
 

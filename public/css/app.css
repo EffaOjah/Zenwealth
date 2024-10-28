@@ -1384,7 +1384,6 @@ body {
     margin: 0;
     font-weight: 400;
     position: relative;
-    background-color: #f3f3f9;
     word-break: break-word;
 }
 a{
@@ -1911,7 +1910,7 @@ p, li, a {
 }
 
 .bg--dark {
-    background-color:rgb(29, 4, 29) !important;
+    background-color: #09063b !important;
 }
 
 .bg--white {
@@ -2878,14 +2877,14 @@ p, li, a {
     -o-border-radius: 999px;
 }
 .search {
-    background-color: #00e189;
+    background-color: #00e189 ;
 }
 .btn--primary {
     background-color: #00e189 !important;
 }
 
 .btn--primary:hover {
-    background-color: #fbab22 !important;
+    background-color: #00e189  !important;
 }
 
 .btn--secondary {
@@ -3195,7 +3194,7 @@ p, li, a {
 }
 /* Handle */
 .sidebar__menu-wrapper::-webkit-scrollbar-thumb {
-    background-color: #00e189; /* Set the color of the scrollbar handle */
+    background-color: #343078a9; /* Set the color of the scrollbar handle */
     border-radius: 6px; /* Optional: Add rounded corners to the handle */
   }
   
@@ -3820,7 +3819,7 @@ table thead th:last-child {
 table.table--light thead th {
     border: none;
     color: #ffffff;
-    background-color: #c7881a;
+    background-color: #00e189;
 }
 a {
     text-decoration: none !important;
@@ -4213,8 +4212,8 @@ table.table--light.style--two tbody td {
 }
 
 .pagination .page-item.active .page-link {
-    background-color: #c7881a;
-    border-color: #c7881a;
+    background-color: #00e189 ;
+    border-color: #00e189 ;
     color: #ffffff;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
 }
@@ -4915,7 +4914,7 @@ th.w-85 {
 }
 
 .sidebar__menu .sidebar-menu-item > a:hover {
-    background-color: #00e189;
+    background-color: #343078a9;
     padding-left: 25px;
 }
 
@@ -4930,7 +4929,7 @@ th.w-85 {
 
 .sidebar__menu .sidebar-menu-item .side-menu--open,
 .sidebar__menu .sidebar-menu-item.active > a {
-    background-color: #00e189 !important;
+    background-color: #343078a9 !important;
 }
 
 .sidebar__menu .menu-icon {
@@ -5040,7 +5039,7 @@ th.w-85 {
 }
 
 .sidebar[class*="bg--"] .sidebar__menu .sidebar-menu-item > a:hover {
-    background-color: #c7881a59;
+    background-color: #00e189;
 }
 
 .sidebar[class*="bg--"] .sidebar__menu .sidebar-menu-item .menu-icon, .sidebar[class*="bg--"] .sidebar__menu .sidebar-menu-item .menu-title {
@@ -6484,7 +6483,7 @@ th.w-85 {
 
 .dark-version .sidebar,
 .dark-version .navbar-wrapper,
-.dark-version,
+.dark-version .card,
 .dark-version .card-footer,
 .dark-version .widget,
 .dark-version .widget-two,
@@ -6500,7 +6499,7 @@ th.w-85 {
 .dark-version .select2-container--default .select2-results__option--selected,
 .dark-version .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable,
 .dark-version .timepicki .timepicker_wrap .timepicki-input {
-    background-color: #10163a !important;
+    background-color: #09063b !important;
 }
 
 .dark-version .navbar-wrapper {

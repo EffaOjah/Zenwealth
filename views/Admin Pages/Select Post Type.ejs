@@ -2,11 +2,10 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zenwealth - Admin Dashboard</title>
+    <title>Zenwealth - Select Post Type</title>
 
     <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02.png">
     <link rel="stylesheet" href="/css/app.css">
-    <!-- <link rel="stylesheet" href="/css/styles.css"> -->
     <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
 
@@ -29,7 +28,7 @@
                 <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: calc(100vh - 86.75px);">
                     <div class="sidebar__menu-wrapper" id="sidebar__menuWrapper" style="overflow: scroll; width: auto; height: calc(100vh - 86.75px);">
                     <ul class="sidebar__menu text-white">
-                        <li class="sidebar-menu-item active">
+                        <li class="sidebar-menu-item">
                             <a href="/admin/dashboard" class="nav-link text-white">
                                 <i class="menu-icon fa-solid fa-house"></i>                        
                                 <span class="menu-title text-white">Dashboard</span>
@@ -202,7 +201,7 @@
                         <li class="sidebar__menu-header">Posts</li>
         
         
-                        <li class="sidebar-menu-item ">
+                        <li class="sidebar-menu-item active">
                             <a href="/add-post" class="nav-link text-white">
                                 <i class="menu-icon fa-regular fa-circle-dot"></i>
                                 <span class="menu-title text-white">Add Post</span>
@@ -416,107 +415,17 @@
 <!-- navbar-wrapper end -->
 
         <div class="body-wrapper">
-            <div class="bodywrapper__inner">
+            <h1 class="text-center">Select Post Type</h1>
 
-                <div class="d-flex mb-30 flex-wrap gap-3 justify-content-between align-items-center">
-    <h6 class="page-title">Dashboard</h6>
-    <div class="d-flex flex-wrap justify-content-end gap-2 align-items-center breadcrumb-plugins">
+            <br>
+            <div class="row d-flex justify-content-center gap-3 m-3">
+                <a href="/admin/add-advert-post" class="btn col-md-3 p-5 rounded" style="background-color: #09063b;">
+                <h2 class="text-white text-center">Advert Post &rightarrow;</h2>
+                </a>
+            <a href="/admin/add-sponsored-post" class="btn col-md-3 p-5 rounded" style="background-color: #09063b;">
+                <h2 class="text-white text-center">Sponsored Post &rightarrow;</h2>
+            </a>
             </div>
-</div>
-
-                        
-    <div class="row gy-4">
-        <div class="col-xxl-3 col-sm-6">
-            <div class="card bg--primary has-link box--shadow2 overflow-hidden">
-                <a class="item-link" href="#"></a>
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-4">
-                            <i class="fa-solid fa-users f-size--42"></i>
-                        </div>
-                        <div class="col-8 text-end">
-                            <span class="text--small text-white">Total Users</span>
-                            <h2 class="text-white"><%= totalUsers %></h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!-- dashboard-w1 end -->
-       
-        <div class="col-xxl-3 col-sm-6">
-            <div class="card bg--info has-link box--shadow2">
-                <a class="item-link" href="#"></a>
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-4">
-                            <i class="fa-solid fa-envelope f-size--42"></i>
-                        </div>
-                        <div class="col-8 text-end">
-                            <span class="text--small text-white">Unused Coupons</span>
-                            <h2 class="text-white"><%= unusedCouponCodes %></h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!-- dashboard-w1 end -->
-        <div class="col-xxl-3 col-sm-6">
-            <div class="card bg--red has-link box--shadow2">
-                <a class="item-link" href="#"></a>
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-4">
-                            <i class="fa-solid fa-envelope-open f-size--42"></i>
-                        </div>
-                        <div class="col-8 text-end">
-                            <span class="text--small text-white">Used Coupons</span>
-                            <h2 class="text-white"><%= usedCouponCodes %></h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div><!-- dashboard-w1 end -->
-    </div><!-- row end-->
-
-
-
-    <div class="row gy-4 mt-2">
-        <!-- dashboard-w1 end -->
-        <div class="col-lg-4 col-sm-6">
-            <div class="widget-two style--two box--shadow2 b-radius--5 bg--19">
-                <i class="las la-users overlay-icon text--white"></i>
-                <div class="widget-two__icon b-radius--5 bg--success">
-                    <i class="fa-solid fa-coins f-size--28"></i>
-                </div>
-                <div class="widget-two__content">
-                    <h3 class="text-white">₦<%= completedWithdrawals == null ? 0 :  completedWithdrawals %></h3>
-                    <p class="text-white">Completed Withdrawals</p>
-                </div>
-
-                
-            </div>
-        </div><!-- dashboard-w1 end -->
-        
-        <div class="col-lg-4 col-sm-6">
-            <div class="widget-two style--two box--shadow2 b-radius--5 bg--19">
-                <i class="las la-users overlay-icon text--white"></i>
-                <div class="widget-two__icon b-radius--5 bg--danger">
-                    <i class="fa-solid fa-coins f-size--28"></i>
-                </div>
-                <div class="widget-two__content">
-                    <h3 class="text-white">₦<%= pendingWithdrawals == null ? 0 :  pendingWithdrawals %></h3>
-                    <p class="text-white">Pending Withdrawals</p>
-                </div>
-
-                
-            </div>
-        </div><!-- dashboard-w1 end -->
-    </div><!-- row end-->
-
-    
-
-
-            </div><!-- bodywrapper__inner end -->
-        </div><!-- body-wrapper end -->
     </div>
 
 

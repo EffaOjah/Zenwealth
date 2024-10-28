@@ -25,16 +25,55 @@ const multer = require('multer');
 const upload = multer({
     dest: 'public/uploads/admin',
     fileFilter: (req, file, cb) => {
-      // Check if the uploaded file is an image
-      if (!file.mimetype.startsWith('image/')) {
-        return cb(new Error('Only image files are allowed!'), false);
-      }
+    //   // Check if the uploaded file is an image
+    //   if (!file.mimetype.startsWith('image/')) {
+    //     // return cb(new Error('Only image files are allowed!'), false);
+    //     return console.log('Only image files are allowed!');
+    //     // ({error: 'Only image files are allowed!'});
+    //   }
       cb(null, true);
     }
   });
 
 
 // GET ROUTES
+// Route to get user balances
+router.get('/admin-loadBalances/:username', verifyToken.verifyAdminToken, async(req, res)=>{
+    try {
+       // Fetch user details using username
+       const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.params.username); 
+
+       // Create the user's affiliate balance view
+       const createAffiliateBalanceView = await dashboardFunctions.createAffiliateBalanceView(fetchUserByUsername[0].user_id);
+
+       // Get the user's total affiliate balance view
+       const getTotalAffiliateBalanceView = await dashboardFunctions.getTotalAffiliateBalanceView();
+
+       // Get the user's total direct referral balance
+       const getTotalDirectReferralBalance = await dashboardFunctions.getTotalReferralBalanceView('Direct Referral');
+
+       // Get the user's total indirect referral balance
+       const getTotalIndirectReferralBalance = await dashboardFunctions.getTotalReferralBalanceView('InDirect Referral');
+
+       // Create the user's zenpoints view
+       const createZenpointsView = await dashboardFunctions.createZenpointsView(fetchUserByUsername[0].user_id);
+
+       // Get the user's total zenpoints view
+       const getTotalZenPointsView = await dashboardFunctions.getTotalZenPointsView();
+
+       // Create the user's zencoins view
+       const createZenCoinsView = await dashboardFunctions.createZenCoinsView(fetchUserByUsername[0].user_id);
+
+       // Get the user's total zencoins view
+       const getTotalZenCoinsView = await dashboardFunctions.getTotalZenCoinsView();
+
+       res.status(200).json({getTotalAffiliateBalanceView, getTotalDirectReferralBalance, getTotalIndirectReferralBalance, getTotalZenPointsView, getTotalZenCoinsView})
+    } catch (error) {
+        console.log('Error: ', error);
+        res.status(404).json(error);
+    }
+});
+
 // Route to get admin dashboard
 router.get('/admin/dashboard', verifyToken.verifyAdminToken, async(req, res)=>{
     // Get total no. of users
@@ -55,12 +94,27 @@ router.get('/admin/dashboard', verifyToken.verifyAdminToken, async(req, res)=>{
     res.render(path.join(__dirname , '../views/Admin Pages/Admin Dashboard'), {totalUsers, unusedCouponCodes, usedCouponCodes, pendingWithdrawals, completedWithdrawals});
 });
 
+// Route for website settings
+router.get('/website-settings', verifyToken.verifyAdminToken, async(req, res)=>{
+    // Get the notification
+    const getNotification = await adminFunctions.getNotification();
+
+    // Get settings
+    const getSettings = await adminFunctions.getSettings();
+
+    const affiliateWithdrawalSetting = getSettings[0].active_status;
+    const nonAffiliateWithdrawalSetting = getSettings[1].active_status;
+    const gameWithdrawalSetting = getSettings[2].active_status;
+
+    res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting});
+});
+
 // Route to generate coupon codes
 router.get('/coupon/generate', verifyToken.verifyAdminToken, async(req, res)=>{
     // Fetch * vendors
     const vendors = await adminFunctions.allVendors();
 
-    res.render('Generate Coupons', {vendors});
+    res.render(path.join(__dirname , '../views/Admin Pages/Generate Coupons'), {vendors});
 })
 
 // Route to get all coupon codes
@@ -68,7 +122,7 @@ router.get('/coupon-codes', verifyToken.verifyAdminToken, async(req, res)=>{
     // Get all coupon codes
     const allCouponCodes = await adminFunctions.allCouponCodes();
 
-    res.render('Admin Coupons', {allCouponCodes})
+    res.render(path.join(__dirname , '../views/Admin Pages/Admin Coupons'), {allCouponCodes})
 });
 
 // Route to get all active users
@@ -76,10 +130,7 @@ router.get('/active-users', verifyToken.verifyAdminToken, async(req, res)=>{
     // Get all users
     const allUsers = await adminFunctions.allUsers();
 
-    res.status(200).json({
-        page: "active users page",
-        allUsers
-    });
+    res.render(path.join(__dirname , '../views/Admin Pages/Active Users'), {allUsers});
 });
 
 // Route to get all vendors
@@ -87,10 +138,7 @@ router.get('/all-vendors', verifyToken.verifyAdminToken, async(req, res)=>{
     // Get all users
     const allVendors = await adminFunctions.allVendors();
 
-    res.status(200).json({
-        page: "all vendors page",
-        allVendors
-    });
+    res.render(path.join(__dirname , '../views/Admin Pages/Active Vendors'), {allVendors});
 });
 
 // Route to get all pending affiliate withdrawals
@@ -98,10 +146,7 @@ router.get('/pending-affiliate-withdrawals', verifyToken.verifyAdminToken, async
     // Get the withdrawals
     const pendingWithdrawals = await adminFunctions.withdrawals('Affiliate Withdrawal', 'PENDING');
 
-    res.status(200).json({
-        page: 'Pending affiliate withdrawal page',
-        pendingWithdrawals
-    });
+    res.render(path.join(__dirname , '../views/Admin Pages/Pending Affiliate Withdrawals'), {pendingWithdrawals});
 });
 
 // Route to get all pending non affiliate withdrawals
@@ -109,15 +154,30 @@ router.get('/pending-earnings-withdrawals', verifyToken.verifyAdminToken, async(
     // Get the withdrawals
     const pendingWithdrawals = await adminFunctions.withdrawals('Non Affiliate Withdrawal', 'PENDING');
 
-    res.status(200).json({
-        page: 'Pending earnings withdrawal page',
-        pendingWithdrawals
-    });
+    res.render(path.join(__dirname , '../views/Admin Pages/Pending Earnings Withdrawals'), {pendingWithdrawals});
+});
+
+// Route to get all approved withdrawals
+router.get('/approved-withdrawals', verifyToken.verifyAdminToken, async(req, res)=>{
+    // Get the withdrawals
+    const approvedWithdrawals = await adminFunctions.approvedWithdrawals();
+
+    res.render(path.join(__dirname , '../views/Admin Pages/Approved Withdrawals'), {approvedWithdrawals});
+});
+
+// Route to select post type
+router.get('/add-post', (req, res)=>{
+    res.render(path.join(__dirname, '../views/Admin Pages/Select Post Type'));
+});
+
+// Route to add sponsored post
+router.get('/admin/add-advert-post', verifyToken.verifyAdminToken, (req, res)=>{
+    res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'));
 });
 
 // Route to add sponsored post
 router.get('/admin/add-sponsored-post', verifyToken.verifyAdminToken, (req, res)=>{
-    res.send('Page to add sponsored post');
+    res.render(path.join(__dirname , '../views/Admin Pages/Add Post2'));
 });
 
 // Route to get all sponsored post
@@ -125,10 +185,7 @@ router.get('/admin/all-sponsored-post', verifyToken.verifyAdminToken, async(req,
     // Get all sponsored posts
     const sponsoredPosts = await adminFunctions.sponsoredPosts();
 
-    res.status(200).json({
-        page: 'All sponsored posts page',
-        sponsoredPosts
-    });
+    res.render(path.join(__dirname , '../views/Admin Pages/All Posts'), {sponsoredPosts});
 });
 
 // Route to add product
@@ -169,12 +226,9 @@ router.get('/user/:username', verifyToken.verifyAdminToken, async(req, res)=>{
     console.log('Username: ', username);
     
     // Fetch the user's details
-    const userDeails = await dashboardFunctions.fetchUserByUsername(username);
+    const userDetails = await dashboardFunctions.fetchUserByUsername(username);
 
-    res.status(200).json({
-        page: 'User details page',
-        userDeails
-    });
+    res.render(path.join(__dirname , '../views/Admin Pages/User Detail'), {userDetails});
 });
 
 // Route to send notifications to all users
@@ -195,21 +249,105 @@ router.get('/admin/user/:username', verifyToken.verifyAdminToken, async(req, res
     res.redirect('/user/dashboard');
 });
 
+// Route for tiktok details
+router.get('/admin/tiktok-details', verifyToken.verifyAdminToken, (req, res)=>{
+    // Get all the user's tiktok details
+    connection.query('SELECT username, tiktok_full_name, tiktok_username, tiktok_profile_link FROM users WHERE tiktok_profile_link IS NOT NULL', (err, result)=>{
+        if (err) {
+            console.log(err);
+        } else{
+            console.log('Tiktok details: ', result);
+            console.log(result.length);
+            
+            res.render(path.join(__dirname , '../views/Admin Pages/Tiktok details'), {details: result});
+        }
+    });
+});
+
+// Route to delete posts
+router.get('/delete-post', verifyToken.verifyAdminToken, (req, res)=>{
+    // Extract the 'id' from the URL parameters
+    const id = parseInt(req.query.id);
+    console.log('parsedInt: ', id);
+  
+    // delete the post
+    connection.query('UPDATE zenwealth_posts SET post_title = null, contact_link = null, post_description = null, post_image = null, post_type = null WHERE post_id = ?', id, (err)=>{
+      if (err){
+        console.log(err);
+        res.redirect('/admin/all-sponsored-post');
+      } else{
+        console.log('Successfully deleted post');
+        res.redirect('/admin/all-sponsored-post');
+      }
+    });
+  });
+
+
 
 // POST ROUTES
 // Route to update pop up ad
-router.post('/popUpAd/update', verifyToken.verifyAdminToken, (req, res)=>{
-    console.log(req.body);
-    
-});
+router.post('/popUpAd/update', upload.single('image'), verifyToken.verifyAdminToken, async(req, res)=>{
+    // Get settings
+    const getSettings = await adminFunctions.getSettings();
 
-// Route to turn on/off withdrawal (affiliate, non_affiliate, game, zen_social)
+    const affiliateWithdrawalSetting = getSettings[0].active_status;
+    const nonAffiliateWithdrawalSetting = getSettings[1].active_status;
+    const gameWithdrawalSetting = getSettings[2].active_status;
+
+    const {title, link, details, button} = req.body;
+    console.log('req.body: ', req.body);
+
+    // Check if file was uploaded
+    if (!req.file) {
+        console.log('Please provide an image');
+
+        // Get the notification
+        const getNotification = await adminFunctions.getNotification();
+
+        return res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting, alertTitle: 'Error: ', alertMessage: 'Please provide an image', alertColor: 'red'});
+    }
+    if (!req.file.mimetype.startsWith('image/')) {
+        console.log('Only image files are allowed!');
+
+        // Get the notification
+        const getNotification = await adminFunctions.getNotification();
+
+        // Get settings
+        const getSettings = await adminFunctions.getSettings();
+
+        const affiliateWithdrawalSetting = getSettings[0].active_status;
+        const nonAffiliateWithdrawalSetting = getSettings[1].active_status;
+        const gameWithdrawalSetting = getSettings[2].active_status;
+
+        return res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting, alertTitle: 'Error: ', alertMessage: 'Only image files are allowed', alertColor: 'red'});
+    }
+
+    console.log('File uploaded successfully: ', req.file);
+
+    // Update the database
+        connection.query('UPDATE pop_up_ad SET notification_image = ?, notification_title = ?, notification_link = ?, notification_details = ?, button_name = ?', [req.file.filename, title, link, details, button], async(err)=>{
+            if (err) {
+                console.log('Error Updating Ad!: ', err);
+
+                // Get the notification
+                const getNotification = await adminFunctions.getNotification();
+
+                return res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting, alertTitle: 'Error: ', alertMessage: 'Error updating Ad!', alertColor: 'red'});
+            } else {
+                // Get the notification
+                const getNotification = await adminFunctions.getNotification();
+
+                return res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting, alertTitle: 'Success', alertMessage: 'Ad updated successfully!', alertColor: 'green'});
+            }
+        });
+});
+// Route to turn on/off withdrawal (affiliate, non_affiliate, game)
 router.post('/update-withdrawal-status', verifyToken.verifyAdminToken, (req, res)=>{
     const {withdrawalType, status} = req.body;
     console.log(req.body);
     
     // Update the status of the withdrawal
-    connection.query('UPDATE settings SET active_status = ? WHERE setting = ?', [status, withdrawalType], (err)=>{
+    connection.query('UPDATE withdrawalsettings SET active_status = ? WHERE setting = ?', [status, withdrawalType], (err)=>{
         if (err) {
             console.log('Error updating the active_status of the withdrawal: ', err);
             return res.status(500).json({error: `Error updating the active_status of the withdrawal: ${err}`});
@@ -221,87 +359,91 @@ router.post('/update-withdrawal-status', verifyToken.verifyAdminToken, (req, res
 
 // Route to make user a vendor
 router.post('/make-vendor', verifyToken.verifyAdminToken, async(req, res)=>{
-    const {userId} = req.body;
+    const {userId, username} = req.body;
 
     connection.query('UPDATE users SET is_a_vendor = true WHERE user_id = ?', userId, (err, result)=>{
         if (err) {
             console.log('Error updating the vendor status of the user: ', err);
-            res.status(500).json({error: 'Internal server error : ', err});
+            res.redirect(`/user/${username}`);
         } else {
             console.log('Successfully updated the vendor status of the user: ', result);
-            res.status(200).json({success: 'Successfully updated the vendor status of the user : ', result});
+            res.redirect(`/user/${username}`);
         }
     });
 });
 
 // Route to remove user as a vendor
 router.post('/remove-vendor', verifyToken.verifyAdminToken, async(req, res)=>{
-    const {userId} = req.body;
+    const {userId, username} = req.body;
 
     connection.query('UPDATE users SET is_a_vendor = false WHERE user_id = ?', userId, (err, result)=>{
         if (err) {
             console.log('Error updating the vendor status of the user: ', err);
-            res.status(500).json({error: 'Internal server error : ', err});
+            res.redirect(`/user/${username}`);
         } else {
             console.log('Successfully updated the vendor status of the user: ', result);
-            res.status(200).json({success: 'Successfully updated the vendor status of the user : ', result});
+            res.redirect(`/user/${username}`);
         }
     });
 });
 
 // Route to ban user
 router.post('/ban-user', verifyToken.verifyAdminToken, async(req, res)=>{
-    const {userId} = req.body;
+    const {userId, username} = req.body;
 
     connection.query('UPDATE users SET is_banned = true WHERE user_id = ?', userId, (err, result)=>{
         if (err) {
             console.log('Error banning the user: ', err);
-            res.status(500).json({error: 'Internal server error : ', err});
+            res.redirect(`/user/${username}`);
         } else {
             console.log('Successfully banned the user: ', result);
-            res.status(200).json({success: 'Successfully banned the user : ', result});
+            res.redirect(`/user/${username}`);
         }
     });
 });
 
 // Route to unban user
 router.post('/unban-user', verifyToken.verifyAdminToken, async(req, res)=>{
-    const {userId} = req.body;
+    const {userId, username} = req.body;
 
     connection.query('UPDATE users SET is_banned = false WHERE user_id = ?', userId, (err, result)=>{
         if (err) {
             console.log('Error unbanning the user: ', err);
-            res.status(500).json({error: 'Internal server error : ', err});
+            res.redirect(`/user/${username}`);
         } else {
             console.log('Successfully unbanned the user: ', result);
-            res.status(200).json({success: 'Successfully unbanned the user : ', result});
+            res.redirect(`/user/${username}`);
         }
     });
 });
 
 // Route to update user's details
 router.post('/update-user-details', verifyToken.verifyAdminToken, (req, res)=>{
-    const {userId, firstName, lastName, email, mobileNumber, newPassword} = req.body;
+    const {userId, firstName, lastName, email, mobileNumber, newPassword, username} = req.body;
     console.log(req.body);
     
     if (!newPassword) {
-        connection.query('UPDATE users SET first_name = ?, last_name = ?, email = ?, phone_number = ? WHERE user_id = ?', [firstName, lastName, email, mobileNumber, userId], (err, result)=>{
+        connection.query('UPDATE users SET first_name = ?, last_name = ?, email = ?, phone_number = ? WHERE user_id = ?', [firstName, lastName, email, mobileNumber, userId], async (err, result)=>{
             if (err) {
                 console.log(err);
-                res.status(500).json({error: 'Internal server error : ', err});
+
+                res.redirect(`/user/${username}`);
             } else {
                 console.log('Successfully updated the user details');
-                res.status(200).json({success: 'Successfully updated the user details: ', result});
+                
+                res.redirect(`/user/${username}`);
             }
         });
     } else {
-        connection.query('UPDATE users SET first_name = ?, last_name = ?, email = ?, phone_number = ?, password = ? WHERE user_id = ?', [firstName, lastName, email, mobileNumber, newPassword, userId], (err, result)=>{
+        connection.query('UPDATE users SET first_name = ?, last_name = ?, email = ?, phone_number = ?, password = ? WHERE user_id = ?', [firstName, lastName, email, mobileNumber, md5(newPassword), userId], async (err, result)=>{
             if (err) {
                 console.log(err);
-                res.status(500).json({error: 'Internal server error : ', err});
+                
+                res.redirect(`/user/${username}`);
             } else {
                 console.log('Successfully updated the user details');
-                res.status(200).json({success: 'Successfully updated the user details: ', result});
+                
+                res.redirect(`/user/${username}`);
             }
         });
     }
@@ -319,14 +461,14 @@ router.post('/generate-coupon-code', verifyToken.verifyAdminToken, async(req, re
     if (!vendor) {
         console.log('Please select a valid vendor');
 
-        return res.render('Generate Coupons', {vendors, alertTitle: 'Error', alertMessage: 'Please select a vendor', alertColor: 'red'});
+        return res.render(path.join(__dirname , '../views/Admin Pages/Generate Coupons'), {vendors, alertTitle: 'Error', alertMessage: 'Please select a vendor', alertColor: 'red'});
     }
     
     // Check if valid country was selected
     if (!country) {
         console.log('Please select a valid country');
 
-        return res.render('Generate Coupons', {vendors, alertTitle: 'Error', alertMessage: 'Please select a country', alertColor: 'red'});
+        return res.render(path.join(__dirname , '../views/Admin Pages/Generate Coupons'), {vendors, alertTitle: 'Error', alertMessage: 'Please select a country', alertColor: 'red'});
     }
     
     let split = vendor.split('*');
@@ -383,7 +525,7 @@ router.post('/generate-coupon-code', verifyToken.verifyAdminToken, async(req, re
             if (err) {
                 console.log('Error starting transaction: ' , err);
                 
-                return res.render('Generate Coupons', {vendors, alertTitle: 'Error', alertMessage: 'An error ocurred', alertColor: 'red'});
+                return res.render(path.join(__dirname , '../views/Admin Pages/Generate Coupons'), {vendors, alertTitle: 'Error', alertMessage: 'An error ocurred', alertColor: 'red'});
             }
         
             connection.query('INSERT INTO registeration_tokens (vendor_id, token) VALUES ?', [insertData], (err, result)=>{
@@ -391,7 +533,7 @@ router.post('/generate-coupon-code', verifyToken.verifyAdminToken, async(req, re
                     return connection.rollback(() => {
                         console.log('Error creating coupon code(Transaction rolled back): ' , err);
 
-                        return res.render('Generate Coupons', {vendors, alertTitle: 'Error', alertMessage: 'Operation failed', alertColor: 'red'});
+                        return res.render(path.join(__dirname , '../views/Admin Pages/Generate Coupons'), {vendors, alertTitle: 'Error', alertMessage: 'Operation failed', alertColor: 'red'});
                     });
                 }
         
@@ -400,13 +542,13 @@ router.post('/generate-coupon-code', verifyToken.verifyAdminToken, async(req, re
                         return connection.rollback(() => {
                             console.log('Error committing transaction: ' , err);
                             
-                            return res.render('Generate Coupons', {vendors, alertTitle: 'Error', alertMessage: 'An error ocurred', alertColor: 'red'});
+                            return res.render(path.join(__dirname , '../views/Admin Pages/Generate Coupons'), {vendors, alertTitle: 'Error', alertMessage: 'An error ocurred', alertColor: 'red'});
                         });
                     }
         
                     console.log('Successfully created coupon code: ' + result);
 
-                    return res.render('Generate Coupons', {vendors, alertTitle: 'Success', alertMessage: 'Operation successful', alertColor: 'green'});
+                    return res.render(path.join(__dirname , '../views/Admin Pages/Generate Coupons'), {vendors, alertTitle: 'Success', alertMessage: `Successfully generated ${noOfCoupons} codes`, alertColor: 'green'});
                 });
             });
         });
@@ -441,5 +583,92 @@ router.post('/add-youtube-video', verifyToken.verifyAdminToken, (req, res)=>{
 
 });
 
+// Route to add advert post
+router.post('/add-advert-post', upload.single('image'), verifyToken.verifyAdminToken, (req, res)=>{
+    const {postTitle, description} = req.body;
+    console.log(req.body);
+
+    // Check if all details were provded
+    if (!postTitle || !description) {
+        console.log('Please provide all details');
+        
+        return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Error:', alertMessage: 'Please provide all details', alertColor: 'red'});
+    }
+
+    // Check if file was uploaded
+    if (!req.file) {
+        console.log('Please provide an image');
+
+        return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Error:', alertMessage: 'Please provide an image', alertColor: 'red'});
+    }
+    if (!req.file.mimetype.startsWith('image/')) {
+        console.log('Only image files are allowed!');
+
+        return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Error:', alertMessage: 'Only image files are allowed!', alertColor: 'red'});
+    }
+
+    // Insert into the database
+    connection.query('UPDATE zenwealth_posts SET post_title = ?, post_description = ?, post_image = ?, post_type = ? WHERE post_id = ?', [postTitle, description, req.file.filename, 'advert', 1], async (err)=>{
+        if (err) {
+            console.log('Error adding advert post: ', err);
+            return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Error: ', alertMessage: 'Error adding advert post', alertColor: 'red'});
+        } else{
+            console.log('Successfully added advert post 1');
+
+            // Update the has_shared_post column of the user
+            try {
+                const updateHasSharedPostColumn = await adminFunctions.updateHasSharedPostColumn();
+            } catch (error) {
+                return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Error: ', alertMessage: 'An error ocurred', alertColor: 'red'});
+            }
+
+            return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Success: ', alertMessage: 'Successfully added advert post', alertColor: 'green'});
+        }
+    });
+});
+
+// Route to add sponsored post
+router.post('/add-sponsored-post', upload.single('image'), verifyToken.verifyAdminToken, (req, res)=>{
+    const {postTitle, description, contactLink} = req.body;
+    console.log(req.body);
+
+    // Check if all details were provded
+    if (!postTitle || !description) {
+        console.log('Please provide all details');
+        
+        return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Error:', alertMessage: 'Please provide all details', alertColor: 'red'});
+    }
+
+    // Check if file was uploaded
+    if (!req.file) {
+        console.log('Please provide an image');
+
+        return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Error:', alertMessage: 'Please provide an image', alertColor: 'red'});
+    }
+    if (!req.file.mimetype.startsWith('image/')) {
+        console.log('Only image files are allowed!');
+
+        return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Error:', alertMessage: 'Only image files are allowed!', alertColor: 'red'});
+    }
+
+    // Insert into the database
+    connection.query('UPDATE zenwealth_posts SET post_title = ?, contact_link = ?, post_description = ?, post_image = ?, post_type = ? WHERE post_id = ?', [postTitle, contactLink, description, req.file.filename, 'sponsored', 2], async (err)=>{
+        if (err) {
+            console.log('Error adding sponsored post: ', err);
+            return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Error: ', alertMessage: 'Error adding sponsored post', alertColor: 'red'});
+        } else{
+            console.log('Successfully added sponsored post');
+
+            // Update the has_shared_post column of the user
+            try {
+                const updateHasJoinedPlatformColumn = await adminFunctions.updateHasJoinedPlatformColumn();
+            } catch (error) {
+                return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Error: ', alertMessage: 'An error ocurred', alertColor: 'red'});
+            }
+
+            return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Success: ', alertMessage: 'Successfully added sponsored post', alertColor: 'green'});
+        }
+    });
+});
 
 module.exports = router;

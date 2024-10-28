@@ -3,16 +3,16 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zenwealth - Admin Coupons</title>
+    <title>Zenwealth - Pending Earnings Withdrawals</title>
 
-    <link rel="shortcut icon" type="image/png" href="/img/logo (3).png">
+    <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02.png">
     <link rel="stylesheet" href="css/app.css">
     <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
 
     <style>
         .bg-one {
-            background-color: #082104;
+            background-color: #09063b;
         }
     </style>
 
@@ -24,7 +24,7 @@
             <button class="res-sidebar-close-btn"><i class="fa-solid fa-xmark"></i></button>
             <div class="sidebar__inner">
                 <div class="sidebar__logo">
-                    <a href="/admin/dashboard" class="sidebar__main-logo"><img src="/img/logo (3).png" alt="image"></a>
+                    <a href="/admin/dashboard" class="sidebar__main-logo"><img src="/img/Zenwealth Logo Alone-02.png" alt="image"></a>
                 </div>
         
                 <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: calc(100vh - 86.75px);">
@@ -51,7 +51,7 @@
                             </a>
                         </li>
                         
-                        <li class="sidebar-menu-item active">
+                        <li class="sidebar-menu-item ">
                             <a href="/coupon-codes" class="nav-link text-white ">
                                 <i class="menu-icon fa-solid fa-gift"></i>
                                 <span class="menu-title text-white">Admin Codes</span>
@@ -133,7 +133,7 @@
                         <!--    </div>-->
                         <!--</li>-->
         
-                        <li class="sidebar-menu-item sidebar-dropdown">
+                        <li class="sidebar-menu-item sidebar-dropdown active">
                             <a href="javascript:void(0)" class="">
                                 <i class="menu-icon fa-solid fa-money-bill-transfer"></i>
                                 <span class="menu-title text-white">Withdrawals </span>
@@ -181,9 +181,9 @@
                        
         
         
-<!--                         
+                        
         
-                        <li class="sidebar__menu-header">Settings</li>
+                        <!-- <li class="sidebar__menu-header">Settings</li>
         
                         <li class="sidebar-menu-item ">
                             <a href="#" class="nav-link text-white">
@@ -204,7 +204,7 @@
         
         
                         <li class="sidebar-menu-item ">
-                            <a href="/admin/add-sponsored-post" class="nav-link text-white">
+                            <a href="/add-post" class="nav-link text-white">
                                 <i class="menu-icon fa-regular fa-circle-dot"></i>
                                 <span class="menu-title text-white">Add Post</span>
                             </a>
@@ -216,7 +216,7 @@
                                 <span class="menu-title text-white">All Posts</span>
                             </a>
                         </li>
-                       
+                        
                         <li class="sidebar__menu-header">Tiktok</li>
         
         
@@ -419,12 +419,12 @@
             <div class="bodywrapper__inner">
 
                 <div class="d-flex mb-30 flex-wrap gap-3 justify-content-between align-items-center">
-    <h6 class="page-title">Admin Coupons</h6>
+    <h6 class="page-title">Pending Non Affiliate Withdrawals</h6>
     <div class="d-flex flex-wrap justify-content-end gap-2 align-items-center breadcrumb-plugins">
             <form action="#" method="GET" class="d-flex flex-wrap gap-2">
             <div class="input-group w-auto flex-fill">
     <input type="search" name="search" class="form-control bg--white" placeholder="Username / Email" value="" id="search">
-    <button class="btn btn--primary" type="submit"><i class="la la-search"></i></button>
+    <button class="btn search" type="submit"><i class="la la-search"></i></button>
 </div>
         
 </form>
@@ -439,52 +439,54 @@
                         <table class="table table--light style--two">
                             <thead>
                             <tr>
-                                <th>Code</th>
-                                <th>Status</th>
+                                <th>Payment Proof</th>
+                                <th>Date Initiated</th>
+                                <th>User</th>
+                                <th>Amount</th>
+                                
                                 <th>Action</th>
-                                <th>Created</th>
                             </tr>
                             </thead>
                             <tbody>
-                                <% for( let i = 0; i < allCouponCodes.length; i++ ) { %>
+
+                                <% for( let i = 0; i < pendingWithdrawals.length; i++ ) { %>
                                     <tr>
-                                        <td data-label="Code">
-                                            <%= allCouponCodes[i].token %>
+                                        <td data-label="Payment Proof">
+                                            <a class="fw-bold"><%= pendingWithdrawals[i].account_number %></a>
+                                            <br>
+                                            <span class="fw-bold"><%= pendingWithdrawals[i].account_name %></span>
+                                            <br>
+                                            <span class="fw-bold"><%= pendingWithdrawals[i].bank %></span>
+                                            <br>
                                         </td>
-                                
-                                                       
-                                
-                               
-                                <td data-label="Status">
-                                           <% if (allCouponCodes[i].is_used == 0) { %>
-                                            <a href="#" class="btn btn-sm btn-outline-success">
-                                                <i class="las la-desktop text--shadow"></i>
-                                           ACTIVE            </a>
-                                           <% } else{%>
-                                            <a href="#" class="btn btn-sm btn-outline-danger">
-                                                <i class="las la-desktop text--shadow"></i>
-                                            USED            </a>
-                                        <% } %>
-                           
-                                   
-                                
-                                
-                                                                
-                        </td>
-
-                                <td data-label="Action">
-                                    <a href="" class="btn btn-sm btn-outline--danger">
-                                        <i class="las la-bin text--shadow"></i> Delete                                    </a>
-                                </td>
-
-                                <td data-label="Created">
-                                    <%= allCouponCodes[i].date_created %> <br>
-                                </td>
-                               
-
-                            </tr>
-                            <% } %>
-                                                       
+        
+        
+                                        <td data-label="Date Initiated">
+                                            <%= pendingWithdrawals[i].withdrawal_date %>
+                                        </td>
+                                        
+        
+                                        <td data-label="User">
+                                            <%= pendingWithdrawals[i].user %>
+                                        </td>
+        
+        
+                                        <td data-label="Amount">
+                                            <span class="fw-bold">
+                                                ₦<%= pendingWithdrawals[i].amount %>
+                                            </span>
+                                        </td>
+                                       <td data-label="Action">
+                                        <a href="#" class="btn btn-sm btn--success ms-1 text-white">
+                                            APPROVE
+                                        </a>
+                                        </td>
+        
+                                    </tr>
+                                <% } %>
+                                                        
+                                                 
+                            
                             </tbody>
                         </table><!-- table end -->
                     </div>
@@ -508,6 +510,18 @@
                                                                                                 <li class="page-item"><a class="page-link" href="#">5</a></li>
                                                                                                 <li class="page-item"><a class="page-link" href="#">6</a></li>
                                                                                                 <li class="page-item"><a class="page-link" href="#">7</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="#">8</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="#">9</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="#">10</a></li>
+                                                                                        
+                                    <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
+                
+                
+                                            
+                
+                
+                                                                                        <li class="page-item"><a class="page-link" href="#">1632</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="#">1633</a></li>
                                                                         
             
                             <li class="page-item">
@@ -525,7 +539,8 @@
 
 
             </div><!-- bodywrapper__inner end -->
-        </div><!-- body-wrapper end -->
+        </div>
+        <!-- body-wrapper end -->
     </div>
 
 
@@ -560,4 +575,5 @@
 
 
 
-</body></html>
+</body>
+</html>

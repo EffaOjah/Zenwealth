@@ -1,0 +1,39 @@
+* Patient registration
+* Bed management {
+	bed_id,
+	ward,
+	is_available,
+	patient_id,
+	availability_date
+}
+
+
+var num = "5" * 1;
+
+
+const mysql = require('mysql');
+
+// Setup MySQL connection
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'isonyefo_primetech-user',
+    password: 'admin@primetech.com',
+    database: 'isonyefo_primetechdb',
+  });
+
+module.exports = connection;
+
+<li class="active-item mb-3">
+              <a href="/game"><ion-icon name="game-outline"></ion-icon><span>Game</span></a>
+            </li>
+
+const mysql = require('mysql');
+
+const connection = mysql.createConnection({
+    user: 'isonyefo_admin',
+    host: 'localhost',
+    password: 'admin@royalvet.com',
+    database: 'isonyefo_royalvetadmindb'
+});
+
+module.exports = connection;
