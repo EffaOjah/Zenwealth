@@ -671,4 +671,103 @@ router.post('/add-sponsored-post', upload.single('image'), verifyToken.verifyAdm
     });
 });
 
+// Route to turn on mystery_box
+router.post('/toggle-on-mystery-box', verifyToken.verifyAdminToken, async (req, res) => {
+    const status = req.body.status;
+
+    // Promisify connection.query for easier async handling
+    const queryAsync = (query, params) => new Promise((resolve, reject) => {
+        connection.query(query, params, (err, result) => {
+            if (err) reject(err);
+            else resolve(result);
+        });
+    });
+
+    // Begin the transaction
+    connection.beginTransaction(async (err) => {
+        if (err) {
+            console.error('Error starting transaction:', err);
+            return res.status(500).json({ err: 'An error occurred' });
+        }
+
+        try {
+            // Update the settings table to toggle the mystery box
+            await queryAsync('UPDATE settings SET active_status = ? WHERE setting = ?', [status, 'mystery_box']);
+            console.log(`Successfully turned ${status} mystery_box`);
+
+            // Update the users table, resetting has_claimed and assigning random mystery_value
+            await queryAsync('UPDATE users SET has_claimed_gift = FALSE, mystery_value = FLOOR(1 + RAND() * 100)');
+            console.log('Successfully assigned random numbers to users');
+
+            // Commit the changes if both queries succeed
+            connection.commit((commitErr) => {
+                if (commitErr) {
+                    console.error('Error committing transaction:', commitErr);
+                    return connection.rollback(() => {
+                        res.status(500).json({ err: 'An error occurred while committing' });
+                    });
+                }
+                console.log('Successfully committed transaction');
+                res.status(200).json({ success: `Successfully turned ${status} mystery_box` });
+            });
+
+        } catch (queryErr) {
+            console.error('Error in transaction, rolling back:', queryErr);
+            connection.rollback(() => {
+                res.status(500).json({ err: 'An error occurred during the transaction' });
+            });
+        }
+    });
+});
+
+// Route to turn off mystery_box
+router.post('/toggle-off-mystery-box', verifyToken.verifyAdminToken, async (req, res) => {
+    const status = req.body.status;
+
+    // Promisify connection.query for easier async handling
+    const queryAsync = (query, params) => new Promise((resolve, reject) => {
+        connection.query(query, params, (err, result) => {
+            if (err) reject(err);
+            else resolve(result);
+        });
+    });
+
+    // Begin the transaction
+    connection.beginTransaction(async (err) => {
+        if (err) {
+            console.error('Error starting transaction:', err);
+            return res.status(500).json({ err: 'An error occurred' });
+        }
+
+        try {
+            // Update the settings table to toggle the mystery box
+            await queryAsync('UPDATE settings SET active_status = ? WHERE setting = ?', [status, 'mystery_box']);
+            console.log(`Successfully turned ${status} mystery_box`);
+
+            // Update the users table, resetting has_claimed and assigning random mystery_value
+            await queryAsync('UPDATE users SET has_claimed_gift = TRUE, mystery_value = NULL');
+            console.log('Successfully set has_claimed_gift to TRUE and set mystery_value to NULL');
+
+            // Commit the changes if both queries succeed
+            connection.commit((commitErr) => {
+                if (commitErr) {
+                    console.error('Error committing transaction:', commitErr);
+                    return connection.rollback(() => {
+                        res.status(500).json({ err: 'An error occurred while committing' });
+                    });
+                }
+                console.log('Successfully committed transaction');
+                res.status(200).json({ success: `Successfully turned ${status} mystery_box` });
+            });
+
+        } catch (queryErr) {
+            console.error('Error in transaction, rolling back:', queryErr);
+            connection.rollback(() => {
+                res.status(500).json({ err: 'An error occurred during the transaction' });
+            });
+        }
+    });
+});
+
+
 module.exports = router;

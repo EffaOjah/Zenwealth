@@ -245,5 +245,19 @@ async function updateHasJoinedPlatformColumn() {
     });
 }
 
+// Function to toggle setting (ON/OFF)
+async function toggleSetting(setting, status) {
+    return new Promise((resolve, reject)=>{
+        connection.query('UPDATE settings SET active_status = ? WHERE setting = ?', [status, setting], (err, result)=>{
+            if (err) {
+                console.log('Error toggling setting: ', err);
+                reject(err);
+            } else{
+                console.log(`Successfully turned ${status} ${setting}`);
+                resolve(result);
+            }
+        });
+    });
+}
 
-module.exports = {numberOfUsers, couponCodes, sumOfWithdrawals, allVendors, allCouponCodes, allUsers, withdrawals, sponsoredPosts, allProducts, allCourses, toggleVendorVerification, getNotification, getSettings, approvedWithdrawals, updateHasSharedPostColumn, updateHasJoinedPlatformColumn};
+module.exports = {numberOfUsers, couponCodes, sumOfWithdrawals, allVendors, allCouponCodes, allUsers, withdrawals, sponsoredPosts, allProducts, allCourses, toggleVendorVerification, getNotification, getSettings, approvedWithdrawals, updateHasSharedPostColumn, updateHasJoinedPlatformColumn, toggleSetting};

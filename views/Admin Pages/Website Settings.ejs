@@ -436,6 +436,16 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="form-group col-xl-3 col-md- col-12">
+                            <label for="mystery">Mystery Box</label>
+                            <div class="container mystery">
+                                <div class="active-div mystery-active-div">Active</div>
+                                <div class="off-div mystery-off-div">Off</div>
+                            </div> 
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="form-group col-xl-3 col-md- col-12">
                             <label for="earnings">Affiliate Withdrawal </label>
                             <div class="container affiliate">
                                 <div class="active-div affiliate-active-div">Active</div>
@@ -459,7 +469,6 @@
                             </div> 
                         </div>
                         
-                        
                         <!-- <div class="form-group col-xl-3 col-md- col-12">
                             <label for="earnings">Activate Affiliate Contest </label>
                             <div class="container">
@@ -481,9 +490,11 @@
         </div><!-- body-wrapper end -->
     </div>
 
-    <p id="affiliateStatus"><%= affiliateWithdrawalSetting %></p>
-    <p id="nonAffiliateStatus"><%= nonAffiliateWithdrawalSetting %></p>    
-    <p id="gamesStatus"><%= gameWithdrawalSetting %></p>    
+    <p class="d-none" id="affiliateStatus"><%= affiliateWithdrawalSetting %></p>
+    <p class="d-none" id="nonAffiliateStatus"><%= nonAffiliateWithdrawalSetting %></p>    
+    <p class="d-none" id="gamesStatus"><%= gameWithdrawalSetting %></p> 
+
+    <p class="d-none" id="mysteryBoxStatus"><%= gameWithdrawalSetting %></p>    
     
     
 
@@ -534,6 +545,7 @@
                     offDiv.classList.add('active');
                     offDiv.style.transform = "translateX(0%)"; // Slide in from left
                     activeDiv.style.transform = "translateX(100%)"; // Slide in from left
+
                     if (container.classList.contains('earnings')) {
                         console.log('Zen Point Withdrawal turned off');
 
@@ -570,6 +582,19 @@
                             method: "POST", 
                             body: JSON.stringify({
                                 withdrawalType: 'zencoin_withdrawal',
+                                status: "OFF" 
+                            }), 
+                            headers: { 
+                                "Content-type": "application/json; charset=UTF-8"
+                            } 
+                        });  
+                    } else if (container.classList.contains('mystery')) {
+                        console.log('Mystery Box turned off');
+
+                        //Send a request to turn off the affiliate withdrawal
+                        fetch("/toggle-off-mystery-box", { 
+                            method: "POST", 
+                            body: JSON.stringify({
                                 status: "OFF" 
                             }), 
                             headers: { 
@@ -615,6 +640,18 @@
                             method: "POST", 
                             body: JSON.stringify({
                                 withdrawalType: 'zencoin_withdrawal',
+                                status: "ON" 
+                            }), 
+                            headers: { 
+                                "Content-type": "application/json; charset=UTF-8"
+                            } 
+                        });  
+                    } else if (container.classList.contains('mystery')) {
+                        console.log('Mystery Box turned on');
+                        //Send a request to turn on mystery box
+                        fetch("/toggle-on-mystery-box", { 
+                            method: "POST", 
+                            body: JSON.stringify({
                                 status: "ON" 
                             }), 
                             headers: { 

@@ -302,10 +302,16 @@ router.post('/admin-login', (req, res)=>{
 });
 
 
-
-router.get('/logout', (req, res)=>{
+// User logout
+router.get('/user/logout', (req, res)=>{
     res.cookie('jwt', '', {maxAge: 1});
     res.redirect('/');
+});
+
+// User logout
+router.get('/admin/logout', (req, res)=>{
+    res.cookie('adminJwt', '', {maxAge: 1});
+    res.redirect('/zenwealth-admin/login');
 });
 
 module.exports = router;

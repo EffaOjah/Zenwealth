@@ -333,6 +333,7 @@ async function creditLoginBonus(userId) {
                 console.log(err2);
                 reject(err2);
             } else{
+                console.log('Successfully credited the user for login');
                 console.log('Successfully inserted into the transactions table');
 
                 // Insert into the earning_history table
