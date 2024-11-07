@@ -5,6 +5,8 @@ const router = express.Router();
 // Middleware to verify JWT token
 const verifyToken = require('../Functions/verifyToken');
 
+const connection = require('../db/db');
+
 // Middleware to restrict users from accesing the site before launch
 // router.use(verifyToken.verifyToken);
 
@@ -25,7 +27,15 @@ router.get('/coupon-code/verify', (req, res)=>{
 
 // Route for top earners
 router.get('/top-earners', (req, res)=>{
-    res.render('top-earners');
+    // Get the top earners
+    connection.query(`SELECT u.username, u.display_image, SUM(t.amount) AS total_amount FROM affiliate_transactions t JOIN users u ON t.user_id = u.user_id WHERE t.type = 'CREDIT' GROUP BY u.username, u.user_id ORDER BY	total_amount DESC LIMIT 15`, (err, result)=>{
+        if (err) {
+            console.log(err);
+        } else{
+            console.log('Result: ', result);
+            res.render('top-earners', {earners: result});
+        }
+    });
 });
 
 // Route for about page

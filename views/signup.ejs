@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zenwealth - Signup</title>
+    <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02.png">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/iziToast-master/dist/css/iziToast.min.css">
@@ -71,7 +72,7 @@
 
                       <div class="input-group flex-nowrap">
                         <span class="input-group-text px-3"><ion-icon name="person"></ion-icon></span>
-                        <input type="text" class="form-control py-3" placeholder="Referral code" name="referrer" readonly autocomplete="off">
+                        <input type="text" id="referralcode" class="form-control py-3" placeholder="Referral code" name="referrer" readonly autocomplete="off">
                       </div>
 
                       <div class="input-group flex-nowrap">
@@ -113,6 +114,26 @@
     <span class="d-none" id="alertMessage"><%= locals.alertMessage %></span>
     <span class="d-none" id="alertColor"><%= locals.alertColor %></span>
 
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Get the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Check if the 'reference' parameter exists in the URL
+        if(urlParams.has('reference')) {
+            // Get the value of the 'reference' parameter
+            const referenceValue = urlParams.get('reference');
+    
+            // Display the reference value in the HTML element
+            document.getElementById('referralcode').value = referenceValue;
+        } else {
+            // If 'reference' parameter is not found, display a message
+            console.log("Reference parameter not found");;
+        }
+    });
+    
+    </script>
 
     <script>
       var alertTitle = document.getElementById("alertTitle");

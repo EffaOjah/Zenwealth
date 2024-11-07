@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', async ()=>{
        ZenCoinsSpan[0].classList.remove('spinner-border');
        ZenCoinsSpan[1].classList.remove('spinner-border');
 
-       ZenPointsSpan[0].innerHTML = !data.getTotalZenPointsView[0].ZenPoints ? `0ZP` : `${data.getTotalZenPointsView[0].ZenPoints}ZP`;
-       ZenPointsSpan[1].innerHTML = !data.getTotalZenPointsView[0].ZenPoints ? `0ZP` : `${data.getTotalZenPointsView[0].ZenPoints}ZP`;
+       ZenPointsSpan[0].innerHTML = !data.getTotalZenPointsView[0].ZenPoints ? `$0` : `$${Math.floor((data.getTotalZenPointsView[0].ZenPoints / 1500) * 100) / 100}`;
+       ZenPointsSpan[1].innerHTML = !data.getTotalZenPointsView[0].ZenPoints ? `$0` : `$${Math.floor((data.getTotalZenPointsView[0].ZenPoints / 1500) * 100) / 100}`;
 
        ZenPointsSpan[0].classList.remove('spinner-border');
        ZenPointsSpan[1].classList.remove('spinner-border');

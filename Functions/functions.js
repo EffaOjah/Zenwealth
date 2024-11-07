@@ -86,6 +86,20 @@ async function checkCoupon(coupon) {
     })
 }
 
+// Function to check free coupon code
+// Function to check if coupon code is valid
+async function checkFreeCoupon(coupon) {
+    return new Promise((resolve, reject)=>{
+        connection.query('SELECT * FROM free_coupons WHERE token = ? AND is_used = FALSE', coupon, (err, result)=>{
+            if (err){
+                reject(err);
+            } else{
+                resolve(result);
+            }
+        });
+    });
+}
+
 
 // Function to insert into the user's table for unreferred user
 async function createUnreferredUser(res, firstName, lastName, email, username, phone, password, referralCode, coupon){
@@ -105,6 +119,40 @@ async function createUnreferredUser(res, firstName, lastName, email, username, p
 
                     // Set the usage date of the registeration_token
                     const setUsageDate = await registrationprocesses.setUsageDate(res, coupon);
+
+                    // Credit the newly created user with the welcome bonus
+                    // const creditNewUser = await registrationprocesses.creditNewUser(res, result.insertId);
+
+                    resolve(result);
+                    console.log(result);
+                } catch (error) {
+                    console.log('registrationprocesses error: ', error);
+                    return res.render('signup', {message: 'Internal server error', messageStyle: 'show', messageColor: 'danger'});
+                }
+
+            }
+        })
+    })
+}
+
+// Function to insert into the user's table for unreferred user
+async function createUnreferredUser2(res, firstName, lastName, email, username, phone, password, referralCode, coupon){
+    return new Promise((resolve, reject)=>{
+        connection.query('INSERT INTO users (first_name, last_name, email, username, phone_number, password, referral_code, registeration_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [firstName, lastName, email, username, phone, md5(password), referralCode, coupon], async (err, result)=>{
+            if (err) {
+                reject(err);
+            } else{
+                console.log('Successfully created user');
+
+                try {
+                    // Update the is_used column of the free_coupons to TRUE
+                    const updateIsUsedColumn = await registrationprocesses.updateIsUsedColumn2(res, coupon);
+
+                    // Set the used_id of the free_coupons
+                    const setUserId = await registrationprocesses.setUserId2(res, coupon, result.insertId);
+
+                    // Set the usage date of the free_coupons
+                    const setUsageDate = await registrationprocesses.setUsageDate2(res, coupon);
 
                     // Credit the newly created user with the welcome bonus
                     // const creditNewUser = await registrationprocesses.creditNewUser(res, result.insertId);
@@ -415,5 +463,28 @@ async function creditNewUser(userId){
     })
   }
 
+// Function to generate coupon code
+async function generatedFreeCouponCode() {
+    // Define the length of the random part
+    const randomPartLength = 10;
+      
+    // Generate a random string of specified length
+    let randomString = Math.random().toString(36).substr(2, randomPartLength);
 
-module.exports = {current_timestamp, validateEmail, generateReferralCode, separateId, checkEmail, checkUsername, checkCoupon, createUnreferredUser, createReferredUser, creditDirectReferral, creditFirstIndirectReferral, creditSecondIndirectReferral, checkDate, updateLastLoginDate, creditLoginBonus, createUserp2P, debitUser, creditNewUser};
+    //  Pad the random string with additional characters if its length is less than 16
+    while (randomString.length < randomPartLength) {
+        randomString += Math.random().toString(36).substr(2);
+    }
+
+    // Take the first 16 characters to ensure length is exactly 16
+    randomString = (randomString.substr(0, randomPartLength)).toUpperCase();
+
+    // Concatenate the username and random string
+    const couponCode = randomString;
+
+    console.log(couponCode);
+    
+    return couponCode;
+}
+
+module.exports = {current_timestamp, validateEmail, generateReferralCode, separateId, checkEmail, checkUsername, checkCoupon, checkFreeCoupon, createUnreferredUser, createUnreferredUser2, createReferredUser, creditDirectReferral, creditFirstIndirectReferral, creditSecondIndirectReferral, checkDate, updateLastLoginDate, creditLoginBonus, createUserp2P, debitUser, creditNewUser, generatedFreeCouponCode};

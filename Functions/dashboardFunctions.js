@@ -259,4 +259,139 @@ async function updateYtStatus(status, userId) {
     });
 }
 
-module.exports = {fetchUserByUsername, getReferrals, getTotalWithdrawal, createAffiliateBalanceView, getTotalAffiliateBalanceView, getTotalReferralBalanceView, createZenpointsView, getTotalZenPointsView, createZenCoinsView, getTotalZenCoinsView, insertIntoAffiliateTransactions, insertIntoNonAffiliateTransactions, insertIntoActivityTransactions, insertIntoWithdrawals, getCoupons, getYoutubeVideoCode, updateYtStatus};
+// Function to get all posts from the database
+async function getPosts() {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM zenwealth_posts', (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log('All posts: ', result);
+                resolve(result);
+            }
+        });
+    });
+} 
+
+// Function to get single post with the post_id
+async function getSinglePost(postId) {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM zenwealth_posts WHERE post_id = ?', postId, (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log('Post: ', result);
+                resolve(result);
+            }
+        });
+    })
+}
+
+// Function to update the has_shared_post colum
+async function updateHasSharedPostColumn(status, userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET has_shared_post = ? WHERE user_id = ?', [status, userId], (err, result)=>{
+            if (err) {
+                console.log('Error updating the column: ', err);
+                reject(err);
+            } else{
+                console.log('Successfully updated the has_shared_post column');
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Function to update the has_joined_platform colum
+async function updateHasJoinedPlatform(status, userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET has_joined_platform = ? WHERE user_id = ?', [status, userId], (err, result)=>{
+            if (err) {
+                console.log('Error updating the column: ', err);
+                reject(err);
+            } else{
+                console.log('Successfully updated the has_joined_platform column');
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Function to update the credited_task1 colum
+async function creditedTask1Column(status, userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET credited_task1 = ? WHERE user_id = ?', [status, userId], (err, result)=>{
+            if (err) {
+                console.log('Error updating the column: ', err);
+                reject(err);
+            } else{
+                console.log('Successfully updated the credited_task2 column');
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Function to update the credited_task2 colum
+async function creditedTask2Column(status, userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET credited_task2 = ? WHERE user_id = ?', [status, userId], (err, result)=>{
+            if (err) {
+                console.log('Error updating the column: ', err);
+                reject(err);
+            } else{
+                console.log('Successfully updated the credited_task2 column');
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Function to get the mystery_box setting
+async function getMysteryBoxSetting() {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT active_status FROM settings WHERE setting = ?', 'mystery_box', (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                console.log('Mystery Box setting: ', result);
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Function to update the has_claimed_gift column of the user
+async function updateHasClaimedColumn(status, userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET has_claimed_gift = ? WHERE user_id = ?', [status, userId], (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log(`Successfully updated the has_claimed_gift column to ${status}`);
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Function to generate free coupon for the user
+async function assignFreeCoupon(userId, coupon) {
+    return new Promise((resolve, reject) => {
+        connection.query('INSERT INTO free_coupons (created_for, token) VALUES (?, ?)', [userId, coupon], (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log('Successfully assigned coupon code to the user: ', coupon);
+                resolve(result);
+            }
+        });
+    });
+}
+
+module.exports = {fetchUserByUsername, getReferrals, getTotalWithdrawal, createAffiliateBalanceView, getTotalAffiliateBalanceView, getTotalReferralBalanceView, createZenpointsView, getTotalZenPointsView, createZenCoinsView, getTotalZenCoinsView, insertIntoAffiliateTransactions, insertIntoNonAffiliateTransactions, insertIntoActivityTransactions, insertIntoWithdrawals, getCoupons, getYoutubeVideoCode, updateYtStatus, getPosts, getSinglePost, updateHasSharedPostColumn, updateHasJoinedPlatform, creditedTask1Column, creditedTask2Column, getMysteryBoxSetting, updateHasClaimedColumn, assignFreeCoupon};

@@ -102,11 +102,16 @@ router.get('/website-settings', verifyToken.verifyAdminToken, async(req, res)=>{
     // Get settings
     const getSettings = await adminFunctions.getSettings();
 
-    const affiliateWithdrawalSetting = getSettings[0].active_status;
-    const nonAffiliateWithdrawalSetting = getSettings[1].active_status;
-    const gameWithdrawalSetting = getSettings[2].active_status;
+    // Get withdrawal settings
+    const getWithdrawalSettings = await adminFunctions.getWithdrawalSettings();
 
-    res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting});
+    const affiliateWithdrawalSetting = getWithdrawalSettings[0].active_status;
+    const nonAffiliateWithdrawalSetting = getWithdrawalSettings[1].active_status;
+    const gameWithdrawalSetting = getWithdrawalSettings[2].active_status;
+
+    const mysteryBoxSetting = getSettings[0].active_status;
+
+    res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting, mysteryBoxSetting});
 });
 
 // Route to generate coupon codes
@@ -341,6 +346,7 @@ router.post('/popUpAd/update', upload.single('image'), verifyToken.verifyAdminTo
             }
         });
 });
+
 // Route to turn on/off withdrawal (affiliate, non_affiliate, game)
 router.post('/update-withdrawal-status', verifyToken.verifyAdminToken, (req, res)=>{
     const {withdrawalType, status} = req.body;
@@ -618,6 +624,9 @@ router.post('/add-advert-post', upload.single('image'), verifyToken.verifyAdminT
             // Update the has_shared_post column of the user
             try {
                 const updateHasSharedPostColumn = await adminFunctions.updateHasSharedPostColumn();
+
+                // Update the credited_task2 column
+                const creditedTask1Column = await dashboardFunctions.creditedTask1Column(1, user[0].user_id);
             } catch (error) {
                 return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Error: ', alertMessage: 'An error ocurred', alertColor: 'red'});
             }
@@ -659,9 +668,12 @@ router.post('/add-sponsored-post', upload.single('image'), verifyToken.verifyAdm
         } else{
             console.log('Successfully added sponsored post');
 
-            // Update the has_shared_post column of the user
             try {
+                // Update the has_shared_post column of the user
                 const updateHasJoinedPlatformColumn = await adminFunctions.updateHasJoinedPlatformColumn();
+
+                // Update the credited_task2 column
+                const creditedTask2Column = await dashboardFunctions.creditedTask2Column(1, user[0].user_id);
             } catch (error) {
                 return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Error: ', alertMessage: 'An error ocurred', alertColor: 'red'});
             }

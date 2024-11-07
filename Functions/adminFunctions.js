@@ -188,6 +188,21 @@ async function getNotification() {
 // Function to get settings
 async function getSettings() {
     return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM settings', (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                console.log('Settings: ', result);
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Function to get wihtdrawal settings
+async function getWithdrawalSettings() {
+    return new Promise((resolve, reject) => {
         connection.query('SELECT * FROM withdrawalsettings', (err, result)=>{
             if (err) {
                 console.log(err);
@@ -260,4 +275,4 @@ async function toggleSetting(setting, status) {
     });
 }
 
-module.exports = {numberOfUsers, couponCodes, sumOfWithdrawals, allVendors, allCouponCodes, allUsers, withdrawals, sponsoredPosts, allProducts, allCourses, toggleVendorVerification, getNotification, getSettings, approvedWithdrawals, updateHasSharedPostColumn, updateHasJoinedPlatformColumn, toggleSetting};
+module.exports = {numberOfUsers, couponCodes, sumOfWithdrawals, allVendors, allCouponCodes, allUsers, withdrawals, sponsoredPosts, allProducts, allCourses, toggleVendorVerification, getNotification, getSettings, getWithdrawalSettings, approvedWithdrawals, updateHasSharedPostColumn, updateHasJoinedPlatformColumn, toggleSetting};

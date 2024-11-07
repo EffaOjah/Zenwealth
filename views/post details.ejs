@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name="viewport" content='width=device-width, initial-scale=1.0'>
+
+    <meta property="og:title" content="<%= getSinglePost[0].post_title %>" />
+    <meta property="og:description" content="<%= getSinglePost[0].post_description %>" />
+    <meta property="og:image" content="https://zenwealth.app/uploads/admin/<%= getSinglePost[0].post_image %>" />
+    <meta property="og:url" content="https://zenwealth.app/post/<%= getSinglePost[0].post_id %>" />
+    <meta property="og:type" content="article" />
+
+    
+    <title>Zenwealth - Post Detail</title>
+
+    <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02.png">
+    
+    <!-- <meta name="description" content="<%= getSinglePost[0].post_description %>">
+    <meta property="og:title" content="<%= getSinglePost[0].post_title %>">
+    <meta property="og:description" content="<%= getSinglePost[0].post_description %>">
+    <meta property="og:type" content="article"> -->
+    <!-- <meta property="og:article:published_time" content="2024-10-07T23:22:31+01:00"> -->
+    <!-- <meta property="og:image" content="https://zenwealth.app/uploads/admin/<%= getSinglePost[0].post_image %>"> -->
+    <!-- <meta name="twitter:title" content="Her Father Is Occult. Should He Still Go Ahead?">
+    <meta name="twitter:description" content="Okay here is the story.
+    One of my best friends who is expected to get married this year just called me for hours with re...">
+    <meta name="twitter:site" content="@Finvest"> -->
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <div class="page-wrapper">
+    <%- include('./partials/nav') %>
+  <!-- navbar ends -->
+
+    <div class="container-fluid hero-section" id="up">
+      <div class="">
+        <div class="mt-5">
+          <div class="row align-items-center justify-content-between">
+            <div class="col-lg-5 p-0">
+              <div class="container headline">
+                <div class="py-3 ps-5">
+                  <!-- <p class="fw-bold fs-2 color-four mt-3">Our</p> -->
+                  <h1 class="color-three fw-bold display-1" style="margin-top: -25px;">Post Detail</h1><br>
+                  <a href="/task" class="fs-6 bg-white px-3 py-1 color-one radius-two" style="width: fit-content; font-weight: 500; font-size: 16px !important;">&leftarrow; Go back</a>
+                </div>
+              </div>
+              <br>  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- hero-section ends -->  
+
+
+    <div class="container-fluid">
+      <div class="container mtop">
+        <div class="row g-4 align-items-center justify-content-center">
+            <% if (getSinglePost.length < 1) { %>
+                <h1 class="text-white text-center">No Post available</h1>
+            <% }else{ %>
+                <div class="col-lg-6">
+                    <div class="card">
+                      <img class="img-fluid card-img-top" src="/uploads/admin/<%= getSinglePost[0].post_image %>" alt="zenwealth post">
+                      <div class="card-body">
+                        <h5 class="card-title color-one"><%= getSinglePost[0].post_title %></h5>
+                        <p class="card-text color-two"><%= getSinglePost[0].post_description %></p>
+                      </div>
+                      <div class="card-body">
+                        <!-- <a href="#" class="card-link">Card link</a> -->
+                        <!-- <a href="#" class="card-link color-three">Share</a> -->
+                         <% if (getSinglePost[0].post_type == 'advert') { %>
+                            <p class="color-three">Share Post</p>
+                                                    <div id="share-icons" class="p-2">
+                                                        <a onclick="sharePost()" href="https://wa.me/?text=https://primetech.net.ng/post/<%= getSinglePost[0].post_id %>">
+                                                        <i class="fa-brands fa-square-whatsapp fs-1" style="color: #075e54"></i>
+                                                        </a>
+                                                                                     <a onclick="sharePost()" href="https://www.facebook.com/sharer/sharer.php?u=https://zenwealth.app/post/<%= getSinglePost[0].post_id %>" target="_blank">
+                                                                                    <i class="fa-brands fa-facebook ms-3 fs-1" style="color: blue"></i>
+                                                                                </a>
+                                                    
+                                                                                                       <a onclick="sharePost()" href="https://twitter.com/intent/tweet?url=https://https://primetech.net.ng/post/<%= getSinglePost[0].post_id %>" target="_blank">
+                                                                                                       <i class="fa-brands fa-square-twitter  ms-3  fs-1" style="color: #1DA1F2"></i>
+                                                                                                       </a>
+                                                                                                       </div>
+                         <% } else{ %>
+                            <a onclick="joinPlatform()" target="_blank" href="<%= getSinglePost[0].contact_link %>" class="btn btn-zen px-4 py-2 text-white fw-bold" type="submit">Join</a>
+                       <% } %>
+                      </div>
+                  </div>
+                  </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <br><br><br>
+
+
+    <div class="container- top-green radius-three mtop">
+      <%- include('./partials/footer') %>
+      <div class="copyright mt-4" style="background-color: #18144d;">
+        <p class="fs-5 text-white ms-4">Copyright © 2024 Zenwealth. All Rights Reserved.</p>
+      </div>
+    </div>
+
+    <a href="#up">
+      <div class="bg-three" id="scrollBtn" style="display: none;">
+        <i class="fa-solid fa-angle-up text-white"></i>
+      </div>
+    </a>
+  </div>
+
+
+  <script>
+    function joinPlatform() {
+        fetch('/join-platform')
+    }
+    function sharePost() {
+        fetch('/share-post');
+    }
+    
+ </script>
+
+    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>

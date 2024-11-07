@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zenwealth - upload product</title>
+    <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02.png">
     <link rel="stylesheet" href="/css/newstyles.css">
     <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
@@ -41,9 +42,11 @@
               <li class="unactive-item">
                   <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
               </li>
-              <li class="unactive-item">
-                <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
-              </li>
+              <% if (user.is_a_vendor == true) { %>
+                <li class="unactive-item">
+                  <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+                </li>
+              <% } %>
               <li class="logout unactive-item">
                   <a href="/user/logout"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
               </li>
@@ -80,9 +83,11 @@
               <li class="unactive-item">
                   <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
               </li>
-              <li class="unactive-item">
-                <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
-              </li>
+              <% if (user.is_a_vendor == true) { %>
+                <li class="unactive-item">
+                  <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+                </li>
+              <% } %>
               <li class="logout unactive-item">
                 <a href="/user/logout"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
               </li>

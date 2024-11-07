@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zenwealth - user dashboard</title>
+    <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02.png">
     <link rel="stylesheet" href="/css/newstyles.css">
     <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
@@ -42,9 +43,11 @@
               <li class="unactive-item">
                   <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
               </li>
-              <li class="unactive-item">
-                <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
-              </li>
+              <% if (user.is_a_vendor == true) { %>
+                <li class="unactive-item">
+                  <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+                </li>
+              <% } %>
               <li class="logout unactive-item">
                   <a href="/user/logout"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
               </li>
@@ -53,6 +56,34 @@
       </div>
     </div>
     <!-- </div> -->
+
+    <!-- Mystery Box Modal -->
+    <div class="modal fade" id="mysteryBoxModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-bg"></div>
+      <div class="modal-dialog modal-dialog-centered position-relative">
+        <div class="modal-content position-static">
+          <div class="modal-body d-grid" style="place-items: center;">
+            <img src="/img/money-bag-removebg-preview.png" class="mystery-gift img-fluid" alt="mystery gift">
+            <img src="/img/mystery-box-main.png" id="mysteryImg" class="img-fluid mystery-box-main" width="350px" alt="">
+            <img src="/img/ezgif.com-animated-gif-maker (2).gif" id="mysteryGif" class="img-fluid" width="350px" alt="">
+            <% if (user.has_claimed_gift == 1) { %>
+              <h1 class="text-white text-center fw-bold display-5 mysteryGiftValue">Already claimed reward</h1>
+              <br><br><br>
+              <button type="button" id="closeBtn" class="d-block closeBtn text-white fs-2 fw-bold position-absolute" data-bs-dismiss="modal">
+                Tap to continue
+              </button>
+            <% } else{ %>
+              <h1 class="text-white fw-bold display-1 mysteryGiftValue" id="mysteryGiftValue"></h1>
+           <% } %>
+          </div>
+          <div class="modal-footer d-flex align-items-center justify-content-center">
+            <button type="button" id="closeBtn" class="closeBtn text-white fs-2 fw-bold position-absolute" data-bs-dismiss="modal">
+              Tap to continue
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="page-wrapper">
       <!-- Sidebar -->
@@ -82,9 +113,11 @@
             <li class="unactive-item">
                 <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
             </li>
-            <li class="unactive-item">
-              <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
-            </li>
+            <% if (user.is_a_vendor == true) { %>
+              <li class="unactive-item">
+                <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+              </li>
+            <% } %>
             <li class="logout unactive-item">
               <a href="/user/logout"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
             </li>
@@ -194,11 +227,11 @@
                   </a>
                 </div>
                 <div class="text-center">
-                  <a href="">
+                  <a href="/task">
                     <div class="icon-div d-flex align-items-center justify-content-center mb-2">
-                      <ion-icon name="pricetags-outline" class="fs-4 text-white"></ion-icon>
+                      <i class="fa-solid fa-list-check fs-4 text-secondary text-white"></i>
                     </div>
-                    <p class="text-white">Courses</p>
+                    <p class="text-white">Task</p>
                   </a>
                 </div>
               </div>
@@ -213,7 +246,7 @@
                   <div class="progress-bar" id="progress-bar"></div>
                   <div class="progress-text" id="progress-text">0%</div>
                 </div>             
-                <button class="btn btn-zen px-4 py-2 w- text-white mt-4">claim task 2</button>                
+                <button id="claimTaskBtn" class="btn btn-zen px-4 py-2 w- text-white mt-4">claim task 2</button>                
               </div>
             </div>
 
@@ -234,7 +267,7 @@
                 </div>
                 <div class="col-lg-12">
                   <div class="bg-two-faint state py-2 radius-two">
-                    <p class="text-center color-two light-paste">Zen Points</p>
+                    <p class="text-center color-two light-paste">Activity Balance</p>
                     <p class="blue-paste radius-two"><span class="totalZenpoints spinner-border spinner-border-md" aria-hidden="true"></span></p>
                   </div>
                 </div>
@@ -276,15 +309,17 @@
                   </a>
                 </div>
                 <div class="text-center">
-                  <div class="bg-six icon-div d-flex align-items-center justify-content-center mb-2">
-                    <i class="fa-solid fa-sliders fs-4 text-secondary text-white"></i>
-                  </div>
-                  <p class="color-two">Courses</p>
+                  <a href="/task">
+                    <div class="bg-six icon-div d-flex align-items-center justify-content-center mb-2">
+                      <i class="fa-solid fa-list-check fs-4 text-secondary text-white"></i>
+                    </div>
+                    <p class="color-two">Task</p>
+                  </a>
                 </div>
                 <div class="text-center">
                   <a href="/youtube-earning">
                     <div class="bg-five icon-div d-flex align-items-center justify-content-center mb-2">
-                      <i class="fa-solid fa-sliders fs-4 text-secondary text-white"></i>
+                      <i class="fa-brands fa-youtube fs-4 text-secondary text-white"></i>
                     </div>
                     <p class="color-two">YT Earning</p>
                   </a>
@@ -295,7 +330,7 @@
             <div class=" radius-three px-4 py-1 pb-3 mt-3" style="border: 1px solid #ffffff56;">
               <h6 class="mt-3 text-white">Referral Link</h6>
               <div class="link d-flex align-items-center justify-content-between w-100">
-                <p id="referral-link" class="color-two ">http:8080/user/register/?reference=@<%= user.referral_code %></p>
+                <p id="referral-link" class="color-two ">localhost:8080/user/register/?reference=<%= user.referral_code %></p>
                 <button id="copy-link-btn" class="btn btn-zen px-4 py-2 text-white">copy</button>
               </div>
             </div>
@@ -320,7 +355,7 @@
                 </div>
                 <div class="col-lg-12">
                   <div class="bg-two-faint state py-2 radius-two">
-                    <p class="text-center color-two light-paste">Zen Points</p>
+                    <p class="text-center color-two light-paste">Activity Balance</p>
                     <p class="blue-paste radius-two"><span class="totalZenpoints spinner-border spinner-border-md" aria-hidden="true"></span></p>
                   </div>
                 </div>
@@ -371,17 +406,58 @@
 
     </div>
 
+    <span class="d-none" id="task1"><%= user.credited_task1 %></span>
+    <span class="d-none" id="task2"><%= user.credited_task2 %></span>
+    
+    <span class="d-none" id="mysteryValue"><%= user.mystery_value %></span>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"></script>
     <script>
+      var task1Span = document.getElementById('task1');
+      var task2Span = document.getElementById('task2');
+      var claimTaskBtn = document.getElementById('claimTaskBtn');
+
       var mainDiv = document.getElementById("main");
       var sideBar = document.getElementById("mySidebar");
       var menuIcon = document.getElementById("hamburger");
       var mobileSideBar = document.getElementById("myMobileSidebar");
       const checkbox = document.querySelector('.hamburger input');
+      var mysteryImg = document.getElementById('mysteryImg');
+      const mysteryGif = document.getElementById('mysteryGif');
+      const gift = document.querySelector('.mystery-gift');
+      var giftValue = document.getElementsByClassName('mysteryGiftValue');
+      var closeBtn = document.getElementsByClassName('closeBtn');
 
+      mysteryImg.addEventListener('click', () => {
+        mysteryImg.style.animation = 'swellAndShake 3s forwards';
+
+        // After 4 seconds, hide the image and show the gif
+        setTimeout(() => {
+          mysteryImg.style.display = 'none';
+          mysteryGif.style.display = 'block';
+
+          setTimeout(() => {
+            gift.style.display = 'block';
+          }, 300);
+
+          setTimeout(() => {
+            giftValue[0].style.display = 'block';
+            giftValue[0].style.textAlign = 'center';
+            giftValue[0].style.marginTop = '80px';
+
+            mysteryImg.style.marginTop = '-20px';
+            closeBtn[0].style.display = 'block';
+          }, 800);
+
+          // Add the move-down class after a delay to animate the movement
+          setTimeout(() => {
+            mysteryGif.classList.add('move-down');
+          }, 50); // Delay before downward movement starts
+        }, 1000);
+      });
+      
       function togglenav() {
         if (mainDiv.style.marginLeft === "0%"){
           mainDiv.style.marginLeft = "19.2%";
@@ -417,8 +493,28 @@
         progressText.textContent = progress + "%";
       }
 
-      // Example of setting progress manually
-      setProgress(50); // Change this value to set the progress bar percentage
+      if (task1Span.innerHTML == 1 && task2Span.innerHTML == 1) {
+        // Example of setting progress manually
+        setProgress(0); // Change this value to set the progress bar percentage
+        claimTaskBtn.innerHTML = 'Claim';
+        claimTaskBtn.disabled = 'disabled';
+      } 
+      if (task1Span.innerHTML == 0 && task2Span.innerHTML !== 0) {
+        setProgress(50);
+        claimTaskBtn.innerHTML = 'Claim task 1';
+        claimTaskBtn.disabled = false;
+      } 
+      if (task1Span.innerHTML !== 0 && task2Span.innerHTML == 0) {
+        setProgress(50);
+        claimTaskBtn.innerHTML = 'Claim task 2';
+        claimTaskBtn.disabled = false;
+      } 
+      if (task1Span.innerHTML == 0 && task2Span.innerHTML == 0) {
+        setProgress(100);
+        claimTaskBtn.innerHTML = 'Claim all task';
+        claimTaskBtn.disabled = false;
+      } 
+      
     </script>
     <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 
@@ -447,6 +543,12 @@
         alert("Referral Link Has Been Copied");
       });
     </script>
+
+    <!-- Script for task claim -->
+    <script src="/js/claimTask.js"></script>
+
+    <!-- Script to handle mystery bosx -->
+    <script src="/js/zmblogic.js"></script>
 
     <!-- Script to load user balances -->
     <script src="/js/loadBalances.js"></script>

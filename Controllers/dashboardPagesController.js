@@ -68,7 +68,10 @@ router.get('/user/dashboard', verifyToken.verifyToken, async(req, res)=>{
        // Get the user's total withdrawal
        const getTotalWithdrawal = await dashboardFunctions.getTotalWithdrawal(fetchUserByUsername[0].user_id);
 
-       res.render('user-dashboard', {user: fetchUserByUsername[0], referrals: getReferrals[0].referrals, totalWithdrawal: getTotalWithdrawal[0].totalWithdrawal});
+       // Get the mystery_box setting
+       const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
+       res.render('user-dashboard', {user: fetchUserByUsername[0], referrals: getReferrals[0].referrals, totalWithdrawal: getTotalWithdrawal[0].totalWithdrawal, getMysteryBoxSetting});
 
     } catch (error) {
         console.log(error);
@@ -82,45 +85,57 @@ router.get('/history/withdrawals', verifyToken.verifyToken, async(req, res)=>{
     // Get the user's details
     const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
 
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
     // Get the user's withdrawal history
     connection.query('SELECT * FROM withdrawals WHERE user_id = ?', fetchUserByUsername[0].user_id, (err, withdrawals)=>{
         if (err) {
             console.log(err);
         } else{
             console.log('withdrawals: ', withdrawals);
-            res.render('withdrawals-history', {user: fetchUserByUsername[0], withdrawals});
+            res.render('withdrawals-history', {user: fetchUserByUsername[0], withdrawals, getMysteryBoxSetting});
         }
     })
 });
 
 // Route for the product upload page
-router.get('/product/upload', verifyToken.verifyToken, (req, res)=>{
+router.get('/product/upload', verifyToken.verifyToken, async(req, res)=>{
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
     // Get the user's details
     connection.query('SELECT * FROM users WHERE username = ?', req.user.username, (err, user)=>{
         if (err) {
             console.log(err);
         } else{
             console.log('user: ', user[0]);
-            res.render('upload-product', {user: user[0]});
+            res.render('upload-product', {user: user[0], getMysteryBoxSetting});
         }
     })
 });
 
 // Route for the p2p-registration page
-router.get('/registration/p2p', verifyToken.verifyToken, (req, res)=>{
+router.get('/registration/p2p', verifyToken.verifyToken, async(req, res)=>{
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
     // Get the user's details
     connection.query('SELECT * FROM users WHERE username = ?', req.user.username, (err, user)=>{
         if (err) {
             console.log(err);
         } else{
             console.log('user: ', user[0]);
-            res.render('p2p-registration', {user: user[0]});
+            res.render('p2p-registration', {user: user[0], getMysteryBoxSetting});
         }
     })
 });
 
 // Route for the Earning History page
-router.get('/history/earnings', verifyToken.verifyToken, (req, res)=>{
+router.get('/history/earnings', verifyToken.verifyToken, async(req, res)=>{
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
     // Get the user's details
     connection.query('SELECT * FROM users WHERE username = ?', req.user.username, (err, user)=>{
         if (err) {
@@ -134,7 +149,7 @@ router.get('/history/earnings', verifyToken.verifyToken, (req, res)=>{
                     console.log(err);
                 } else{
                     console.log(earnings);
-                    res.render('earning-history', {user: user[0], earnings});
+                    res.render('earning-history', {user: user[0], earnings, getMysteryBoxSetting});
                 }
             });
         }
@@ -146,26 +161,32 @@ router.get('/downlines', verifyToken.verifyToken, async(req, res)=>{
     // Get the user's details
     const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
 
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
     // get the user's downlines
     connection.query('SELECT username FROM users WHERE referrer = ?', fetchUserByUsername[0].referral_code, (err, downlines)=>{
         if (err) {
             console.log(err);
         } else{
             console.log('Downlines: ', downlines);
-            res.render('downlines', {user: fetchUserByUsername[0], downlines});
+            res.render('downlines', {user: fetchUserByUsername[0], downlines, getMysteryBoxSetting});
         }
     })
 });
 
 // Route for the user profile page
-router.get('/user/profile', verifyToken.verifyToken, (req, res)=>{
+router.get('/user/profile', verifyToken.verifyToken, async(req, res)=>{
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
     // Get the user's details
     connection.query('SELECT * FROM users WHERE username = ?', req.user.username, (err, user)=>{
         if (err) {
             console.log(err);
         } else{
             console.log('user: ', user[0]);
-            res.render('update-profile', {user: user[0]});
+            res.render('update-profile', {user: user[0], getMysteryBoxSetting});
         }
     })
 });
@@ -175,18 +196,24 @@ router.get('/withdraw', verifyToken.verifyToken, async(req, res)=>{
     // Fetch user details using username
     const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
 
-    res.render('submit-withdrawal', {user: fetchUserByUsername[0]});
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
+    res.render('submit-withdrawal', {user: fetchUserByUsername[0], getMysteryBoxSetting});
 });
 
 // Route for user bank details page
-router.get('/user/bank-details', verifyToken.verifyToken, (req, res)=>{
+router.get('/user/bank-details', verifyToken.verifyToken, async(req, res)=>{
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
     // Get the user's details
     connection.query('SELECT * FROM users WHERE username = ?', req.user.username, (err, user)=>{
         if (err) {
             console.log(err);
         } else{
             console.log('user: ', user[0]);
-            res.render('update-bank-details', {user: user[0]});
+            res.render('update-bank-details', {user: user[0], getMysteryBoxSetting});
         }
     });
 });
@@ -196,13 +223,237 @@ router.get('/user/set-pin', verifyToken.verifyToken, async(req, res)=>{
     // Fetch user details using username
     const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
 
-    res.render('set-pin', {user: fetchUserByUsername[0]});
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
+    res.render('set-pin', {user: fetchUserByUsername[0], getMysteryBoxSetting});
 });
 
 // Route for youtube earning page
-router.get('/youtube-earning', verifyToken.verifyToken, (req, res)=>{
-    res.render('youtube-earning');
+router.get('/youtube-earning', verifyToken.verifyToken, async(req, res)=>{
+    // Fetch user details using username
+    const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
+
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
+    res.render('youtube-earning', {user: fetchUserByUsername[0], getMysteryBoxSetting});
 });
+
+// Route for task page
+router.get('/task', verifyToken.verifyToken, async(req, res)=>{
+    // Get all posts
+    const getPosts = await dashboardFunctions.getPosts();
+
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
+    res.render('task', {getPosts, getMysteryBoxSetting});
+});
+
+// Route for post details
+router.get('/post/:id', async(req, res)=>{
+    // Get the post details with the post_id
+    const getSinglePost = await dashboardFunctions.getSinglePost(req.params.id);
+
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
+    res.render('post details', {getSinglePost, getMysteryBoxSetting});
+});
+
+// Route to share post
+router.get('/share-post', verifyToken.verifyPostToken, async(req, res)=>{
+    if (req.user) {
+        console.log('User is logged in');
+
+        // Get the user's details
+        const user = await dashboardFunctions.fetchUserByUsername(req.user.username);
+
+        // Check if the user has already been rewarded for the post
+        if (user[0].has_shared_post == 1) {
+            console.log('User has already been credited');
+        } else{
+            // Update the has_shared_post
+            const updateColumn = await dashboardFunctions.updateHasSharedPostColumn(1, user[0].user_id);
+
+            // Update the credited_task1 column
+            const creditedTask1Column = await dashboardFunctions.creditedTask1Column(0, user[0].user_id);
+
+        }
+        
+    } else{
+        console.log('User is not logged in and will not be credited');   
+    }
+});
+
+// Route to join platform
+router.get('/join-platform', verifyToken.verifyPostToken, async(req, res)=>{
+    if (req.user) {
+        console.log('User is logged in');
+
+        // Get the user's details
+        const user = await dashboardFunctions.fetchUserByUsername(req.user.username);
+
+        // Check if the user has already been rewarded for the post
+        if (user[0].has_joined_platform == 1) {
+            console.log('User has already been credited');
+        } else{
+            // Update the has_joined_platform
+            const updateColumn = await dashboardFunctions.updateHasJoinedPlatform(1, user[0].user_id);
+
+            // Update the credited_task2 column
+            const creditedTask2Column = await dashboardFunctions.creditedTask2Column(0, user[0].user_id);
+        }
+        
+    } else{
+        console.log('User is not logged in and will not be credited');   
+    }
+});
+
+// Route to claim task 1
+router.get('/claim-task/:type', verifyToken.verifyToken, async(req, res)=>{
+    // Get the user's details
+    const user = await dashboardFunctions.fetchUserByUsername(req.user.username);
+
+    let type = req.params.type;
+
+    // Check the type of task to claim
+    if (type == '1') {
+        console.log('Claim task 1'); 
+
+        // Check if user has already claimed task 1
+        if (user[0].credited_task1 == 1) {
+            return res.json({error: 'Task already claimed'});
+        }
+
+        // Credit the user
+        const creditUser = await dashboardFunctions.insertIntoNonAffiliateTransactions(500, 'Trend Post', user[0].user_id);
+
+        // Update the credited_task1 column
+        const creditedTask1Column = await dashboardFunctions.creditedTask1Column(1, user[0].user_id);
+
+        return res.json({success: 'successfully credited the user'});
+    } else if (type == '2') {
+        console.log('Claim task 2');
+
+        // Check if user has already claimed task 1
+        if (user[0].credited_task2 == 1) {
+            return res.json({error: 'Task already claimed'});
+        }
+
+        // Credit the user
+        const creditUser = await dashboardFunctions.insertIntoNonAffiliateTransactions(300, 'Advert Post', user[0].user_id);
+
+        // Update the credited_task2 column
+        const creditedTask2Column = await dashboardFunctions.creditedTask2Column(1, user[0].user_id);
+
+        return res.json({success: 'successfully credited the user'});
+    } else if (type == 'all'){
+        console.log('Claim all tasks');
+
+        // Check if user has already claimed task 1
+        if (user[0].credited_task1 == 1 && user[0].credited_task2 == 1) {
+            return res.json({error: 'Task already claimed'});
+        }
+
+        // Credit the user
+        const creditTrend = await dashboardFunctions.insertIntoNonAffiliateTransactions(500, 'Trend Post', user[0].user_id);
+        const creditAdvert = await dashboardFunctions.insertIntoNonAffiliateTransactions(300, 'Advert Post', user[0].user_id);
+
+        // Update the credited_task1 column
+        const creditedTask1Column = await dashboardFunctions.creditedTask1Column(1, user[0].user_id);
+
+        // Update the credited_task2 column
+        const creditedTask2Column = await dashboardFunctions.creditedTask2Column(1, user[0].user_id);
+
+        return res.json({success: 'successfully credited the user'});
+    } else{
+        console.log('Invalid task type');
+
+        return res.json({error: 'Invalid task type'});
+    }
+});
+
+// Route to claim mystery box reward
+router.get('/claim-mystery-reward', verifyToken.verifyToken, async(req, res)=>{
+    // Fetch user details using username
+    const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
+
+    // Check if the user has already claimed his/her reward
+    if (fetchUserByUsername[0].has_claimed_gift == 1) {
+        console.log('User has already claimed reward');
+        
+        return res.status(500).json({error: 'Already claimed reward'});
+    }
+
+    try {
+        // Check the user's reward
+    if (fetchUserByUsername[0].mystery_value > 0 && fetchUserByUsername[0].mystery_value < 51) {
+        console.log('User is about to claim 100 naira');
+        
+        // Insert into the activity transactions table
+        const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(100, 'Mystery Box Reward', fetchUserByUsername[0].user_id);
+
+        // Update the has_claimed_gift column of the user to 1
+        const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
+    } else if (fetchUserByUsername[0].mystery_value > 50 && fetchUserByUsername[0].mystery_value < 71){
+        console.log('User is about to claim 200 naira');
+
+        // Insert into the activity transactions table
+        const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(200, 'Mystery Box Reward', fetchUserByUsername[0].user_id);
+
+        // Update the has_claimed_gift column of the user to 1
+        const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
+    } else if (fetchUserByUsername[0].mystery_value > 70 && fetchUserByUsername[0].mystery_value < 81){
+        console.log('User is about to claim 300 naira');
+
+        // Insert into the activity transactions table
+        const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(300, 'Mystery Box Reward', fetchUserByUsername[0].user_id);
+
+        // Update the has_claimed_gift column of the user to 1
+        const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
+    } else if (fetchUserByUsername[0].mystery_value > 80 && fetchUserByUsername[0].mystery_value < 86){
+        console.log('User is about to claim 400 naira');
+
+        // Insert into the activity transactions table
+        const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(400, 'Mystery Box Reward', fetchUserByUsername[0].user_id);
+
+        // Update the has_claimed_gift column of the user to 1
+        const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
+    } else if (fetchUserByUsername[0].mystery_value > 85 && fetchUserByUsername[0].mystery_value < 91) {
+        console.log('User is about to claim 500 naira');
+
+        // Insert into the activity transactions table
+        const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(500, 'Mystery Box Reward', fetchUserByUsername[0].user_id);
+
+        // Update the has_claimed_gift column of the user to 1
+        const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
+    } else if (fetchUserByUsername[0].mystery_value > 90 && fetchUserByUsername[0].mystery_value < 101) {
+        console.log('User is about to claim a free coupon code');
+
+        // Generate the free coupon for the user
+        const generateFreeCoupon = await functions.generatedFreeCouponCode();
+
+        // Now assign it to the user
+        const assignFreeCoupon = await dashboardFunctions.assignFreeCoupon(fetchUserByUsername[0].user_id, generateFreeCoupon);
+
+        // Update the has_claimed_gift column of the user to 1
+        const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
+    } else {
+       console.log('Invalid reward type');
+
+       return res.status(500).json({error: 'Invalid reward type'});
+    }
+
+    return res.status(200).json({message: 'Successfully claimed mystery box reward!'});
+    } catch (error) {
+        console.log('Internal Server error: ', error);
+        return res.status(500).json({error: 'Internal Server Error'});
+    }
+});
+
+
 
 // POST ROUTES
 // Route for p2p-registration

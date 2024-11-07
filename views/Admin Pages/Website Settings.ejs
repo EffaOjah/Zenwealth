@@ -494,7 +494,7 @@
     <p class="d-none" id="nonAffiliateStatus"><%= nonAffiliateWithdrawalSetting %></p>    
     <p class="d-none" id="gamesStatus"><%= gameWithdrawalSetting %></p> 
 
-    <p class="d-none" id="mysteryBoxStatus"><%= gameWithdrawalSetting %></p>    
+    <p class="d-none" id="mysteryBoxStatus"><%= mysteryBoxSetting %></p>    
     
     
 
@@ -669,6 +669,7 @@
     const affiliateStatus = document.getElementById('affiliateStatus');
     const activitiesStatus = document.getElementById('nonAffiliateStatus');
     const gamesStatus = document.getElementById('gamesStatus');
+    const mysteryBoxStatus = document.getElementById('mysteryBoxStatus');
 
     var affiliateActiveDiv = document.querySelector('.affiliate-active-div');
     var affiliateOffDiv = document.querySelector('.affiliate-off-div');
@@ -678,6 +679,9 @@
 
     var gamesActiveDiv = document.querySelector('.games-active-div');
     var gamesOffDiv = document.querySelector('.games-off-div');
+
+    var mysteryActiveDiv = document.querySelector('.mystery-active-div');
+    var mysteryOffDiv = document.querySelector('.mystery-off-div');
 
     window.onload = ()=>{
         setTimeout(()=>{
@@ -698,6 +702,12 @@
                 gamesOffDiv.classList.remove('active');
                 gamesOffDiv.style.transform = "translateX(-100%)"; // Slide out to left
                 gamesActiveDiv.style.transform = "translateX(0%)"; // Slide out to left
+        }
+        if (mysteryBoxStatus.innerHTML == 'ON') {
+                mysteryActiveDiv.classList.add('active');
+                mysteryOffDiv.classList.remove('active');
+                mysteryOffDiv.style.transform = "translateX(-100%)"; // Slide out to left
+                mysteryActiveDiv.style.transform = "translateX(0%)"; // Slide out to left
         }
         }, 0)
     }

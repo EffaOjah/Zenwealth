@@ -5,15 +5,12 @@
     padding: 0px;
 }
 body {
-    /* background-color: #f9ede7; */
-    /* background: linear-gradient(to right, #211e5b3f, #f9ede7, #606fac48); */
     overflow-x: hidden !important;
 }
 .menu-icon {
     position: relative;
     width: 45px;
     height: 35px;
-    /* background: rgb(0, 0, 0); */
     padding: 5px;
     cursor: pointer;
 }
@@ -459,6 +456,11 @@ footer .footer-links p {
     margin: 0;
     /* padding: 20px; */
   }
+  .bg-two-faint {
+    background-color: #8095e834;
+    /* border: 1px solid #606fac; */
+}
+
   .profile {
     width: 47px !important; 
     height: 45px !important;
@@ -582,11 +584,141 @@ footer .footer-links p {
     padding: 0 20px 0 20px !important;
   }
 
-  @media screen and (max-width: 380px) {
-    /* .progress-div {
-        width: 320px !important;
-    } */
+  .mystery-box-icon {
+    margin-right: 10px;
+    animation: oscillate1 2s infinite ease-in-out;
   }
+  .mystery-box-main {
+    animation: oscillate2 2s infinite ease-in-out;
+    transition: transform 1s ease-in;
+  }
+  #mysteryGif {
+    display: none;
+    transition: transform 1s ease-in;
+  }
+  #mysteryGiftValue {
+    display: none;
+  }
+  .move-down {
+    transform: translateY(100vh) !important;
+  }
+
+
+  .mystery-gift {
+    text-shadow: 2px 4px 2px #606fac;
+    animation: reveal 1s forwards linear;
+    display: none;
+    position: absolute;
+  }
+  #closeBtn {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    display: none;
+    animation: zoom 2s infinite ease-in-out;
+    bottom: 15px;
+  }
+
+  @keyframes zoom {
+    0% { scale: 1; }
+    50% { scale: 1.06; }
+    100% { scale: 1; }
+  }
+
+  @keyframes reveal {
+    0% {
+      width: 20px;
+      transform: rotate(0deg);
+    }
+    100% {
+      width: 200px;
+      transform: rotate(720deg);
+    }
+  }
+
+  @keyframes oscillate1 {
+    0%   { transform: translateY(2px); }
+    50%  { transform: translateY(-8px); } /* Move up */
+    100% { transform: translateY(2px); }   /* Move back to original position */
+  }
+
+  @keyframes oscillate2 {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-35px); } /* Move up */
+    100% { transform: translateY(0px); }   /* Move back to original position */
+  }
+
+  /* Define swelling and shaking keyframe */
+  @keyframes swellAndShake {
+    0% { transform: rotate(0deg); }
+    5% { transform: rotate(-5deg); }   /* Tilt left */
+    10% { transform: rotate(5deg); }    /* Tilt right */
+    15% { transform: rotate(-5deg); }   /* Tilt left */
+    20% { transform: rotate(5deg); }    /* Tilt right */
+    25% { transform: rotate(-5deg); }   /* Tilt left */
+    30% { transform: rotate(5deg); }    /* Tilt right */
+    35% { transform: rotate(-5deg); }   /* Tilt left */
+    40% { transform: rotate(5deg); }    /* Tilt right */
+    45% { transform: rotate(-5deg); }   /* Tilt left */
+    50% { transform: rotate(0deg); }   /* Return to center */
+    55% { transform: rotate(-5deg); }   /* Tilt left */
+    60% { transform: rotate(5deg); }    /* Tilt right */
+    65% { transform: rotate(-5deg); }   /* Tilt left */
+    70% { transform: rotate(5deg); }    /* Tilt right */
+    75% { transform: rotate(-5deg); }   /* Tilt left */
+    80% { transform: rotate(5deg); }    /* Tilt right */
+    85% { transform: rotate(-5deg); }   /* Tilt left */
+    90% { transform: rotate(5deg); }    /* Tilt right */
+    95% { transform: rotate(-5deg); }   /* Tilt left */
+    100% { transform: rotate(0deg); }   /* Return to center */
+  }
+
+  .modal {
+    position: relative;
+    height: 100% !important;
+    /* background-image: url(/img/mystery-bg.gif); */
+    background-image: linear-gradient(black, black), url('/img/output-onlinegiftools.gif');
+    background-blend-mode: saturation;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    isolation: isolate;
+  }
+  .modal::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url(/img/aesthetics8\ -\ Copy.avif);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
+    inset: 0;
+    opacity: .9;
+  }
+  .modal-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url(/img/aesthetics22.jpeg);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: .6;
+  }
+  .modal-content {
+    background-color: transparent !important;
+    border: none !important;
+  }
+  .modal-header, .modal-footer {
+    border: none !important;
+  }
+
+  
+
 @media screen and (max-width: 550px) {
     .motto {
         font-size: 10px;
@@ -673,7 +805,15 @@ footer .footer-links p {
         border-top-right-radius: 15px !important;
         border-bottom-right-radius: 15px !important;
     }
-
+    .modal::after {
+        background-image: url(/img/aesthetics8.avif);
+    }
+    .modal-footer .btn-close {
+        transform: translateY(20px);
+    }
+    /* .mystery-box-main {
+        margin-top: -40px !important;
+    } */
     #main {
         width: 100% !important;
     }
@@ -702,11 +842,8 @@ footer .footer-links p {
         display: block !important;
         padding-bottom: 10px;
     }
-    .bg-hero {
-        display: block;
-        background: #1e1a69;
-        height: 200px;
-        border-radius: 0 0 25px 25px;
+    .atm {
+        margin-top: 20px;
     }
     .flex-gap {
         gap: 65px;
@@ -1035,7 +1172,7 @@ footer .footer-links p {
     left: 0;
     z-index: -1;
     inset: 0;
-    background-image: url(/img/aesthetics15.jpg);
+    background-image: url(/img/4ee81d5aebd75a4699f1b25e11b88e27.jpg);
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -1064,15 +1201,6 @@ footer .footer-links p {
     letter-spacing: 2px; 
     word-spacing: 5px;
     font-size: 27px;
-}
-.atm-content {
-    /* width: 350px; */
-    height: 200px;
-    /* box-shadow: 4px 8px 15px rgba(0, 0, 0, 0.034); */
-    /* background: rgba( 255, 255, 255, 0.05 ); */
-    backdrop-filter: blur( 16.5px );
-    -webkit-backdrop-filter: blur( 16.5px );
-    border: 1px solid rgba(211, 210, 210, 0.18);
 }
 .bg-one-faint {
     background-color: #343078a9;  
@@ -1234,15 +1362,17 @@ footer .footer-links p {
 }
 
 .key, #backspace {
-    width: 33%;
-    height: 70px;
-    border: 1px solid #606fac;
-    text-align: center;
+    width: 29%;
+    height: 50px;
+    text-align: center !important;
+    display: grid !important;
+    place-items: center !important;
     font-size: 30px;
     cursor: pointer;
     color: white;
-    display: grid;
-    place-items: center;
+    margin: 7px;
+    border-radius: 25px;
+    background-color: #8095e82b;
 }
 .key:active, #backspace:active {
     background-color: #00e189 !important;
@@ -1255,7 +1385,7 @@ footer .footer-links p {
     pointer-events: none;
 }
 
-.key:nth-child(3),
+/* .key:nth-child(3),
 .key:nth-child(6),
 .key:nth-child(9) {
     border-right: none !important;
@@ -1281,12 +1411,10 @@ footer .footer-links p {
 .key:nth-child(12) {
     border-top: none !important;
     border-bottom: none !important;
-}
+} */
 #backspace {
-    background-color: #ff6666;
-    color: white;
+    /* background-color: #ff6666; */
     font-size: 35px;
-    border: none !important;
 }
 .number-boxes {
     display: flex;
@@ -1346,34 +1474,37 @@ footer .footer-links p {
         transform: translateY(-100px); /* Moves up */
     }
 }
-.zen-coin {
-    width: 55px;
-    height: 55px;
-}
-.lfg {
+/* .zen-coin {
     width: 45px;
     height: 45px;
+} */
+.lfg {
+    width: 40px;
+    height: 40px;
 }
-.zen-coin {
+/* .zen-coin {
     width: 60px;
     height: 60px;
-}
+} */
 #coin {
     transition: transform 0.2s ease-in-out;
+    scale: .8;
+    margin-top: -20px;
 }
 #coin:active {
     transform: scale(1.1);
 }
-#total {
+#total, #mysteryGiftValue {
     text-shadow: 2px 4px 2px #606fac;
 }
 .progress-div .zen-coin {
-    width: 30px;
-    height: 30px;
+    width: 22px;
+    height: 22px;
 }
 .mining {
-    border-radius: 8px;
+    border-radius: 15px;
     padding: 0;
+    margin: 0;
     position: relative;
 }
 .addon {

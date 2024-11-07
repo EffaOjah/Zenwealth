@@ -15,10 +15,39 @@ async function updateIsUsedColumn(res, token){
     });
 }
 
+/* Function to change the is_used column 
+of the free_coupons table to true */
+async function updateIsUsedColumn2(res, token){
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE free_coupons SET is_used = TRUE WHERE token = ?', [token], (err, result)=>{
+            if (err) {
+                reject(err);
+            } else{
+                console.log('Successfully updated the is_used column to TRUE');
+                resolve(result);
+            }
+        });
+    });
+}
+
 // Function to set the user of the coupon code
 async function setUserId(res, token, userId){
     return new Promise((resolve, reject) => {
         connection.query('UPDATE registeration_tokens SET user_id = ? WHERE token = ?', [userId, token], (err, result)=>{
+            if (err) {
+                reject(err)
+            } else{
+                console.log('Successfully set the userId of the coupon code');
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Function to set the user of the coupon code for free coupon
+async function setUserId2(res, token, userId){
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE free_coupons SET user_id = ? WHERE token = ?', [userId, token], (err, result)=>{
             if (err) {
                 reject(err)
             } else{
@@ -35,6 +64,22 @@ async function setUsageDate(res, token) {
         const date = new Date().toDateString();
 
         connection.query('UPDATE registeration_tokens SET date_used = ? WHERE token = ?', [date, token], (err, result)=>{
+            if (err) {
+                reject(err);
+            } else{
+                console.log('Successfully set the usage date of the coupon code');
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Function to set the usage date of the coupon code for free coupon
+async function setUsageDate2(res, token) {
+    return new Promise((resolve, reject) => {
+        const date = new Date().toDateString();
+
+        connection.query('UPDATE free_coupons SET date_used = ? WHERE token = ?', [date, token], (err, result)=>{
             if (err) {
                 reject(err);
             } else{
@@ -128,4 +173,4 @@ async function getReferrer(referrer){
 
 
 
-module.exports = {updateIsUsedColumn, setUserId, setUsageDate, creditNewUser, getReferrer};
+module.exports = {updateIsUsedColumn, updateIsUsedColumn2, setUserId, setUserId2, setUsageDate, setUsageDate2, creditNewUser, getReferrer};
