@@ -275,4 +275,34 @@ async function toggleSetting(setting, status) {
     });
 }
 
-module.exports = {numberOfUsers, couponCodes, sumOfWithdrawals, allVendors, allCouponCodes, allUsers, withdrawals, sponsoredPosts, allProducts, allCourses, toggleVendorVerification, getNotification, getSettings, getWithdrawalSettings, approvedWithdrawals, updateHasSharedPostColumn, updateHasJoinedPlatformColumn, toggleSetting};
+// Function to update the credited_task1 colum for all users
+async function creditedTask1Column(status) {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET credited_task1 = ?', [status], (err, result)=>{
+            if (err) {
+                console.log('Error updating the column: ', err);
+                reject(err);
+            } else{
+                console.log('Successfully updated the credited_task1 column');
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Function to update the credited_task2 colum for all users
+async function creditedTask2Column(status) {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET credited_task2 = ?', [status], (err, result)=>{
+            if (err) {
+                console.log('Error updating the column: ', err);
+                reject(err);
+            } else{
+                console.log('Successfully updated the credited_task2 column');
+                resolve(result);
+            }
+        });
+    });
+}
+
+module.exports = {numberOfUsers, couponCodes, sumOfWithdrawals, allVendors, allCouponCodes, allUsers, withdrawals, sponsoredPosts, allProducts, allCourses, toggleVendorVerification, getNotification, getSettings, getWithdrawalSettings, approvedWithdrawals, updateHasSharedPostColumn, updateHasJoinedPlatformColumn, toggleSetting, creditedTask1Column, creditedTask2Column};

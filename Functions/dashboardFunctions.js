@@ -262,7 +262,7 @@ async function updateYtStatus(status, userId) {
 // Function to get all posts from the database
 async function getPosts() {
     return new Promise((resolve, reject) => {
-        connection.query('SELECT * FROM zenwealth_posts', (err, result)=>{
+        connection.query('SELECT * FROM zenwealth_posts WHERE post_type IS NOT NULL', (err, result)=>{
             if (err) {
                 console.log(err);
                 reject(err);

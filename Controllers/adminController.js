@@ -625,13 +625,15 @@ router.post('/add-advert-post', upload.single('image'), verifyToken.verifyAdminT
             try {
                 const updateHasSharedPostColumn = await adminFunctions.updateHasSharedPostColumn();
 
-                // Update the credited_task2 column
-                const creditedTask1Column = await dashboardFunctions.creditedTask1Column(1, user[0].user_id);
+                // Update the credited_task1 column
+                const creditedTask1Column = await adminFunctions.creditedTask1Column(0);
+
+                return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Success: ', alertMessage: 'Successfully added advert post', alertColor: 'green'});
             } catch (error) {
+                console.log(error);
+                
                 return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Error: ', alertMessage: 'An error ocurred', alertColor: 'red'});
             }
-
-            return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Success: ', alertMessage: 'Successfully added advert post', alertColor: 'green'});
         }
     });
 });
@@ -673,12 +675,12 @@ router.post('/add-sponsored-post', upload.single('image'), verifyToken.verifyAdm
                 const updateHasJoinedPlatformColumn = await adminFunctions.updateHasJoinedPlatformColumn();
 
                 // Update the credited_task2 column
-                const creditedTask2Column = await dashboardFunctions.creditedTask2Column(1, user[0].user_id);
+                const creditedTask2Column = await adminFunctions.creditedTask2Column(1);
+
+                return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Success: ', alertMessage: 'Successfully added sponsored post', alertColor: 'green'});
             } catch (error) {
                 return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Error: ', alertMessage: 'An error ocurred', alertColor: 'red'});
             }
-
-            return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Success: ', alertMessage: 'Successfully added sponsored post', alertColor: 'green'});
         }
     });
 });

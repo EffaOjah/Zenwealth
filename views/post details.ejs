@@ -5,13 +5,20 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name="viewport" content='width=device-width, initial-scale=1.0'>
 
+    <!-- Handle sharing for Facebook and Whatsapp-->
     <meta property="og:title" content="<%= getSinglePost[0].post_title %>" />
     <meta property="og:description" content="<%= getSinglePost[0].post_description %>" />
     <meta property="og:image" content="https://zenwealth.app/uploads/admin/<%= getSinglePost[0].post_image %>" />
     <meta property="og:url" content="https://zenwealth.app/post/<%= getSinglePost[0].post_id %>" />
+
+    <!-- Handle sharing for X -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="<%= getSinglePost[0].post_title %>">
+    <meta name="twitter:description" content="<%= getSinglePost[0].post_description %>">
+    <meta name="twitter:image" content="https://zenwealth.app/uploads/admin/<%= getSinglePost[0].post_image %>">
+    <!-- <meta name="twitter:site" content="@Finvest"> -->
     <meta property="og:type" content="article" />
 
-    
     <title>Zenwealth - Post Detail</title>
 
     <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02.png">
@@ -77,14 +84,14 @@
                          <% if (getSinglePost[0].post_type == 'advert') { %>
                             <p class="color-three">Share Post</p>
                                                     <div id="share-icons" class="p-2">
-                                                        <a onclick="sharePost()" href="https://wa.me/?text=https://primetech.net.ng/post/<%= getSinglePost[0].post_id %>">
+                                                        <a onclick="sharePost()" href="https://wa.me/?text=https://zenwealth.app/post/<%= getSinglePost[0].post_id %>">
                                                         <i class="fa-brands fa-square-whatsapp fs-1" style="color: #075e54"></i>
                                                         </a>
                                                                                      <a onclick="sharePost()" href="https://www.facebook.com/sharer/sharer.php?u=https://zenwealth.app/post/<%= getSinglePost[0].post_id %>" target="_blank">
                                                                                     <i class="fa-brands fa-facebook ms-3 fs-1" style="color: blue"></i>
                                                                                 </a>
                                                     
-                                                                                                       <a onclick="sharePost()" href="https://twitter.com/intent/tweet?url=https://https://primetech.net.ng/post/<%= getSinglePost[0].post_id %>" target="_blank">
+                                                                                                       <a onclick="sharePost()" href="https://twitter.com/intent/tweet?url=https://https://zenwealth.app/post/<%= getSinglePost[0].post_id %>" target="_blank">
                                                                                                        <i class="fa-brands fa-square-twitter  ms-3  fs-1" style="color: #1DA1F2"></i>
                                                                                                        </a>
                                                                                                        </div>

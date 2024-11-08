@@ -241,14 +241,18 @@ router.get('/youtube-earning', verifyToken.verifyToken, async(req, res)=>{
 });
 
 // Route for task page
-router.get('/task', verifyToken.verifyToken, async(req, res)=>{
-    // Get all posts
-    const getPosts = await dashboardFunctions.getPosts();
+router.get('/task', async(req, res)=>{
+    try {
+        // Get all posts
+        const getPosts = await dashboardFunctions.getPosts();
 
-    // Get the mystery_box setting
-    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+        // Get the mystery_box setting
+        const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
 
-    res.render('task', {getPosts, getMysteryBoxSetting});
+        res.render('task', {getPosts, getMysteryBoxSetting});
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 // Route for post details

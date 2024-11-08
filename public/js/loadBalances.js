@@ -26,10 +26,8 @@ document.addEventListener('DOMContentLoaded', async ()=>{
       availabletotalAffiliateBalanceSpan[0].classList.remove('spinner-border');
 
        ZenCoinsSpan[0].innerHTML = !data.getTotalZenCoinsView[0].zenCoins ? `0ZC` : `${data.getTotalZenCoinsView[0].zenCoins}ZC`;
-       ZenCoinsSpan[1].innerHTML = !data.getTotalZenCoinsView[0].zenCoins ? `0ZC` : `${data.getTotalZenCoinsView[0].zenCoins}ZC`;
 
        ZenCoinsSpan[0].classList.remove('spinner-border');
-       ZenCoinsSpan[1].classList.remove('spinner-border');
 
        ZenPointsSpan[0].innerHTML = !data.getTotalZenPointsView[0].ZenPoints ? `$0` : `$${Math.floor((data.getTotalZenPointsView[0].ZenPoints / 1500) * 100) / 100}`;
        ZenPointsSpan[1].innerHTML = !data.getTotalZenPointsView[0].ZenPoints ? `$0` : `$${Math.floor((data.getTotalZenPointsView[0].ZenPoints / 1500) * 100) / 100}`;
