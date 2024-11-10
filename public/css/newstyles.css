@@ -101,6 +101,10 @@ a {
 .bg-four-faint {
     background-color: #f9ede786;
 }
+.mystery_earnings:hover{
+    text-decoration: underline !important;
+    color: #00e189 !important;
+}
 .g-button, .g-button-mobile {
     width: 9em;
     height: 3em;
