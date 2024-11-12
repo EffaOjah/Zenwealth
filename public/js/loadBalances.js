@@ -18,12 +18,14 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
     //    console.log(data);
 
-       totalAffiliateBalanceSpan[0].innerHTML = '$' + (Math.floor((data.getTotalDirectReferralBalance[0].balance / 1500) * 100) / 100 + Math.floor((data.getTotalIndirectReferralBalance[0].balance / 1500) * 100) / 100);
+       totalAffiliateBalanceSpan[0].innerHTML = `$${Math.floor((data.getTotalDirectReferralBalance[0].balance / 1500) * 100) / 100}`;
+
+    //    totalAffiliateBalanceSpan[0].innerHTML = '$' + (Math.floor((data.getTotalDirectReferralBalance[0].balance / 1500) * 100) / 100 + Math.floor((data.getTotalIndirectReferralBalance[0].balance / 1500) * 100) / 100);
 
        totalAffiliateBalanceSpan[0].classList.remove('spinner-border');
 
-      availabletotalAffiliateBalanceSpan[0].innerHTML = `$${Math.floor((data.getTotalAffiliateBalanceView[0].affiliateBalance / 1500) * 100) / 100}`;
-      availabletotalAffiliateBalanceSpan[0].classList.remove('spinner-border');
+       availabletotalAffiliateBalanceSpan[0].innerHTML = `$${Math.floor((data.getTotalAffiliateBalanceView[0].affiliateBalance / 1500) * 100) / 100}`;
+       availabletotalAffiliateBalanceSpan[0].classList.remove('spinner-border');
 
        ZenCoinsSpan[0].innerHTML = !data.getTotalZenCoinsView[0].zenCoins ? `0ZC` : `${data.getTotalZenCoinsView[0].zenCoins}ZC`;
 

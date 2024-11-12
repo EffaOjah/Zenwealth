@@ -7,6 +7,9 @@ const verifyToken = require('../Functions/verifyToken');
 
 const connection = require('../db/db');
 
+// Require the functions middleware
+const functions = require('../Functions/functions');
+
 // Middleware to restrict users from accesing the site before launch
 // router.use(verifyToken.verifyToken);
 
@@ -16,8 +19,15 @@ router.get('/', (req, res)=>{
 });
 
 // Route to purchase coupon code
-router.get('/coupon-code/purchase', (req, res)=>{
-    res.render('buy-coupon-code');
+router.get('/coupon-code/purchase', async (req, res)=>{
+    // Get all vendors
+    const vendors = await functions.getVendors();
+
+    // Shuffle the arraynof vendors
+    const shuffledArray = functions.shuffleArray(vendors);
+    console.log('Shuffled Array: ', shuffledArray);
+    
+    res.render('buy-coupon-code', {vendors: shuffledArray});
 });
 
 // Route to verify coupon code

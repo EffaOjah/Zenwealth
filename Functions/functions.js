@@ -121,7 +121,7 @@ async function createUnreferredUser(res, firstName, lastName, email, username, p
                     const setUsageDate = await registrationprocesses.setUsageDate(res, coupon);
 
                     // Credit the newly created user with the welcome bonus
-                    // const creditNewUser = await registrationprocesses.creditNewUser(res, result.insertId);
+                    const creditNewUser = await registrationprocesses.creditNewUser(res, result.insertId);
 
                     resolve(result);
                     console.log(result);
@@ -155,7 +155,7 @@ async function createUnreferredUser2(res, firstName, lastName, email, username, 
                     const setUsageDate = await registrationprocesses.setUsageDate2(res, coupon);
 
                     // Credit the newly created user with the welcome bonus
-                    // const creditNewUser = await registrationprocesses.creditNewUser(res, result.insertId);
+                    const creditNewUser = await registrationprocesses.creditNewUser(res, result.insertId);
 
                     resolve(result);
                     console.log(result);
@@ -190,7 +190,7 @@ async function createReferredUser(res, firstName, lastName, email, username, pho
                     const setUsageDate = await registrationprocesses.setUsageDate(res, coupon);
 
                     // Credit the newly created user with the welcome bonus
-                    // const creditNewUser = await registrationprocesses.creditNewUser(res, result.insertId);
+                    const creditNewUser = await registrationprocesses.creditNewUser(res, result.insertId);
 
                     resolve(result);
                     console.log(result);
@@ -220,7 +220,7 @@ async function creditDirectReferral(res, referrer){
 
                     // Check if the
                     // Insert into the transactions table
-                    connection.query('INSERT INTO affiliate_transactions (amount, transaction_type, user_id) VALUES (?, ?, ?)', [amountToAdd, 'Direct Referral', details[0].user_id], async (err2)=>{
+                    connection.query('INSERT INTO affiliate_transactions (amount, transaction_type, type, user_id) VALUES (?, ?, ?, ?)', [amountToAdd, 'Direct Referral', 'CREDIT', details[0].user_id], async (err2)=>{
                         if (err2){
                             console.log(err2);
                             reject(err2);
@@ -269,7 +269,7 @@ async function creditFirstIndirectReferral(res, referrer){
             console.log("Referrer's id: ", details[0].user_id);
             
             // Insert into the transactions table
-            connection.query('INSERT INTO affiliate_transactions (amount, transaction_type, user_id) VALUES (?, ?, ?)', [amountToAdd, 'Indirect Referral', details[0].user_id], async (err2)=>{
+            connection.query('INSERT INTO affiliate_transactions (amount, transaction_type, type, user_id) VALUES (?, ?, ?, ?)', [amountToAdd, 'Indirect Referral', 'CREDIT', details[0].user_id], async (err2)=>{
                 if (err2){
                     console.log(err2);
                     reject(err2);
@@ -313,7 +313,7 @@ async function creditSecondIndirectReferral(res, referrer){
                 console.log("Referrer's id: ", details[0].user_id);
                 
                 // Insert into the transactions table
-                connection.query('INSERT INTO affiliate_transactions (amount, transaction_type, user_id) VALUES (?, ?, ?)', [amountToAdd, 'Indirect Referral', details[0].user_id], async (err2)=>{
+                connection.query('INSERT INTO affiliate_transactions (amount, transaction_type, type, user_id) VALUES (?, ?, ?, ?)', [amountToAdd, 'Indirect Referral', 'CREDIT', details[0].user_id], async (err2)=>{
                     if (err2){
                         console.log(err2);
                         reject(err2);
@@ -376,7 +376,7 @@ async function creditLoginBonus(userId) {
     let amountToAdd = 500;
     return new Promise((resolve, reject) => {
         // Insert into the transactions table
-        connection.query('INSERT INTO non_affiliate_transactions (amount, transaction_type, user_id) VALUES (?, ?, ?)', [amountToAdd, 'Login Bonus', userId], async (err2)=>{
+        connection.query('INSERT INTO non_affiliate_transactions (amount, transaction_type, type, user_id) VALUES (?, ?, ?, ?)', [amountToAdd, 'Login Bonus', 'CREDIT', userId], async (err2)=>{
             if (err2){
                 console.log(err2);
                 reject(err2);
@@ -422,7 +422,7 @@ async function debitUser(userId){
       const amountToDebit = -5000;
       
       // Insert into the transactions table
-      connection.query('INSERT INTO non_affiliate_transactions (amount, transaction_type, user_id) VALUES (?, ?, ?)', [amountToAdd, 'P2P Debit', userId], async (err2)=>{
+      connection.query('INSERT INTO non_affiliate_transactions (amount, transaction_type, type, user_id) VALUES (?, ?, ?, ?)', [amountToAdd, 'P2P Debit', 'DEBIT', userId], async (err2)=>{
         if (err2){
             console.log(err2);
             reject(err2);
@@ -441,7 +441,7 @@ async function creditNewUser(userId){
       const amountToAdd = 4000;
       
       // Insert into the transactions table
-      connection.query('INSERT INTO non_affiliate_transactions (amount, transaction_type, user_id) VALUES (?, ?, ?)', [amountToAdd, 'Welcome Bonus', userId], async (err2)=>{
+      connection.query('INSERT INTO non_affiliate_transactions (amount, transaction_type, type, user_id) VALUES (?, ?, ?, ?)', [amountToAdd, 'Welcome Bonus', 'CREDIT', userId], async (err2)=>{
         if (err2){
             console.log(err2);
             reject(err2);
@@ -487,4 +487,35 @@ async function generatedFreeCouponCode() {
     return couponCode;
 }
 
-module.exports = {current_timestamp, validateEmail, generateReferralCode, separateId, checkEmail, checkUsername, checkCoupon, checkFreeCoupon, createUnreferredUser, createUnreferredUser2, createReferredUser, creditDirectReferral, creditFirstIndirectReferral, creditSecondIndirectReferral, checkDate, updateLastLoginDate, creditLoginBonus, createUserp2P, debitUser, creditNewUser, generatedFreeCouponCode};
+// Function to get all vendors
+async function getVendors() {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM users WHERE is_a_vendor = 1', (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log('Vendors: ', result);
+                resolve(result)
+            }
+        });
+    });
+}
+
+// Function to shuffle array
+function shuffleArray(array) {
+    // Create a copy of the array to avoid mutating the original array
+    let shuffledArray = array.slice();
+
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+        // Generate a random index
+        const randomIndex = Math.floor(Math.random() * (i + 1));
+
+        // Swap the current element with the random index
+        [shuffledArray[i], shuffledArray[randomIndex]] = [shuffledArray[randomIndex], shuffledArray[i]];
+    }
+
+    return shuffledArray;
+}
+
+module.exports = {current_timestamp, validateEmail, generateReferralCode, separateId, checkEmail, checkUsername, checkCoupon, checkFreeCoupon, createUnreferredUser, createUnreferredUser2, createReferredUser, creditDirectReferral, creditFirstIndirectReferral, creditSecondIndirectReferral, checkDate, updateLastLoginDate, creditLoginBonus, createUserp2P, debitUser, creditNewUser, generatedFreeCouponCode, getVendors, shuffleArray};

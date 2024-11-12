@@ -153,9 +153,9 @@ async function getTotalZenCoinsView() {
 }
 
 // Function to insert into affiliate transactions table
-async function insertIntoAffiliateTransactions(amount, transactionType, userId) {
+async function insertIntoAffiliateTransactions(amount, transactionType, type, userId) {
     return new Promise((resolve, reject) => {
-        connection.query('INSERT INTO affiliate_transactions (amount, transaction_type, user_id) VALUES (?, ?, ?)', [amount, transactionType, userId], (err, result)=>{
+        connection.query('INSERT INTO affiliate_transactions (amount, transaction_type, type, user_id) VALUES (?, ?, ?, ?)', [amount, transactionType, type, userId], (err, result)=>{
             if (err) {
                 console.log('Error inserting into affiliate_transactions table: ', err);
                 reject(err);
@@ -168,9 +168,9 @@ async function insertIntoAffiliateTransactions(amount, transactionType, userId) 
 }
 
 // Function to insert into non affiliate transactions table
-async function insertIntoNonAffiliateTransactions(amount, transactionType, userId) {
+async function insertIntoNonAffiliateTransactions(amount, transactionType, type, userId) {
     return new Promise((resolve, reject) => {
-        connection.query('INSERT INTO non_affiliate_transactions (amount, transaction_type, user_id) VALUES (?, ?, ?)', [amount, transactionType, userId], (err, result)=>{
+        connection.query('INSERT INTO non_affiliate_transactions (amount, transaction_type,type, user_id) VALUES (?, ?, ?, ?)', [amount, transactionType, type, userId], (err, result)=>{
             if (err) {
                 console.log('Error inserting into non_affiliate_transactions table: ', err);
                 reject(err);

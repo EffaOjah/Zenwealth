@@ -365,9 +365,11 @@ router.post('/update-withdrawal-status', verifyToken.verifyAdminToken, (req, res
 
 // Route to make user a vendor
 router.post('/make-vendor', verifyToken.verifyAdminToken, async(req, res)=>{
-    const {userId, username} = req.body;
+    const {userId, username, vlink} = req.body;
+    console.log(req.body);
+    
 
-    connection.query('UPDATE users SET is_a_vendor = true WHERE user_id = ?', userId, (err, result)=>{
+    connection.query('UPDATE users SET is_a_vendor = true, vendor_link = ? WHERE user_id = ?', [vlink, userId], (err, result)=>{
         if (err) {
             console.log('Error updating the vendor status of the user: ', err);
             res.redirect(`/user/${username}`);
@@ -382,7 +384,7 @@ router.post('/make-vendor', verifyToken.verifyAdminToken, async(req, res)=>{
 router.post('/remove-vendor', verifyToken.verifyAdminToken, async(req, res)=>{
     const {userId, username} = req.body;
 
-    connection.query('UPDATE users SET is_a_vendor = false WHERE user_id = ?', userId, (err, result)=>{
+    connection.query('UPDATE users SET is_a_vendor = false, vendor_link = NULL WHERE user_id = ?', userId, (err, result)=>{
         if (err) {
             console.log('Error updating the vendor status of the user: ', err);
             res.redirect(`/user/${username}`);

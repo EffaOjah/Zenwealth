@@ -19,6 +19,9 @@ router.get('/vendor/dashboard', verifyToken.verifyToken, async(req, res)=>{
   // Fetch user details using username
   const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username); 
 
+  // Get the mystery_box setting
+  const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
   // Check if the user is a vendor, before allowing access
   if (fetchUserByUsername[0].is_a_vendor == 0) {
     console.log('User is not a vendor');
@@ -35,7 +38,7 @@ router.get('/vendor/dashboard', verifyToken.verifyToken, async(req, res)=>{
     // Get the user's referrals
     const getReferrals = await dashboardFunctions.getReferrals(fetchUserByUsername[0].referral_code);
 
-    res.render('vendor-dashboard', {user: fetchUserByUsername[0], getActiveCoupons, getUsedCoupons, referrals: getReferrals[0].referrals});
+    res.render('vendor-dashboard', {user: fetchUserByUsername[0], getMysteryBoxSetting, getActiveCoupons, getUsedCoupons, referrals: getReferrals[0].referrals});
   }
 });
 

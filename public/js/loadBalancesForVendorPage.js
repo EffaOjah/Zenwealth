@@ -1,8 +1,9 @@
-// var affiliateBalanceSpan =  document.getElementsByClassName('totalAffiliateBalance');
-// var nonAffiliateBalanceSpan =  document.getElementsByClassName('totalNonAffiliateBalance');
+// var totalAffiliateBalanceSpan =  document.getElementsByClassName('totalAffiliateBalance');
+// var availabletotalAffiliateBalanceSpan =  document.getElementsByClassName('availableAffiliateBalance');
+// var ZenCoinsSpan =  document.getElementsByClassName('totalZenCoins');
+var ZenPointsSpan =  document.getElementsByClassName('totalZenpoints');
 var directReferralBalance =  document.getElementsByClassName('directReferralBalance');
 var indirectReferralBalance =  document.getElementsByClassName('indirectReferralBalance');
-// var gameBalance =  document.getElementById('gameBalance');
 
 document.addEventListener('DOMContentLoaded', async ()=>{
 
@@ -17,31 +18,36 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
     //    console.log(data);
 
-    //    affiliateBalanceSpan[0].innerHTML = `$${Math.floor((data.getTotalAffiliateBalanceView[0].affiliateBalance / 1500) * 100) / 100}`;
-    //    affiliateBalanceSpan[1].innerHTML = `$${Math.floor((data.getTotalAffiliateBalanceView[0].affiliateBalance / 1500) * 100) / 100}`;
-    //    affiliateBalanceSpan[2].innerHTML = `$${Math.floor((data.getTotalAffiliateBalanceView[0].affiliateBalance / 1500) * 100) / 100}`;
+      //  totalAffiliateBalanceSpan[0].innerHTML = `$${Math.floor((data.getTotalDirectReferralBalance[0].balance / 1500) * 100) / 100}`;
 
-    //    affiliateBalanceSpan[0].classList.remove('spinner-border');
-    //    affiliateBalanceSpan[1].classList.remove('spinner-border');
-    //    affiliateBalanceSpan[2].classList.remove('spinner-border');
+    //    totalAffiliateBalanceSpan[0].innerHTML = '$' + (Math.floor((data.getTotalDirectReferralBalance[0].balance / 1500) * 100) / 100 + Math.floor((data.getTotalIndirectReferralBalance[0].balance / 1500) * 100) / 100);
 
-    //    nonAffiliateBalanceSpan[0].innerHTML = !data.getTotalNonAffiliateBalanceView[0].nonAffiliateBalance ? `0ZenCoins` : `${data.getTotalNonAffiliateBalanceView[0].nonAffiliateBalance}ZenCoins`;
-    //    nonAffiliateBalanceSpan[1].innerHTML = !data.getTotalNonAffiliateBalanceView[0].nonAffiliateBalance ? `0ZenCoins` : `${data.getTotalNonAffiliateBalanceView[0].nonAffiliateBalance}ZenCoins`;
+      //  totalAffiliateBalanceSpan[0].classList.remove('spinner-border');
 
-    //    nonAffiliateBalanceSpan[0].classList.remove('spinner-border');
-    //    nonAffiliateBalanceSpan[1].classList.remove('spinner-border');
+      //  availabletotalAffiliateBalanceSpan[0].innerHTML = `$${Math.floor((data.getTotalAffiliateBalanceView[0].affiliateBalance / 1500) * 100) / 100}`;
+      //  availabletotalAffiliateBalanceSpan[0].classList.remove('spinner-border');
+
+      //  ZenCoinsSpan[0].innerHTML = !data.getTotalZenCoinsView[0].zenCoins ? `0ZC` : `${data.getTotalZenCoinsView[0].zenCoins}ZC`;
+
+      //  ZenCoinsSpan[0].classList.remove('spinner-border');
+
+       ZenPointsSpan[0].innerHTML = !data.getTotalZenPointsView[0].ZenPoints ? `$0` : `$${Math.floor((data.getTotalZenPointsView[0].ZenPoints / 1500) * 100) / 100}`;
+      //  ZenPointsSpan[1].innerHTML = !data.getTotalZenPointsView[0].ZenPoints ? `$0` : `$${Math.floor((data.getTotalZenPointsView[0].ZenPoints / 1500) * 100) / 100}`;
+
+       ZenPointsSpan[0].classList.remove('spinner-border');
+      //  ZenPointsSpan[1].classList.remove('spinner-border');
 
        directReferralBalance[0].innerHTML = `$${Math.floor((data.getTotalDirectReferralBalance[0].balance / 1500) * 100) / 100}`;
-    //    directReferralBalance[1].innerHTML = `$${Math.floor((data.getTotalDirectReferralBalance[0].balance / 1500) * 100) / 100}`;
+      //  directReferralBalance[1].innerHTML = `$${Math.floor((data.getTotalDirectReferralBalance[0].balance / 1500) * 100) / 100}`;
 
        directReferralBalance[0].classList.remove('spinner-border');
-    //    directReferralBalance[1].classList.remove('spinner-border');
+      //  directReferralBalance[1].classList.remove('spinner-border');
 
        indirectReferralBalance[0].innerHTML = `$${Math.floor((data.getTotalIndirectReferralBalance[0].balance / 1500) * 100) / 100}`;
-    //    indirectReferralBalance[1].innerHTML = `$${Math.floor((data.getTotalIndirectReferralBalance[0].balance / 1500) * 100) / 100}`;
+      //  indirectReferralBalance[1].innerHTML = `$${Math.floor((data.getTotalIndirectReferralBalance[0].balance / 1500) * 100) / 100}`;
 
        indirectReferralBalance[0].classList.remove('spinner-border');
-    //    indirectReferralBalance[1].classList.remove('spinner-border');
+      //  indirectReferralBalance[1].classList.remove('spinner-border');
 
     //    gameBalance.innerHTML = `$${Math.floor((data.getTotalGameBalanceView[0].gameBalance / 1500) * 100) / 100}`;
 

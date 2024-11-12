@@ -332,7 +332,7 @@ router.get('/claim-task/:type', verifyToken.verifyToken, async(req, res)=>{
         }
 
         // Credit the user
-        const creditUser = await dashboardFunctions.insertIntoNonAffiliateTransactions(500, 'Trend Post', user[0].user_id);
+        const creditUser = await dashboardFunctions.insertIntoNonAffiliateTransactions(500, 'Trend Post', 'CREDIT', user[0].user_id);
 
         // Update the credited_task1 column
         const creditedTask1Column = await dashboardFunctions.creditedTask1Column(1, user[0].user_id);
@@ -347,7 +347,7 @@ router.get('/claim-task/:type', verifyToken.verifyToken, async(req, res)=>{
         }
 
         // Credit the user
-        const creditUser = await dashboardFunctions.insertIntoNonAffiliateTransactions(300, 'Advert Post', user[0].user_id);
+        const creditUser = await dashboardFunctions.insertIntoNonAffiliateTransactions(300, 'Advert Post', 'CREDIT', user[0].user_id);
 
         // Update the credited_task2 column
         const creditedTask2Column = await dashboardFunctions.creditedTask2Column(1, user[0].user_id);
@@ -362,8 +362,8 @@ router.get('/claim-task/:type', verifyToken.verifyToken, async(req, res)=>{
         }
 
         // Credit the user
-        const creditTrend = await dashboardFunctions.insertIntoNonAffiliateTransactions(500, 'Trend Post', user[0].user_id);
-        const creditAdvert = await dashboardFunctions.insertIntoNonAffiliateTransactions(300, 'Advert Post', user[0].user_id);
+        const creditTrend = await dashboardFunctions.insertIntoNonAffiliateTransactions(500, 'Trend Post', 'CREDIT', user[0].user_id);
+        const creditAdvert = await dashboardFunctions.insertIntoNonAffiliateTransactions(300, 'Advert Post', 'CREDIT', user[0].user_id);
 
         // Update the credited_task1 column
         const creditedTask1Column = await dashboardFunctions.creditedTask1Column(1, user[0].user_id);
@@ -644,7 +644,7 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
             }
 
             // Insert into the affiliate transactions table
-            const insertIntoAffiliateTransactions = await dashboardFunctions.insertIntoAffiliateTransactions(`${-(amount * 1000)}`, 'Affiliate Withdrawal', fetchUserByUsername[0].user_id);
+            const insertIntoAffiliateTransactions = await dashboardFunctions.insertIntoAffiliateTransactions(`${-(amount * 1000)}`, 'Affiliate Withdrawal', 'DEBIT', fetchUserByUsername[0].user_id);
 
             // Insert into the withdrawals table
             const insertIntoWithdrawals = await dashboardFunctions.insertIntoWithdrawals(fetchUserByUsername[0].user_id, fetchUserByUsername[0].username, (amount * 1000), 'Affiliate Withdrawal', fetchUserByUsername[0].bank_name, fetchUserByUsername[0].account_number, fetchUserByUsername[0].account_name);
@@ -679,7 +679,7 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
             }
 
             // Insert into the affiliate transactions table
-            const insertIntoNonAffiliateTransactions = await dashboardFunctions.insertIntoNonAffiliateTransactions(`${-(amount)}`, 'Non Affiliate Withdrawal', fetchUserByUsername[0].user_id);
+            const insertIntoNonAffiliateTransactions = await dashboardFunctions.insertIntoNonAffiliateTransactions(`${-(amount)}`, 'Non Affiliate Withdrawal', 'DEBIT', fetchUserByUsername[0].user_id);
 
             // Insert into the withdrawals table
             const insertIntoWithdrawals = await dashboardFunctions.insertIntoWithdrawals(fetchUserByUsername[0].user_id, fetchUserByUsername[0].username, (amount * 1000), 'Non Affiliate Withdrawal', fetchUserByUsername[0].bank_name, fetchUserByUsername[0].account_number, fetchUserByUsername[0].account_name);
