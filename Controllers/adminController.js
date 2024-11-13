@@ -193,6 +193,11 @@ router.get('/admin/all-sponsored-post', verifyToken.verifyAdminToken, async(req,
     res.render(path.join(__dirname , '../views/Admin Pages/All Posts'), {sponsoredPosts});
 });
 
+// Route to upload youtube video
+router.get('/admin/upload-yt-video', verifyToken.verifyAdminToken, (req, res)=>{
+    res.render(path.join(__dirname , '../views/Admin Pages/Upload Yt Video'));
+})
+
 // Route to add product
 router.get('/admin/upload-product', verifyToken.verifyAdminToken, (req, res)=>{
     res.send('Page to uplaod product');
@@ -488,7 +493,7 @@ router.post('/generate-coupon-code', verifyToken.verifyAdminToken, async(req, re
 
     console.log(vendorDetails);
     
-    let vendorInitials = (vendorDetails.vendorUsername.slice(0, 3)).toUpperCase();
+    let vendorInitials = (vendorDetails.vendorUsername.slice(0, 4)).toUpperCase();
     console.log('Vendor Initials: ', vendorInitials);
     
     var arrOfGeneratedCodes = [];
@@ -498,7 +503,7 @@ router.post('/generate-coupon-code', verifyToken.verifyAdminToken, async(req, re
   
           for(let i = 1; i <= noOfCoupons; i++){
               // Define the length of the random part
-              const randomPartLength = 16;
+              const randomPartLength = 15;
       
               // Generate a random string of specified length
               let randomString = Math.random().toString(36).substr(2, randomPartLength);
@@ -512,7 +517,7 @@ router.post('/generate-coupon-code', verifyToken.verifyAdminToken, async(req, re
               randomString = (randomString.substr(0, randomPartLength)).toUpperCase();
       
               // Concatenate the username and random string
-              const couponCode = `${country}${vendorInitials}${randomString}`;
+              const couponCode = `${country}${randomString}${vendorInitials}`;
               
               arrOfGeneratedCodes.push(couponCode);
           }
@@ -556,7 +561,7 @@ router.post('/generate-coupon-code', verifyToken.verifyAdminToken, async(req, re
         
                     console.log('Successfully created coupon code: ' + result);
 
-                    return res.render(path.join(__dirname , '../views/Admin Pages/Generate Coupons'), {vendors, alertTitle: 'Success', alertMessage: `Successfully generated ${noOfCoupons} codes`, alertColor: 'green'});
+                    return res.render(path.join(__dirname , '../views/Admin Pages/Generate Coupons'), {vendors, alertTitle: 'Success', alertMessage: `Successfully generated ${noOfCoupons} codes for ${vendorDetails.vendorUsername}`, alertColor: 'green'});
                 });
             });
         });
@@ -567,32 +572,55 @@ router.post('/generate-coupon-code', verifyToken.verifyAdminToken, async(req, re
 });
 
 // Route to add youtube video
-router.post('/add-youtube-video', verifyToken.verifyAdminToken, (req, res)=>{
+router.post('/add-youtube-video', verifyToken.verifyAdminToken, upload.single('image'), (req, res)=>{
     const {videoDescription, videoLink, videoCode} = req.body;
-    console.log(req.body);
+    console.log('req.body: ', req.body);
     
     // Check if all details were provided
     if(!videoDescription || !videoLink || !videoCode){
         console.log('Please provide all details');
         
-        // return res.redirect()
-    } else{
-        // Update the database
-        connection.query('UPDATE youtube_video SET video_description = ?, video_link = ?, video_code = ? WHERE id = ?', [videoDescription, videoLink, videoCode, 1], (err)=>{
-            if (err) {
-                console.log(err);
-                res.status(500).json({error: 'Successfully added the youtube video'});
-            } else{
-                console.log('Successfully added the youtube video');
-                res.status(200).json({message: 'Successfully added the youtube video'});
-            }
-        });
+        return res.render(path.join(__dirname , '../views/Admin Pages/Upload Yt Video'), {alertTitle: 'Error:', alertMessage: 'Please provide all details', alertColor: 'red'});
+    } 
+    
+    // Check if file was uploaded
+    if (!req.file) {
+        console.log('Please provide an image');
+
+        return res.render(path.join(__dirname , '../views/Admin Pages/Upload Yt Video'), {alertTitle: 'Error:', alertMessage: 'Please provide an image', alertColor: 'red'});
     }
+    if (!req.file.mimetype.startsWith('image/')) {
+        console.log('Only image files are allowed!');
+
+        return res.render(path.join(__dirname , '../views/Admin Pages/Upload Yt Video'), {alertTitle: 'Error:', alertMessage: 'Only image files are allowed!', alertColor: 'red'});
+    }
+    
+    // Update the database
+    connection.query('UPDATE youtube_video SET video_description = ?, video_link = ?, video_code = ?, video_thumbnail = ? WHERE id = ?', [videoDescription, videoLink, videoCode, req.file.filename, 1], async (err)=>{
+        if (err) {
+            console.log('Error adding youtube video: ', err);
+            
+            return res.render(path.join(__dirname , '../views/Admin Pages/Upload Yt Video'), {alertTitle: 'Error: ', alertMessage: 'Error adding youtube video', alertColor: 'red'});
+        } else{
+            console.log('Successfully added the youtube video');
+           
+            try {
+                // Set all users has_completed_yt_reward column to false
+                const updateYtStatus = await adminFunctions.updateYtStatus(false); 
+
+                return res.render(path.join(__dirname , '../views/Admin Pages/Upload Yt Video'), {alertTitle: 'Success: ', alertMessage: 'Successfully added youtube video', alertColor: 'green'});
+            } catch (error) {
+                console.log(error);
+                
+                return res.render(path.join(__dirname , '../views/Admin Pages/Upload Yt Video'), {alertTitle: 'Error: ', alertMessage: 'An error ocurred', alertColor: 'red'});
+            }
+        }
+    });
 
 });
 
 // Route to add advert post
-router.post('/add-advert-post', upload.single('image'), verifyToken.verifyAdminToken, (req, res)=>{
+router.post('/add-advert-post', verifyToken.verifyAdminToken, upload.single('image'), verifyToken.verifyAdminToken, (req, res)=>{
     const {postTitle, description} = req.body;
     console.log(req.body);
 
@@ -641,7 +669,7 @@ router.post('/add-advert-post', upload.single('image'), verifyToken.verifyAdminT
 });
 
 // Route to add sponsored post
-router.post('/add-sponsored-post', upload.single('image'), verifyToken.verifyAdminToken, (req, res)=>{
+router.post('/add-sponsored-post', verifyToken.verifyAdminToken, upload.single('image'), verifyToken.verifyAdminToken, (req, res)=>{
     const {postTitle, description, contactLink} = req.body;
     console.log(req.body);
 

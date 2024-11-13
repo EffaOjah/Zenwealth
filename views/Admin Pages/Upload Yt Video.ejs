@@ -2,7 +2,7 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zenwealth - Add Sponsored Post</title>
+    <title>Zenwealth - Upload YT Video</title>
 
     <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02.png">
     <link rel="stylesheet" href="/css/app.css">
@@ -430,39 +430,38 @@
         <div class="body-wrapper">
             <div class="card mt-30">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Add Sponsored Post</h5>
+                    <h5 class="card-title mb-0">Upload Youtube Video</h5>
                 </div>
                 <div class="card-body">
-                    <form action="/add-sponsored-post" method="POST" enctype="multipart/form-data">
+                    <form action="/add-youtube-video" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-6">
                             <div class="form-group">
-                            <label for="image">Post Image</label>
-                            <input class="form-control" type="file" name="image" accept="image/*" id="image">
+                            <label for="image">Video Thumbnail</label>
+                            <input class="form-control" type="file" name="image" accept="image/*" id="image" required>
                             </div>
                             </div>
                             
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="title">Post Title</label>
-                                    <input class="form-control" type="text" name="postTitle" id="title">
+                                    <label class="form-control-label" for="description">Video Description</label>
+                                    <input class="form-control" type="text" name="videoDescription" id="description" required>
                                 </div>
                             </div>
-                            
+                           
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="link">Contact link</label>
-                                    <input class="form-control" type="url" name="contactLink" id="link">
+                                    <label class="form-control-label" for="link">Video Link</label>
+                                    <input class="form-control" type="text" name="videoLink" id="link" required>
                                 </div>
                             </div>
-                            
+                           
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="details">Description</label>
-                                    <textarea class="form-control" type="text" name="description"></textarea>
+                                    <label class="form-control-label" for="code">Video Code</label>
+                                    <input class="form-control" type="text" name="videoCode" id="code" maxlength="4" required>
                                 </div>
                             </div>
-                            
                         </div>
 
                         <div class="row mt-4">

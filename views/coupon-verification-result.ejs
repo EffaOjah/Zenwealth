@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name="viewport" content='width=device-width, initial-scale=1.0'>
+    <title>Zenwealth - verify coupon codes</title>
+    <link rel="stylesheet" href="/css/newstyles.css">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
+    <style>
+       .table>:not(caption)>*>* {
+        background-color: transparent !important;
+        color: white;
+      } 
+    </style>
+</head>
+<body>
+
+  <div class="page-wrapper">
+    <nav class="navbar navbar-expand px-3 py-2 pt-3" id="navbar">
+      <div class="d-flex gap-3 align">
+        <a href="/coupon-code/verify">
+          <ion-icon name="arrow-back-outline" class="fs-2 text-white" style="transform: translateY(3px);"></ion-icon>
+        </a>
+        <p class="fs-4 fw-">Verification Result</p>
+      </div>
+      <div class="navbar-nav align-items-center ms-auto dashboard-nav">
+        <img src="/img/Zenwealth Logo Alone-02.png" class="img-fluid" width="35px" style="transform: translateY(-10px);" alt="zenwealth logo">
+      </div>
+  </nav>
+  <!-- navbar ends -->
+
+  <div class="container-fluid hero-section" id="up">
+    <div class="">
+      
+      <div class="mt-5">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-lg-12">
+            <div class="mtop">
+              <div class="bg-overlay radius-three" style="padding: 35px 20px;">
+                <table class="table table- table-responsive">
+                  <thead>
+                    <% if (coupon.length < 1) { %>
+                      <p class="bg-danger text-center py-2 -1 mb-1">Invalid Coupon Code</p>
+
+                      <tbody>
+                        <tr>
+                          <th>Used By:</th>
+                          <td>Null</td>
+                        </tr>
+                        <tr>
+                          <th>Date Used:</th>
+                          <td>Null</td>
+                        </tr>
+                        <tr>
+                          <th>Status:</th>
+                          <td>Null</td>
+                        </tr>
+                      </tbody>
+                    <% } else { %>
+                      <% if (coupon[0].is_used == 0) { %>
+                        <p class="bg-three text-center py-2 -1 mb-1">Code is active</p>
+
+                        <tbody>
+                          <tr>
+                            <th>Coupon:</th>
+                            <td><%= coupon[0].token %></td>
+                          </tr>
+                          <tr>
+                            <th>Used By:</th>
+                            <% if (info.length < 1) { %>
+                              <td>NULL</td>
+                          <% } else { %>
+                          <td><%= info[0].username == null ? 'NULL' : info[0].username %></td>
+                          <% } %>
+                          </tr>
+                          <tr>
+                            <th>Date Used:</th>
+                            <td><%= coupon[0].date_used == null ? 'NULL' : coupon[0].date_used %></td>
+                          </tr>
+                          <tr>
+                            <th>Status:</th>
+                            <td>Active</td>
+                          </tr>
+                        </tbody>
+                      <% } else { %>
+                        <p class="bg-danger text-center py-2 -1 mb-1">Code has been used</p>
+
+                        <tbody>
+                          <tr>
+                            <th>Coupon:</th>
+                            <td><%= coupon[0].token %></td>
+                          </tr>
+                          <tr>
+                            <th>Used By:</th>
+                            <% if (info.length < 1) { %>
+                              <td>NULL</td>
+                          <% } else { %>
+                          <td><%= info[0].username == null ? 'NULL' : info[0].username %></td>
+                          <% } %>
+                          </tr>
+                          <tr>
+                            <th>Date Used:</th>
+                            <td><%= coupon[0].date_used == null ? 'NULL' : coupon[0].date_used %></td>
+                          </tr>
+                          <tr>
+                            <th>Status:</th>
+                            <td>Used</td>
+                          </tr>
+                        </tbody>
+                     <% } %>
+                   <% } %>
+                  </thead><br>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- hero-section ends -->    
+</div>
+
+
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/script.js"></script>
+  </body>
+</html>

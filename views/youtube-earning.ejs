@@ -155,6 +155,10 @@
                   </a>
               </li>
               <li class="unactive-item">
+                <a href="/history/earnings"><ion-icon name="albums-outline"></ion-icon></ion-icon><span>Earning History</span>
+                </a>
+            </li>
+              <li class="unactive-item">
                   <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
               </li>
               <li class="unactive-item">
@@ -196,6 +200,10 @@
                       </a>
                   </li>
                   <li class="unactive-item">
+                    <a href="/history/earnings"><ion-icon name="albums-outline"></ion-icon></ion-icon><span>Earning History</span>
+                    </a>
+                </li>
+                  <li class="unactive-item">
                       <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
                   </li>
                   <li class="unactive-item">
@@ -229,13 +237,17 @@
       <!-- Navbar End -->
 
         <div class="container-fluid position-relative">
-            <div class="progress-div" style="padding: 10px !important;">
-                <p class="fs-3 mb-0">How to Brush your Teeth</p>
-                <span class="d-flex gap-2 justify-content-center">
-                    <p class="fw-bold" style="transform: translateY(4px);">link:</p>
-                    <a href="#" class="text-white" id="referral-link" style="width: 75%;">https://youtube.com/JHKGU89IU7yhVU7gv76f237FGTYFNM</a>
-                </span>    
-            </div>                
+            <% if (getYoutubeVideo.length < 1) { %>
+                <h2>No video available</h2>
+            <% } else { %>
+                <div class="progress-div" style="padding: 10px !important;">
+                    <p class="fs-3 mb-0"><%= getYoutubeVideo[0].video_description %></p>
+                    <span class="d-flex gap-2 justify-content-center">
+                        <p class="fw-bold" style="transform: translateY(4px);">link:</p>
+                        <a href="<%= getYoutubeVideo[0].video_link %>" class="text-white" id="referral-link" style="width: 75%;"><%= getYoutubeVideo[0].video_link %></a>
+                    </span>    
+                </div> 
+           <% } %>               
 
             <div class="mt-4">
                 <h2 class="color-three fw-bold text-center mb-4">Verify Code</h2>

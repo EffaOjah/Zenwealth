@@ -305,4 +305,19 @@ async function creditedTask2Column(status) {
     });
 }
 
-module.exports = {numberOfUsers, couponCodes, sumOfWithdrawals, allVendors, allCouponCodes, allUsers, withdrawals, sponsoredPosts, allProducts, allCourses, toggleVendorVerification, getNotification, getSettings, getWithdrawalSettings, approvedWithdrawals, updateHasSharedPostColumn, updateHasJoinedPlatformColumn, toggleSetting, creditedTask1Column, creditedTask2Column};
+// Function to update the users has_completed_yt_reward
+async function updateYtStatus(status) {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET has_completed_yt_reward = ?', status, (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log(`Successfully updated the has_completed_yt_reward column of the users to ${status}`);
+                resolve(result);
+            }
+        })
+    });
+}
+
+module.exports = {numberOfUsers, couponCodes, sumOfWithdrawals, allVendors, allCouponCodes, allUsers, withdrawals, sponsoredPosts, allProducts, allCourses, toggleVendorVerification, getNotification, getSettings, getWithdrawalSettings, approvedWithdrawals, updateHasSharedPostColumn, updateHasJoinedPlatformColumn, toggleSetting, creditedTask1Column, creditedTask2Column, updateYtStatus};

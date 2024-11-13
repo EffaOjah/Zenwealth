@@ -237,7 +237,10 @@ router.get('/youtube-earning', verifyToken.verifyToken, async(req, res)=>{
     // Get the mystery_box setting
     const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
 
-    res.render('youtube-earning', {user: fetchUserByUsername[0], getMysteryBoxSetting});
+    // Get Youtube Video
+    const getYoutubeVideo = await dashboardFunctions.getYoutubeVideo();
+
+    res.render('youtube-earning', {user: fetchUserByUsername[0], getMysteryBoxSetting, getYoutubeVideo});
 });
 
 // Route for task page
@@ -334,6 +337,9 @@ router.get('/claim-task/:type', verifyToken.verifyToken, async(req, res)=>{
         // Credit the user
         const creditUser = await dashboardFunctions.insertIntoNonAffiliateTransactions(500, 'Trend Post', 'CREDIT', user[0].user_id);
 
+        // Insert into earning history
+        const insertIntoEarningHistory = await functions.insertIntoEarningHistory('Trend Post', 500, user[0].user_id);
+
         // Update the credited_task1 column
         const creditedTask1Column = await dashboardFunctions.creditedTask1Column(1, user[0].user_id);
 
@@ -349,6 +355,9 @@ router.get('/claim-task/:type', verifyToken.verifyToken, async(req, res)=>{
         // Credit the user
         const creditUser = await dashboardFunctions.insertIntoNonAffiliateTransactions(300, 'Advert Post', 'CREDIT', user[0].user_id);
 
+        // Insert into earning history
+        const insertIntoEarningHistory = await functions.insertIntoEarningHistory('Advert Post', 300, user[0].user_id);
+
         // Update the credited_task2 column
         const creditedTask2Column = await dashboardFunctions.creditedTask2Column(1, user[0].user_id);
 
@@ -363,7 +372,14 @@ router.get('/claim-task/:type', verifyToken.verifyToken, async(req, res)=>{
 
         // Credit the user
         const creditTrend = await dashboardFunctions.insertIntoNonAffiliateTransactions(500, 'Trend Post', 'CREDIT', user[0].user_id);
+        
+        // Insert into earning history
+        const insertIntoEarningHistory = await functions.insertIntoEarningHistory('Trend Post', 500, user[0].user_id);
+
         const creditAdvert = await dashboardFunctions.insertIntoNonAffiliateTransactions(300, 'Advert Post', 'CREDIT', user[0].user_id);
+
+        // Insert into earning history
+        const insertIntoEarningHistory2 = await functions.insertIntoEarningHistory('Advert Post', 300, user[0].user_id);
 
         // Update the credited_task1 column
         const creditedTask1Column = await dashboardFunctions.creditedTask1Column(1, user[0].user_id);
@@ -399,6 +415,9 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async(req, res)=>{
         // Insert into the activity transactions table
         const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(100, 'Mystery Box Reward', fetchUserByUsername[0].user_id);
 
+        // Insert into earning history
+        const insertIntoEarningHistory = await functions.insertIntoEarningHistory('Mystery Box Reward', 100, fetchUserByUsername[0].user_id);
+
         // Update the has_claimed_gift column of the user to 1
         const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
     } else if (fetchUserByUsername[0].mystery_value > 50 && fetchUserByUsername[0].mystery_value < 71){
@@ -406,6 +425,9 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async(req, res)=>{
 
         // Insert into the activity transactions table
         const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(200, 'Mystery Box Reward', fetchUserByUsername[0].user_id);
+
+        // Insert into earning history
+        const insertIntoEarningHistory = await functions.insertIntoEarningHistory('Mystery Box Reward', 200, fetchUserByUsername[0].user_id);
 
         // Update the has_claimed_gift column of the user to 1
         const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
@@ -415,6 +437,9 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async(req, res)=>{
         // Insert into the activity transactions table
         const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(300, 'Mystery Box Reward', fetchUserByUsername[0].user_id);
 
+        // Insert into earning history
+        const insertIntoEarningHistory = await functions.insertIntoEarningHistory('Mystery Box Reward', 300, fetchUserByUsername[0].user_id);
+
         // Update the has_claimed_gift column of the user to 1
         const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
     } else if (fetchUserByUsername[0].mystery_value > 80 && fetchUserByUsername[0].mystery_value < 86){
@@ -423,6 +448,9 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async(req, res)=>{
         // Insert into the activity transactions table
         const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(400, 'Mystery Box Reward', fetchUserByUsername[0].user_id);
 
+        // Insert into earning history
+        const insertIntoEarningHistory = await functions.insertIntoEarningHistory('Mystery Box Reward', 400, fetchUserByUsername[0].user_id);
+
         // Update the has_claimed_gift column of the user to 1
         const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
     } else if (fetchUserByUsername[0].mystery_value > 85 && fetchUserByUsername[0].mystery_value < 91) {
@@ -430,6 +458,9 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async(req, res)=>{
 
         // Insert into the activity transactions table
         const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(500, 'Mystery Box Reward', fetchUserByUsername[0].user_id);
+
+        // Insert into earning history
+        const insertIntoEarningHistory = await functions.insertIntoEarningHistory('Mystery Box Reward', 500, fetchUserByUsername[0].user_id);
 
         // Update the has_claimed_gift column of the user to 1
         const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
@@ -441,6 +472,9 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async(req, res)=>{
 
         // Now assign it to the user
         const assignFreeCoupon = await dashboardFunctions.assignFreeCoupon(fetchUserByUsername[0].user_id, generateFreeCoupon);
+
+        // Insert into earning history
+        // const insertIntoEarningHistory = await functions.insertIntoEarningHistory('Mystery Box Reward', 'Free Coupon', fetchUserByUsername[0].user_id);
 
         // Update the has_claimed_gift column of the user to 1
         const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
@@ -805,6 +839,9 @@ router.post('/youtube-reward', verifyToken.verifyToken, async(req, res)=>{
 
         // Insert into the activity transactions table
         const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(600, 'Youtube Earning', fetchUserByUsername[0].user_id);
+
+        // Insert into earning history
+        const insertIntoEarningHistory = await functions.insertIntoEarningHistory('Youtube Earning', 600, fetchUserByUsername[0].user_id);
 
         // Update the user's has_completed_yt_reward column to true
         const updateYtStatus = await dashboardFunctions.updateYtStatus(true, fetchUserByUsername[0].user_id);

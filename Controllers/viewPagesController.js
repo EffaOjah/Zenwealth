@@ -35,6 +35,33 @@ router.get('/coupon-code/verify', (req, res)=>{
     res.render('verify-coupon');
 });
 
+// Route for coupon code verification
+router.post('/coupon-code/result', (req, res)=>{
+    const coupon = req.body.coupon;
+    console.log(req.body);
+    
+
+    // Check if the coupon is valid
+    connection.query('SELECT * FROM registeration_tokens WHERE token = ?', coupon, (err, result)=>{
+        if (err) {
+            console.log(err);
+            
+        } else{
+            console.log('Coupon Info: ', result);
+
+            // Get the username of the user with inner join
+            connection.query('SELECT * FROM users INNER JOIN registeration_tokens ON users.user_id = registeration_tokens.user_id WHERE token = ?', coupon, (err, info)=>{
+                if (err) {
+                    console.log(err);
+                } else{
+                    console.log(info);
+                    res.render('coupon-verification-result', {coupon: result, info});
+                }
+            });
+        }
+    });
+});
+
 // Route for top earners
 router.get('/top-earners', (req, res)=>{
     // Get the top earners

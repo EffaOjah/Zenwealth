@@ -518,4 +518,19 @@ function shuffleArray(array) {
     return shuffledArray;
 }
 
-module.exports = {current_timestamp, validateEmail, generateReferralCode, separateId, checkEmail, checkUsername, checkCoupon, checkFreeCoupon, createUnreferredUser, createUnreferredUser2, createReferredUser, creditDirectReferral, creditFirstIndirectReferral, creditSecondIndirectReferral, checkDate, updateLastLoginDate, creditLoginBonus, createUserp2P, debitUser, creditNewUser, generatedFreeCouponCode, getVendors, shuffleArray};
+// Function to insert into earning history
+async function insertIntoEarningHistory(earning, amount, userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('INSERT INTO earning_history (earning, amount, user_id) VALUES (?, ?, ?)', [earning, amount, userId], (err, result)=>{
+            if (err) {
+                console.log('Error inserting into earning history: ', err);
+                reject(err);
+            } else{
+                console.log('Successfully inserted into earning history');
+                resolve(result);
+            }
+        });
+    });
+}
+
+module.exports = {current_timestamp, validateEmail, generateReferralCode, separateId, checkEmail, checkUsername, checkCoupon, checkFreeCoupon, createUnreferredUser, createUnreferredUser2, createReferredUser, creditDirectReferral, creditFirstIndirectReferral, creditSecondIndirectReferral, checkDate, updateLastLoginDate, creditLoginBonus, createUserp2P, debitUser, creditNewUser, generatedFreeCouponCode, getVendors, shuffleArray, insertIntoEarningHistory};

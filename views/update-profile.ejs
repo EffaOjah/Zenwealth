@@ -31,6 +31,10 @@
                   </a>
               </li>
               <li class="unactive-item">
+                <a href="/history/earnings"><ion-icon name="albums-outline"></ion-icon></ion-icon><span>Earning History</span>
+                </a>
+            </li>
+              <li class="unactive-item">
                   <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
               </li>
               <li class="unactive-item">
@@ -56,6 +60,7 @@
       </div>
     </div>
 
+
     <div class="page-wrapper">
       <!-- Sidebar -->
       <div class="d-flex align-items-center justify-content-center" id="mySidebar">
@@ -71,6 +76,10 @@
                   <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
                   </a>
               </li>
+              <li class="unactive-item">
+                <a href="/history/earnings"><ion-icon name="albums-outline"></ion-icon></ion-icon><span>Earning History</span>
+                </a>
+            </li>
               <li class="unactive-item">
                   <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
               </li>
@@ -95,14 +104,12 @@
           </ul>
         </div>
       </div>
-    </div>
+    <!-- Sidebar ends -->
 
     <!-- Main content -->
     <div id="main" class="bottom-space" style="overflow-y: scroll;">
       <div class="trydiv2"></div>
 
-      <div class="content-wrapper">
-        <!-- Navbar Start -->
       <!-- Navbar Start -->
       <%- include('./partials/dashboard-nav') %>
       <!-- Navbar End -->
@@ -112,63 +119,84 @@
       </div>
 
 
-    <div class="container-fluid d-flex align-items-center justify-content-center content mb-5">
-      <div class="bg-overlay fixed-width radius-three p-4 pb-5 mt-4 mb-5">
-        <h6 class="mt-2 mb-3 text-white">Profile</h6>
+      <div class="container-fluid d-flex align-items-center justify-content-center content">
+        <div class="bg-overlay fixed-width radius-three p-4 pb-5 mt-4">
+          <h6 class="mt-2 mb-3 text-white">Profile</h6>
 
           <form action="/update-profile" method="post">
-              <div class="row g-3">
-                  <div class="col-md-6">
-                    <div class="form-floating">
-                      <input type="text" class="form-control" name="firstName" placeholder="First Name" autocomplete="off" value="<%= user.first_name %>" required>
-                      <label>First Name</label>
-                    </div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" name="firstName" placeholder="First Name" autocomplete="off" value="<%= user.first_name %>" required>
+                    <label>First Name</label>
                   </div>
+                </div>
 
-                  <div class="col-md-6">
-                    <div class="form-floating">
-                      <input type="text" class="form-control" name="lastName" placeholder="Last Name" autocomplete="off" value="<%= user.last_name %>" required>
-                      <label>Last Name</label>
-                    </div>
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" name="lastName" placeholder="Last Name" autocomplete="off" value="<%= user.last_name %>" required>
+                    <label>Last Name</label>
                   </div>
-              
-                  <div class="col-md-12">
-                    <div class="form-floating">
-                      <input type="email" class="form-control" name="email" placeholder="Email Address" autocomplete="off" value="<%= user.email %>" required>
-                      <label>Email</label>
-                    </div>
+                </div>
+            
+                <div class="col-md-12">
+                  <div class="form-floating">
+                    <input type="email" class="form-control" name="email" placeholder="Email Address" autocomplete="off" value="<%= user.email %>" required>
+                    <label>Email</label>
                   </div>
+                </div>
 
-                  <div class="col-md-6">
-                    <div class="form-floating">
-                      <input type="password" class="form-control" name="currentPassword" placeholder="Current Password" autocomplete="off" required>
-                      <label>Old Password</label>
-                    </div>
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input type="password" class="form-control" name="currentPassword" placeholder="Current Password" autocomplete="off" required>
+                    <label>Old Password</label>
                   </div>
+                </div>
 
-                  <div class="col-md-6">
-                    <div class="form-floating">
-                      <input type="password" class="form-control" name="newPassword" placeholder="New Password" autocomplete="off" required>
-                      <label>New Password</label>
-                    </div>
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input type="password" class="form-control" name="newPassword" placeholder="New Password" autocomplete="off" required>
+                    <label>New Password</label>
                   </div>
-              
-                  <div class="col-md-12">
-                    <div class="form-floating date" id="date3" data-target-input="nearest">
-                      <input type="password" class="form-control datatimepicker-input" name="confirmPassword" placeholder="Confirm Password" data-target="#date3" data-toggle="datetimepicker" autocomplete="off" required>
-                      <label>Confirm Password</label>
-                    </div>
+                </div>
+            
+                <div class="col-md-12">
+                  <div class="form-floating date" id="date3" data-target-input="nearest">
+                    <input type="password" class="form-control datatimepicker-input" name="confirmPassword" placeholder="Confirm Password" data-target="#date3" data-toggle="datetimepicker" autocomplete="off" required>
+                    <label>Confirm Password</label>
                   </div>
-              
-                  <div class="col-md-12 mt-4">
-                      <button class="btn btn-zen px-4 py-2 w-100 text-white" type="submit">Update Now</button>
+                </div>
+                
+            
+
+                <div class="col-md-12 mt-4">
+                    <button class="btn btn-zen px-4 py-2 w-100 text-white" type="submit">Update Now</button>
+                </div>
+            </div>
+        </form>
+        </div>
+      </div>
+
+      <% if (user.is_a_vendor == true) { %>
+        <div class="container-fluid d-flex justify-content-center">
+          <div class="bg-overlay fixed-width radius-three p-3 pb-4 mt-4">
+            <form action="/upload-pic" method="post" enctype="multipart/form-data">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="text-white">Upload Profile Picture</label>
+                  <div class="form-control date" id="date3" data-target-input="nearest">
+                    <input type="file" class="form-control" name="image">
                   </div>
+                </div>
+    
+                <div class="col-md-12 mt-4">
+                  <button class="btn btn-zen px-4 py-2 w-100 text-white" type="submit">Upload DP</button>
               </div>
-          </form>
-      </div>
-    </div>
-      </div>
-
+              </div>
+            </form>
+          </div>
+        </div>
+      <% } %>
 
       
       <footer class="dashboard-footer shadow">
@@ -180,15 +208,15 @@
           </div>          
         </div>
         <div class="bg- h-100 w-25 d-flex align-items-center justify-content-center">
-          <div class="h-100 w-50 active position-relative">
-            <a href="/user/profile">
-              <ion-icon name="person" style="font-size: 25px !important;"></ion-icon>
+          <div class="h-100 w-50 position-relative">
+            <a href="/user/bank-details">
+              <ion-icon name="person-outline" style="font-size: 25px !important;"></ion-icon>
             </a>
           </div>          
         </div>
         <div class="bg- h-100 w-25 d-flex align-items-center justify-content-center">
           <div class="h-100 w-50 position-relative">
-            <a href="mining.html">
+            <a href="#">
               <ion-icon name="diamond-outline" style="font-size: 25px !important;"></ion-icon>
             </a>
           </div>          
@@ -202,8 +230,9 @@
         </div>
       </footer>
     </div>
+  </div>
 
-    <span class="d-none" id="alertTitle"><%= locals.alertTitle %></span>
+  <span class="d-none" id="alertTitle"><%= locals.alertTitle %></span>
     <span class="d-none" id="alertMessage"><%= locals.alertMessage %></span>
     <span class="d-none" id="alertColor"><%= locals.alertColor %></span>
 
@@ -224,7 +253,7 @@
       })
 
      </script>
-
+     
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"></script>
@@ -262,6 +291,7 @@
     </script>
     <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
     <script src="/iziToast-master/dist/js/iziToast.min.js"></script>
-    <script src="/js/alert.js"></script>
+
+     <script src="/js/alert.js"></script>
 </body>
 </html>
