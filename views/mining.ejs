@@ -5,60 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zenwealth - mining</title>
     <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02.png">
-    <link rel="stylesheet" href="newstyles.css">
+    <link rel="stylesheet" href="/css/newstyles.css">
     <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css"></head>
 <body>
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-        <div class="offcanvas-cover "></div>
-        <div class="offcanvas-header d-flex bg-">
-          <div class="w-100 text-center" style=" z-index: 5;">
-            <img src="img/ZEN logo.png" class="img-fluid" style="width: 90%; height: 80px;">
-          </div>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-cover "></div>
+    <div class="offcanvas-header d-flex bg-">
+      <div class="w-100 text-center" style=" z-index: 5;">
+        <img src="img/ZEN logo.png" class="img-fluid" style="width: 90%; height: 80px;">
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex align-items-center justify-content-center">
+      <div class="sidenav-wrapper">
+        <ul class="mobile-sidenav-nav h-100">
+            <li class="active-item">
+                <a href="user-dashboard.html"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
+            </li>
+            <li class="unactive-item">
+                <a href="withdrawals-history.html"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
+                </a>
+            </li>
+            <li class="unactive-item">
+                <a href="upload-product.html"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
+            </li>
+            <li class="unactive-item">
+                <a href="#"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
+            </li>
+            <li class="unactive-item">
+              <a href="youtube-earning.html"><ion-icon name="phone-portrait-outline"></ion-icon><span>Youtube Earning</span>
+              </a>
+            </li>
+            <li class="unactive-item">
+                <a href="downlines.html"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
+            </li>
+            <li class="unactive-item">
+              <a href="vendor-dashboard.html"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+            </li>
+            <li class="logout unactive-item">
+                <a href="#"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="boostModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content progress-div bg-lfg-modal">
+        <div class="modal-header p-0">
+          <p class="fs-4 fw-bold">Tap Earnings Upgrade</p>
+          <button type="button" class="btn-close" style="transform: translateY(-3px);" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body d-flex justify-content-center">
-          <div class="sidenav-wrapper p-4">
-            <ul class="mobile-sidenav-nav px-5 h-100">
-                <li class="active-item">
-                    <a href="user-dashboard.html"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
-                </li>
-                <li class="unactive-item">
-                    <a href="withdrawals-history.html"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
-                    </a>
-                </li>
-                <li class="unactive-item">
-                    <a href="upload-product.html"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
-                </li>
-                <li class="unactive-item">
-                    <a href="#"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
-                </li>
-                <li class="unactive-item">
-                  <a href="youtube-earning.html"><ion-icon name="phone-portrait-outline"></ion-icon><span>Youtube Earning</span>
-                  </a>
-                </li>
-                <li class="unactive-item">
-                    <a href="downlines.html"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
-                </li>
-                <li class="unactive-item">
-                  <a href="vendor-dashboard.html"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
-                </li>
-                <li class="logout unactive-item">
-                    <a href="#"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
-                </li>
-            </ul>
+        <div class="modal-body">
+          <div class="lfg-modal">
+            <img src="img/lfg.png" class="img-fluid lfg-lg" alt="lfg">
+            <p class="fs-5">Boost your tap earnings to unlimited taps per day</p>
           </div>
+          <button class="btn btn-zen px-4 py-2 w-100 text-white mt-4" data-bs-target="#dailogBoxModal" data-bs-toggle="modal" data-bs-dismiss="modal">Boost</button>                
+        </div>
+      </div>
+    </div>
+</div>
+<div class="modal fade" id="dailogBoxModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content progress-div bg-lfg-modal">
+            <div class="modal-header p-0">
+              <p class="fs-4 fw-bold">Confirm Upgrade</p>
+            </div>
+            <div class="modal-body">
+              <div class="lfg-modal">
+                <!-- <img src="img/lfg.png" class="img-fluid lfg-lg" alt="lfg"> -->
+                <p class="fs-5">Are you sure you want to boost your tap earnings?</p>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="d-flex gap-2 w-100">
+                <button class="btn border radius-three px- py-2 text-white w-50" data-bs-target="#boostModal" data-bs-toggle="modal" data-bs-dismiss="modal">No</button>
+                <button class="btn btn-zen px- py-2 text-white w-50" data-bs-target="#dailogBoxModal" data-bs-dismiss="modal">Yes</button>
+              </div>
+            </div>
         </div>
     </div>
-  
-  
-    <div id="main bg-transparent" class="bottom-space" style="overflow-y: scroll;">
-        <div class="trydiv2"></div>
+</div>
 
-        <!-- Navbar Start -->
-        <nav class="navbar navbar-expand px-2 py-2 pt-3" id="navbar">
-            <a href="#" class="sidebar-toggler flex-shrink-0" onclick="togglenav()">
-              <i class="fa fa-bars color-one" style="transform: translateY(-3px);"></i>
-            </a>
+
+    <div class="page-wrapper" style="overflow-y: scroll;">
+        <div class="container">
+          <div class="d-flex align-items-center gap-1">
             <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
               <label class="hamburger" id="hamburger">
                 <svg viewBox="0 0 32 32">
@@ -67,55 +101,41 @@
                 </svg>
               </label>
             </button>
-            
-            <div class="ms-4">
-              <h4 class="fw-bold greeting">Hello, Joe-Hansen</h4>
-            </div>
-            <div class="navbar-nav align-items-center ms-auto dashboard-nav">
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-bs-toggle="dropdown">
-                        <img class="rounded-circle border me-lg-2" src="img/dax.jpeg" alt="" style="width: 47px; height: 45px;">
-                        <span class="d-none d-lg-inline-flex color-one">Joe-Hansen Emeka</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end bg-white border-0 rounded-0 rounded-bottom m-0">
-                      <a href="update-profile.html" class="dropdown-item">My Profile</a>
-                      <a href="#" class="dropdown-item">Settings</a>
-                        <a href="#" class="dropdown-item">Log Out</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <!-- Navbar End -->
-
-        <div class="container">
-          <!-- <h4 class="fw-bold text-white ms-3">Hello, Joe-Hansen</h4> -->
-          <div class="progress-div mining py-2 fs-4">
+            <h1 class="color- text-white fw-bold mt-3 mb-3">Zencoin</h1>
+          </div>
+          <div class="progress-div mining py-2 fs-6">
             <div class="row g-0 bg- w-100">
               <div class="col-4" style="border-right: 1px solid white;">
-                <div class="w-100" style="display: grid; place-items: center  ;">
-                  <span class="d-flex gap-1">
+                <div class="w-100" style="display: grid; place-items: center;">
+                  <small style="font-size: 15px;">Total coins</small>
+                  <span class="d-flex align-items-center gap-1 mt-1">
                     <img src="img/ZEN COIN.png" class="img-fluid zen-coin" alt="zen coin">
                     <p class="m-auto">1.2k</p>
                   </span>
                 </div>
               </div>
               <div class="col-4" style="border-right: 1px solid white;">
-                <div class="w-100 d-flex align-items-center justify-content-center">
-                  <span class="d-flex gap-1">
-                    <ion-icon name="flash" class="text- color- fs-2"></ion-icon>
-                    <p class="m-auto">023</p>
+                <div class="w-100" style="display: grid; place-items: center;">
+                  <small style="font-size: 15px;">Gems</small>
+                  <span class="d-flex align-items-center gap-1 mt-1">
+                    <ion-icon name="flash" class="text- color-three fs-6"></ion-icon>
+                    <p class="m-auto">1.2k</p>
                   </span>
                 </div>
               </div>
               <div class="col-4">
-                <div class="w-100 d-flex align-items-center justify-content-center">
-                  <p class="m-auto">+2</p>
+                <div class="w-100" style="display: grid; place-items: center;">
+                  <small style="font-size: 15px;">Earn per tap</small>
+                  <span class="d-flex align-items-center gap-1 mt-1">
+                    <img src="img/ZEN COIN.png" class="img-fluid zen-coin" alt="zen coin">
+                    <p class="m-0">+2</p>
+                  </span>
                 </div>
               </div>
             </div>
           </div>
 
-          <span class="mt-4 d-flex gap-0 align-items-center justify-content-center">
+          <span class="mt-4 mb-0 d-flex gap-0 align-items-center justify-content-center">
             <!-- <img src="img/ZEN COIN.png" class="img-fluid zen-coin" alt="zen coin"> -->
             <h1 class="text-white fw-bold display-1" id="total">0</h1>
           </span>
@@ -125,9 +145,9 @@
 
 
           <div class="d-flex align-items-center justify-content-between">
-            <span class="text-white fs-1 d-flex align-items-center justify-content-center" style="width: fit-content;">
+            <span class="text-white progress-div radius-three py-1 px-3 d-flex align-items-center justify-content-center" style="width: fit-content;" data-bs-target="#boostModal" data-bs-toggle="modal">
               <img src="img/lfg.png" class="img-fluid lfg" alt="lfg">
-              <p  class="align-middle fs-3" style="font-weight: 500; transform: translateY(5px);">Boost</p>
+              <p class="align-middle fs-5" style="font-weight: 500; transform: translateY(5px);">Boost</p>
             </span>
   
             <div class="d- gap-2 me-2">
@@ -138,7 +158,7 @@
                   <ion-icon name="flash" class="text-white battery-sign fs-6"></ion-icon>
                 </div>
               </div>
-              <p class="text-white fs-4" id="barLife">600</p>
+              <p class="text-white fs-5" id="barLife">600</p>
             </div>
           </div>
 
@@ -182,76 +202,118 @@
 
 
     <script>
-        const bar = document.getElementById('barLife');
-        const battery = document.getElementById('battery');
-        var life = 600;
-        var count = 0;
+      const bar = document.getElementById('barLife');
+      const battery = document.getElementById('battery');
+      const coin = document.getElementById('coin');
+      var life = 600;
+      var count = 0;
+      let autoIncreaseInterval = null; // Store the interval ID for auto-increasing
 
-        
+      // Function to increase life every 2 seconds
+      function startAutoIncreaseLife() {
+        // Prevent multiple intervals from being created
+        if (!autoIncreaseInterval) {
+          autoIncreaseInterval = setInterval(() => {
+            if (life < 600) {
+              life += 2; // Increase life by 2
+              if (life > 600) life = 600; // Cap at 600 if it exceeds
 
-        document.getElementById('coin').addEventListener('touchstart', () => {
-          const touchCount = event.touches.length;
+              console.log("Increasing life to: ", life); // Debug log
+              bar.textContent = life;
+              updateBatteryVisual();
+            }
+          
+            if (life >= 600) {
+              clearInterval(autoIncreaseInterval);
+              autoIncreaseInterval = null; // Clear interval when full life is reached
+            }
+          }, 2000); // 2 seconds
+        }
+      }
 
-          // Possible starting positions
-          const positions = ['left', 'center', 'right'];
+      // Update battery height and color based on life
+      function updateBatteryVisual() {
+        const maxLife = 600; // Maximum battery life
+        const batteryHeight = (life / maxLife) * 85; // Calculate battery height percentage
+        battery.style.height = `${batteryHeight}%`;
+      
+        if (life < 100) {
+          battery.style.backgroundColor = 'red'; // Critical level
+        } else if (life < 250) {
+          battery.style.backgroundColor = '#ffaa0c'; // Low level
+        } else if (life < 400) {
+          battery.style.backgroundColor = '#ffff06'; // Medium level
+        } else {
+          battery.style.backgroundColor = '#09ff09'; // Full level
+        }
+      }
 
-          // Randomly select one of the positions
-          const randomPosition = positions[Math.floor(Math.random() * positions.length)];
+      // Handle both touch and click events
+      function handleCoinTap(event) {
+        event.preventDefault(); // Prevent default touch behavior
+        const touchCount = event.touches?.length; // Handle touch and click
 
-          if(life > 0){
-            for(let i = 0; i < touchCount; i++){
-              // Create the "+2" element
+        coin.classList.add('heartbeat');
+
+        setTimeout(() => {
+          coin.classList.remove('heartbeat');
+        }, 100);
+
+        if (life > 0) {
+          for (let i = 0; i < touchCount; i++) {
+            // Create the "+2" element
             const plusTwo = document.createElement('div');
             plusTwo.classList.add('float-text');
             plusTwo.textContent = '+2';
-
+          
+            // Possible starting positions
+            const positions = ['left', 'center', 'right'];
+            const randomPosition = positions[Math.floor(Math.random() * positions.length)];
+          
             // Set the position based on the random value
             if (randomPosition === 'left') {
-                plusTwo.style.left = '80px';
+              plusTwo.style.left = '80px';
             } else if (randomPosition === 'center') {
-                plusTwo.style.left = '50%';
-                plusTwo.style.transform = 'translateX(-50%)'; // Center align
+              plusTwo.style.left = '50%';
+              plusTwo.style.transform = 'translateX(-50%)'; // Center align
             } else if (randomPosition === 'right') {
-                plusTwo.style.right = '70px';
+              plusTwo.style.right = '70px';
             }
-
+          
             // Add the element to the container
             document.querySelector('.addon').appendChild(plusTwo);
+          
+            // Decrease life by 2, but ensure it doesn't drop below 0
             life -= 2;
+            if (life < 0) life = 0;
+
+            // console.log("Decreasing life to: ", life);
             bar.textContent = life;
             count += 2;
             document.getElementById('total').innerText = count;
-
-            const maxLife = 600; // The maximum battery life
-            const batteryHeight = (life / maxLife) * 85; // Calculate battery height percentage
-            battery.style.height = `${batteryHeight}%`;
-
-            if (life < 100) {
-                battery.style.backgroundColor = 'red'; // Critical level
-              } else if (life < 250) {
-                battery.style.backgroundColor = '#ffaa0c'; // Low level
-              } else if (life < 400) {
-                battery.style.backgroundColor = '#ffff06'; // Medium level
-              } else {
-                battery.style.backgroundColor = '#09ff09'; // Full level
-            }
-
-
-            // Remove the element after the animation finishes (2s)
+          
+            // Update battery visuals
+            updateBatteryVisual();
+          
+            // Remove the "+2" element after the animation finishes (2s)
             setTimeout(() => {
               plusTwo.remove();
             }, 2000);
-            }
-
-          } else {
-            document.getElementById('coin').style.transform = 'scale(1)';
+          
+            // Start the auto-increase if life drops below 600
+            startAutoIncreaseLife();
           }
-          
-          
-        });
+        }
+      }
+
+      // Attach both touchstart and click event listeners
+      coin.addEventListener('touchstart', handleCoinTap);
+
+      // Start auto-increasing life if it's less than 600 when the page loads
+      startAutoIncreaseLife();
     </script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

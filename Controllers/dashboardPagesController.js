@@ -71,7 +71,13 @@ router.get('/user/dashboard', verifyToken.verifyToken, async(req, res)=>{
        // Get the mystery_box setting
        const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
 
-       res.render('user-dashboard', {user: fetchUserByUsername[0], referrals: getReferrals[0].referrals, totalWithdrawal: getTotalWithdrawal[0].totalWithdrawal, getMysteryBoxSetting});
+       // Get the user's mystery earnings
+       const getMysteryEarnings = await dashboardFunctions.mysteryBoxEarnings(fetchUserByUsername[0].user_id);    
+
+       // Get the user's free coupons
+       const getFreeCoupons = await dashboardFunctions.freeCoupons(fetchUserByUsername[0].user_id);
+       
+       res.render('user-dashboard', {user: fetchUserByUsername[0], referrals: getReferrals[0].referrals, totalWithdrawal: getTotalWithdrawal[0].totalWithdrawal, getMysteryBoxSetting, getMysteryEarnings, getFreeCoupons});
 
     } catch (error) {
         console.log(error);
@@ -491,7 +497,10 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async(req, res)=>{
     }
 });
 
-
+// Route for zen mining
+router.get('/zen-mining', (req, res)=>{
+    res.render('mining');
+})
 
 // POST ROUTES
 // Route for p2p-registration
@@ -578,6 +587,9 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
   router.post('/update-bank-details', verifyToken.verifyToken, async(req, res)=>{
     console.log(req.body);
 
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+    
     const {userId, bank, accountName, accountNumber} = req.body;
 
     let split = bank.split('-');
@@ -597,14 +609,14 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
             // Fetch user details using username
             const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
 
-            res.render('update-bank-details', {user: fetchUserByUsername[0], alertTitle: 'Error: ', alertMessage: 'error updating bank details', alertColor: 'red'});
+            res.render('update-bank-details', {user: fetchUserByUsername[0], getMysteryBoxSetting, alertTitle: 'Error: ', alertMessage: 'error updating bank details', alertColor: 'red'});
         } else{
             console.log('Successfully updated bank details');
 
             // Fetch user details using username
             const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
 
-            res.render('update-bank-details', {user: fetchUserByUsername[0], alertTitle: 'Success: ', alertMessage: 'successfully updated bank details', alertColor: 'green'});
+            res.render('update-bank-details', {user: fetchUserByUsername[0], getMysteryBoxSetting, alertTitle: 'Success: ', alertMessage: 'successfully updated bank details', alertColor: 'green'});
         }
     })
   });
@@ -735,6 +747,9 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
     // Fetch user details using username
     const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
 
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
     console.log(req.body);
 
     const {userId, pin} = req.body;
@@ -744,11 +759,11 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
         if (err) {
             console.log(err);
 
-            res.render('set-pin', {user: fetchUserByUsername[0], alertTitle: 'Error: ', alertMessage: 'error updating bank details', alertColor: 'red'});
+            res.render('set-pin', {user: fetchUserByUsername[0], getMysteryBoxSetting, alertTitle: 'Error: ', alertMessage: 'error updating bank details', alertColor: 'red'});
         } else{
             console.log('Successfully updated withdrawal pin');
            
-            res.render('set-pin', {user: fetchUserByUsername[0], alertTitle: 'Success: ', alertMessage: 'successfully updated withdrawal pin', alertColor: 'green'});
+            res.render('set-pin', {user: fetchUserByUsername[0], getMysteryBoxSetting, alertTitle: 'Success: ', alertMessage: 'successfully updated withdrawal pin', alertColor: 'green'});
         }
     })
   });
@@ -758,24 +773,27 @@ router.post('/update-profile', verifyToken.verifyToken, async(req, res)=>{
     // Fetch user details using username
     const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
 
+    // Get the mystery_box setting
+    const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
+
     console.log(req.body);
-    const {userId, firstName, lastName, email, currentPassword, newPassword, confirmPassword} = req.body;
+    const {userId, firstName, lastName, email, phoneNo, currentPassword, newPassword, confirmPassword} = req.body;
 
     // Make sure every data was sent
-    if (!firstName || !lastName || !email || !currentPassword || !newPassword || !confirmPassword) {
+    if (!firstName || !lastName || !email || !phoneNo || !currentPassword || !newPassword || !confirmPassword) {
         console.log('Please provide all details');
 
         // Fetch user details using username
         const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
 
-        return res.render('update-profile', {user: fetchUserByUsername[0], alertTitle: 'Error: ', alertMessage: 'Please provide all details', alertColor: 'red'});
+        return res.render('update-profile', {user: fetchUserByUsername[0], getMysteryBoxSetting, alertTitle: 'Error: ', alertMessage: 'Please provide all details', alertColor: 'red'});
     }
 
     // Check if current password is correct
     if (fetchUserByUsername[0].password !== md5(currentPassword)) {
         console.log('Incorrect Password');
         
-        return res.render('update-profile', {user: fetchUserByUsername[0], alertTitle: 'Error: ', alertMessage: 'Incorrect Password', alertColor: 'red'});
+        return res.render('update-profile', {user: fetchUserByUsername[0], getMysteryBoxSetting, alertTitle: 'Error: ', alertMessage: 'Incorrect Password', alertColor: 'red'});
     }
 
     // Check if the two new password matches
@@ -784,7 +802,7 @@ router.post('/update-profile', verifyToken.verifyToken, async(req, res)=>{
         // Fetch user details using username
         const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
 
-        return res.render('update-profile', {user: fetchUserByUsername[0], alertTitle: 'Error: ', alertMessage: 'New Passwords do not match', alertColor: 'red'});
+        return res.render('update-profile', {user: fetchUserByUsername[0], getMysteryBoxSetting, alertTitle: 'Error: ', alertMessage: 'New Passwords do not match', alertColor: 'red'});
     }
 
     // Check if password is 8 characters or above
@@ -793,18 +811,21 @@ router.post('/update-profile', verifyToken.verifyToken, async(req, res)=>{
         // Get the user's details
         const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
 
-        return res.render('update-profile', {user: fetchUserByUsername[0], alertTitle: 'Error: ', alertMessage: 'Password must be 8 characters or above', alertColor: 'red'});
+        return res.render('update-profile', {user: fetchUserByUsername[0], getMysteryBoxSetting, alertTitle: 'Error: ', alertMessage: 'Password must be 8 characters or above', alertColor: 'red'});
     }
 
     // If every check has been performed
     // Update the database
-    connection.query('UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ? WHERE user_id = ?', [firstName, lastName, email, md5(newPassword), fetchUserByUsername[0].user_id], (err)=>{
+    connection.query('UPDATE users SET first_name = ?, last_name = ?, email = ?, phone_number = ? , password = ? WHERE user_id = ?', [firstName, lastName, email, phoneNo, md5(newPassword), fetchUserByUsername[0].user_id], async (err)=>{
         if (err) {
             console.log('Error updating the user profile: ', err);
-            res.render('update-profile', {user: fetchUserByUsername[0], alertTitle: 'Error: ', alertMessage: 'Internal server error', alertColor: 'red'});
+            res.render('update-profile', {user: fetchUserByUsername[0], getMysteryBoxSetting, alertTitle: 'Error: ', alertMessage: 'Internal server error', alertColor: 'red'});
         } else{
+            // Get the user's details
+            const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
+
             console.log('Successfully updated profile');
-            res.render('update-profile', {user: fetchUserByUsername[0], alertTitle: 'Success: ', alertMessage: 'Successfully updated profile', alertColor: 'green'});
+            res.render('update-profile', {user: fetchUserByUsername[0], getMysteryBoxSetting, alertTitle: 'Success: ', alertMessage: 'Successfully updated profile', alertColor: 'green'});
         }
     });
 });

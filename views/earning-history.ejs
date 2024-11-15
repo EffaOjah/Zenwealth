@@ -136,7 +136,10 @@
                         <% } else{ %>
                             <h6 class="color- text-white fw-bold">$<%= Math.floor((earnings[i].amount / 1500) * 100) / 100 %></h6>
                        <% } %>
-                      <p class="color-three"><%= earnings[i].earning %></p>
+                      <div>
+                        <p class="color-three"><%= earnings[i].earning %></p>
+                      <p class="color-three"><%= earnings[i].earning_date.toDateString() %></p>
+                      </div>
                     </div>
                     
                   </a>

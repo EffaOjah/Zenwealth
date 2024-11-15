@@ -139,10 +139,17 @@
                   </div>
                 </div>
             
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <div class="form-floating">
                     <input type="email" class="form-control" name="email" placeholder="Email Address" autocomplete="off" value="<%= user.email %>" required>
                     <label>Email</label>
+                  </div>
+                </div>
+            
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input type="tel" class="form-control" name="phoneNo" placeholder="Phone Number" autocomplete="off" value="<%= user.phone_number %>" required>
+                    <label>Phone Number</label>
                   </div>
                 </div>
 
@@ -177,26 +184,25 @@
         </div>
       </div>
 
-      <% if (user.is_a_vendor == true) { %>
-        <div class="container-fluid d-flex justify-content-center">
-          <div class="bg-overlay fixed-width radius-three p-3 pb-4 mt-4">
-            <form action="/upload-pic" method="post" enctype="multipart/form-data">
-              <div class="row">
-                <div class="col-md-12">
-                  <label class="text-white">Upload Profile Picture</label>
-                  <div class="form-control date" id="date3" data-target-input="nearest">
-                    <input type="file" class="form-control" name="image">
-                  </div>
+      <!-- Section for profile picture upload -->
+      <div class="container-fluid d-flex justify-content-center">
+        <div class="bg-overlay fixed-width radius-three p-3 pb-4 mt-4">
+          <form action="/upload-pic" method="post" enctype="multipart/form-data">
+            <div class="row">
+              <div class="col-md-12">
+                <label class="text-white">Upload Profile Picture</label>
+                <div class="form-control date" id="date3" data-target-input="nearest">
+                  <input type="file" class="form-control" name="image">
                 </div>
-    
-                <div class="col-md-12 mt-4">
-                  <button class="btn btn-zen px-4 py-2 w-100 text-white" type="submit">Upload DP</button>
               </div>
-              </div>
-            </form>
-          </div>
+  
+              <div class="col-md-12 mt-4">
+                <button class="btn btn-zen px-4 py-2 w-100 text-white" type="submit">Upload DP</button>
+            </div>
+            </div>
+          </form>
         </div>
-      <% } %>
+      </div>
 
       
       <footer class="dashboard-footer shadow">

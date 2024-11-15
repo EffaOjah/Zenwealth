@@ -409,5 +409,34 @@ async function getYoutubeVideo() {
     });
 }
 
+// Function to get user's mystery box earnings
+async function mysteryBoxEarnings(userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT SUM(amount) AS amount FROM earning_history WHERE user_id = ? AND earning = ?', [userId, 'Mystery Box Reward'], (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log('Mystery Box earnings: ', result);
+                resolve(result);
+            }
+        });
+    });
+}
 
-module.exports = {fetchUserByUsername, getReferrals, getTotalWithdrawal, createAffiliateBalanceView, getTotalAffiliateBalanceView, getTotalReferralBalanceView, createZenpointsView, getTotalZenPointsView, createZenCoinsView, getTotalZenCoinsView, insertIntoAffiliateTransactions, insertIntoNonAffiliateTransactions, insertIntoActivityTransactions, insertIntoWithdrawals, getCoupons, getYoutubeVideoCode, updateYtStatus, getPosts, getSinglePost, updateHasSharedPostColumn, updateHasJoinedPlatform, creditedTask1Column, creditedTask2Column, getMysteryBoxSetting, updateHasClaimedColumn, assignFreeCoupon, getYoutubeVideo};
+// Function to get user's free coupons
+async function freeCoupons(userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM free_coupons WHERE created_for = ?', [userId], (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log('Free Coupons: ', result);
+                resolve(result);
+            }
+        });
+    });
+}
+
+module.exports = {fetchUserByUsername, getReferrals, getTotalWithdrawal, createAffiliateBalanceView, getTotalAffiliateBalanceView, getTotalReferralBalanceView, createZenpointsView, getTotalZenPointsView, createZenCoinsView, getTotalZenCoinsView, insertIntoAffiliateTransactions, insertIntoNonAffiliateTransactions, insertIntoActivityTransactions, insertIntoWithdrawals, getCoupons, getYoutubeVideoCode, updateYtStatus, getPosts, getSinglePost, updateHasSharedPostColumn, updateHasJoinedPlatform, creditedTask1Column, creditedTask2Column, getMysteryBoxSetting, updateHasClaimedColumn, assignFreeCoupon, getYoutubeVideo, mysteryBoxEarnings, freeCoupons};

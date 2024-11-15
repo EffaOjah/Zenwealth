@@ -1,8 +1,41 @@
 // Script to handle mystery box logic
+var mysteryImg = document.getElementById('mysteryImg');
+const mysteryGif = document.getElementById('mysteryGif');
+const gift = document.querySelector('.mystery-gift');
+var giftValue = document.getElementsByClassName('mysteryGiftValue');
 const mysteryValue = document.getElementById('mysteryValue');
 var giftValue2 = document.getElementById('mysteryGiftValue');
-var mysteryImg = document.getElementById('mysteryImg');
 var closeBtn = document.getElementsByClassName('closeBtn');
+var mysteryGiftImg = document.getElementById('mysteryGiftImg'); 
+
+mysteryImg.addEventListener('click', () => {
+mysteryImg.style.animation = 'swellAndShake 3s forwards';
+
+// After 4 seconds, hide the image and show the gif
+setTimeout(() => {
+    mysteryImg.style.display = 'none';
+    mysteryGif.style.display = 'block';
+
+    setTimeout(() => {
+    gift.style.display = 'block';
+    }, 300);
+
+    setTimeout(() => {
+    giftValue[0].style.display = 'block';
+    giftValue[0].style.textAlign = 'center';
+    giftValue[0].style.marginTop = '80px';
+
+    mysteryImg.style.marginTop = '-20px';
+    closeBtn[0].style.display = 'block';
+    }, 800);
+
+    // Add the move-down class after a delay to animate the movement
+    setTimeout(() => {
+    mysteryGif.classList.add('move-down');
+    }, 50); // Delay before downward movement starts
+}, 1000);
+});
+
 
 document.addEventListener('DOMContentLoaded', ()=>{
     // First, display the users' reward based on the value gotten from tyhe db
@@ -24,6 +57,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     } else if (mysteryValue.innerHTML > 90 && mysteryValue.innerHTML < 101) {
         // Update the nystery reward
         giftValue2.innerHTML = 'A free coupon code';
+        // Set the mystery gift image
+        mysteryGiftImg.src = '/img/coupon.png';
     } else {
        ('Invalid reward value');
         // Update the nystery reward

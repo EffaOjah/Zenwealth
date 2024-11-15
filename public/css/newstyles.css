@@ -622,6 +622,20 @@ footer .footer-links p {
     animation: zoom 2s infinite ease-in-out;
     bottom: 15px;
   }
+  .mystery-earnings {
+    background-color: #211e5b;
+    top: 15px;
+    right: 15px;
+    height: 30px;
+    border-radius: 15px;
+  }
+  .mystery-earnings .d-flex {
+    height: 100%;
+  }
+  .mystery-earnings img {
+    width: 45px;
+    height: 45px;
+  }
 
   @keyframes zoom {
     0% { scale: 1; }
