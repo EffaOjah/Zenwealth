@@ -498,8 +498,11 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async(req, res)=>{
 });
 
 // Route for zen mining
-router.get('/zen-mining', (req, res)=>{
-    res.render('mining');
+router.get('/zen-mining', verifyToken.verifyToken, async(req, res)=>{
+    // Fetch user details using username
+    const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
+
+    res.render('mining', {user: fetchUserByUsername[0]});
 })
 
 // POST ROUTES
