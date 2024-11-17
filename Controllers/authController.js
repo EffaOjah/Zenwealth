@@ -5,6 +5,8 @@ const moment = require('moment');
 const md5 = require('md5');
 const router = express.Router();
 
+const dashboardFunctions = require('../Functions/dashboardFunctions');
+
 // Require sql connection
 const connection = require('../db/db');
 
@@ -286,6 +288,9 @@ router.post('/login', (req, res)=>{
 
                     // Now credit the user
                     const creditLoginBonus = await functions.creditLoginBonus(result[0].user_id)
+
+                    // Update has_claimed_taps column
+                    const updateHasClaimedTapsColumn = await dashboardFunctions.updateHasClaimedTapsColumn(false, result[0].user_id);
                  }
                  res.redirect('/user/dashboard');
             }          

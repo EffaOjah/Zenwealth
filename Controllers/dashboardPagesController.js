@@ -499,10 +499,18 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async(req, res)=>{
 
 // Route for zen mining
 router.get('/zen-mining', verifyToken.verifyToken, async(req, res)=>{
-    // Fetch user details using username
-    const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
+    try {
+      // Fetch user details using username
+      const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
 
-    res.render('mining', {user: fetchUserByUsername[0]});
+      const miningBalance = await dashboardFunctions.getUsersMiningBalance(fetchUserByUsername[0].user_id);
+
+      res.render('mining', {user: fetchUserByUsername[0], miningBalance});  
+    } catch (error) {
+        console.log(error);
+
+        res.render('mining', {user: 'null', miningBalance: 'null'});
+    }
 })
 
 // POST ROUTES
@@ -876,5 +884,76 @@ router.post('/youtube-reward', verifyToken.verifyToken, async(req, res)=>{
     }
 });
 
+// POST route to claim zen mining reward
+router.post('/claim-zen-mining-reward', verifyToken.verifyToken, async(req, res)=>{
+    const amount = req.body.amount;
+
+    console.log(`User is about to claim ${amount} for Zen mining`);
+    
+    try {
+        // Fetch user details using username
+        const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
+
+        // Credit the user
+        const creditUser = await dashboardFunctions.insertIntoNonAffiliateTransactions(amount, 'Zen Mining', 'CREDIT', fetchUserByUsername[0].user_id);
+
+        // Insert into earning history
+        const insertIntoEarningHistory = await functions.insertIntoEarningHistory('Zen Mining', amount, fetchUserByUsername[0].user_id);
+
+        // Update has_claimed_taps column
+        const updateHasClaimedTapsColumn = await dashboardFunctions.updateHasClaimedTapsColumn(true, fetchUserByUsername[0].user_id);
+
+        // Check if mining was 600, if so, reward Gem
+        if (amount > 599) {
+            // Reward Gems
+            const rewardGems = await dashboardFunctions.rewardGems(fetchUserByUsername[0].user_id, 1);
+        }
+
+        // Get user's new mining balance
+        const miningBalance = await dashboardFunctions.getUsersMiningBalance(fetchUserByUsername[0].user_id);
+
+        // Get user's new gems
+        const getGems = await dashboardFunctions.getGems(fetchUserByUsername[0].user_id);
+
+        return res.status(200).json({success: 'Successfully credited the user', miningBalance: miningBalance.amount, getGems: getGems.gems});
+    } catch (error) {
+        console.log(error);
+        
+        return res.status(500).json({error: 'An error ocurred'});
+    }
+});
+
+// POST route to boost account
+router.post('/boost-account', verifyToken.verifyToken, async(req, res)=>{
+    try {
+        // Fetch user details using username
+        const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
+
+        // Create the user's affiliate balance view
+        const createAffiliateBalanceView = await dashboardFunctions.createAffiliateBalanceView(fetchUserByUsername[0].user_id);
+
+        // Get the user's total affiliate balance view
+        const getTotalAffiliateBalanceView = await dashboardFunctions.getTotalAffiliateBalanceView();
+
+        // Check if user's affiliate account balance is sufficient
+        if (getTotalAffiliateBalanceView[0].affiliateBalance < 500){
+            console.log('Insufficient Affiliate Balance, unable to boost account');
+            
+            return res.status(500).json({error: 'Insufficient Affiliate Balance, unable to boost account'});
+        }
+
+        // Debit the user
+        const debitUser = await dashboardFunctions.insertIntoAffiliateTransactions(-500, 'Boosting levy', 'DEBIT', fetchUserByUsername[0].user_id);
+
+        // Update the has_boosted_acct column of the user
+        const updateHasBoostedColumn = await dashboardFunctions.updateHasBoostedColumn(true, fetchUserByUsername[0].user_id);
+
+        res.status(200).json({success: 'Successfully updated the has_boosted_acct column of the user', userStand: 1});
+    } catch (error) {
+        console.log(error);
+        
+        return res.status(500).json({error: 'Error updating the has_boosted_acct column'});
+    }
+})
 
 module.exports = router;

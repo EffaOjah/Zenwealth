@@ -439,4 +439,81 @@ async function freeCoupons(userId) {
     });
 }
 
-module.exports = {fetchUserByUsername, getReferrals, getTotalWithdrawal, createAffiliateBalanceView, getTotalAffiliateBalanceView, getTotalReferralBalanceView, createZenpointsView, getTotalZenPointsView, createZenCoinsView, getTotalZenCoinsView, insertIntoAffiliateTransactions, insertIntoNonAffiliateTransactions, insertIntoActivityTransactions, insertIntoWithdrawals, getCoupons, getYoutubeVideoCode, updateYtStatus, getPosts, getSinglePost, updateHasSharedPostColumn, updateHasJoinedPlatform, creditedTask1Column, creditedTask2Column, getMysteryBoxSetting, updateHasClaimedColumn, assignFreeCoupon, getYoutubeVideo, mysteryBoxEarnings, freeCoupons};
+// Function to get user's mining balance
+async function getUsersMiningBalance(userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT SUM(amount) AS amount FROM non_affiliate_transactions WHERE user_id = ? AND transaction_type = ?', [userId, 'Zen Mining'], (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log('Mining balance: ', result[0]);
+                resolve(result[0]);
+            }
+        });
+    });
+}
+
+// Function to reward gems
+async function rewardGems(userId, amount) {
+    return new Promise((resolve, reject) => {
+        // Use the amount parameter in the query
+        connection.query('UPDATE users SET gems = gems + ? WHERE user_id = ?', [amount, userId], (err, result) => {
+            if (err) {
+                console.log(err); // Log error to console
+                reject(err); // Reject the promise with the error
+            } else {
+                console.log('Gems updated successfully'); // Log success message
+                resolve(result); // Resolve the promise with the result
+            }
+        });
+    });
+}
+
+
+// Function to get user's gems
+async function getGems(userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT gems FROM users WHERE user_id = ?', userId, (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log('Gems: ', result[0]);
+                resolve(result[0]);
+            }
+        });
+    });
+}
+
+// Function to update the has_boosted_column of the user
+async function updateHasBoostedColumn(status, userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET has_boosted_acct = ? WHERE user_id = ?', [status, userId], (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log(`Successfully updated the has_boosted_acct column to ${status}`);
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Function to update the has_boosted_column of the user
+async function updateHasClaimedTapsColumn(status, userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET has_claimed_taps = ? WHERE user_id = ?', [status, userId], (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log(`Successfully updated the has_claimed_taps column to ${status}`);
+                resolve(result);
+            }
+        });
+    });
+}
+
+module.exports = {fetchUserByUsername, getReferrals, getTotalWithdrawal, createAffiliateBalanceView, getTotalAffiliateBalanceView, getTotalReferralBalanceView, createZenpointsView, getTotalZenPointsView, createZenCoinsView, getTotalZenCoinsView, insertIntoAffiliateTransactions, insertIntoNonAffiliateTransactions, insertIntoActivityTransactions, insertIntoWithdrawals, getCoupons, getYoutubeVideoCode, updateYtStatus, getPosts, getSinglePost, updateHasSharedPostColumn, updateHasJoinedPlatform, creditedTask1Column, creditedTask2Column, getMysteryBoxSetting, updateHasClaimedColumn, assignFreeCoupon, getYoutubeVideo, mysteryBoxEarnings, freeCoupons, getUsersMiningBalance, rewardGems, getGems, updateHasBoostedColumn, updateHasClaimedTapsColumn};

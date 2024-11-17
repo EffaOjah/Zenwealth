@@ -55,6 +55,7 @@
     </div>
   </div>
 
+  
   <div class="modal fade" id="boostModal">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content progress-div bg-lfg-modal">
@@ -67,12 +68,12 @@
             <img src="img/lfg.png" class="img-fluid lfg-lg" alt="lfg">
             <p class="fs-5">Boost your tap earnings to unlimited taps per day</p>
           </div>
-          <button class="btn btn-zen px-4 py-2 w-100 text-white mt-4" data-bs-target="#dailogBoxModal" data-bs-toggle="modal" data-bs-dismiss="modal">Boost</button>                
+          <button id="boostBtn" class="btn btn-zen px-4 py-2 w-100 text-white mt-4" data-bs-target="#dailogBoxModal" data-bs-toggle="modal" data-bs-dismiss="modal">Boost</button>                
         </div>
       </div>
     </div>
 </div>
-<div class="modal fade" id="dailogBoxModal">
+<!-- <div class="modal fade" id="dailogBoxModal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content progress-div bg-lfg-modal">
             <div class="modal-header p-0">
@@ -80,7 +81,7 @@
             </div>
             <div class="modal-body">
               <div class="lfg-modal">
-                <!-- <img src="img/lfg.png" class="img-fluid lfg-lg" alt="lfg"> -->
+                <img src="img/lfg.png" class="img-fluid lfg-lg" alt="lfg">
                 <p class="fs-5">Are you sure you want to boost your tap earnings?</p>
               </div>
             </div>
@@ -92,7 +93,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
     <div class="page-wrapper" style="overflow-y: scroll;">
@@ -115,7 +116,7 @@
                   <small style="font-size: 15px;">Total coins</small>
                   <span class="d-flex align-items-center gap-1 mt-1">
                     <img src="img/ZEN COIN.png" class="img-fluid zen-coin" alt="zen coin">
-                    <p class="m-auto">1.2k</p>
+                    <p class="m-auto" id="miningBalance"><%= miningBalance.amount %></p>
                   </span>
                 </div>
               </div>
@@ -124,7 +125,7 @@
                   <small style="font-size: 15px;">Gems</small>
                   <span class="d-flex align-items-center gap-1 mt-1">
                     <ion-icon name="flash" class="text- color-three fs-6"></ion-icon>
-                    <p class="m-auto">1.2k</p>
+                    <p class="m-auto" id="totalGems"><%= user.gems %></p>
                   </span>
                 </div>
               </div>
@@ -163,7 +164,7 @@
                   <ion-icon name="flash" class="text-white battery-sign fs-6"></ion-icon>
                 </div>
               </div>
-              <p class="text-white fs-5" id="barLife">600</p>
+              <p class="text-white fs-5" id="barLife"><%= user.has_claimed_taps == 1 && user.has_boosted_acct == 0 ? '0' : '600' %></p>
             </div>
           </div>
 
@@ -203,6 +204,8 @@
         </footer>
     </div>
 
+    <span id="userStand" class="d-none"><%= user.has_boosted_acct %></span>
+    <span id="claimedTaps" class="d-none"><%= user.has_claimed_taps %></span>
 
 
 
@@ -210,10 +213,16 @@
       const bar = document.getElementById('barLife');
       const battery = document.getElementById('battery');
       const coin = document.getElementById('coin');
+      var userStand = document.getElementById('userStand').innerHTML;
+      var claimedTaps = document.getElementById('claimedTaps').innerHTML;
       var life = 600;
       var count = 0;
       let autoIncreaseInterval = null; // Store the interval ID for auto-increasing
 
+      if (claimedTaps == 1 && userStand == 0) {
+        life = 0;
+        battery.style.backgroundColor = 'transparent'; 
+      }
       // Function to increase life every 2 seconds
       function startAutoIncreaseLife() {
         // Prevent multiple intervals from being created
@@ -294,6 +303,39 @@
 
             // console.log("Decreasing life to: ", life);
             bar.textContent = life;
+            
+            if (life < 2) {
+              if (userStand == 1) {
+              // Start the auto-increase if life drops below 600
+              startAutoIncreaseLife(); 
+            }
+              // Credit the user for what he/she has tapped
+              fetch('/claim-zen-mining-reward', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  amount: (count + 2)
+                })
+              }, ()=>{
+                resetCount();
+              })
+              .then((res)=>{
+                resetCount();
+                return res.json();
+              })
+              .then((data)=>{
+                // Reset the count
+                resetCount();
+
+                // Update mining balance
+                document.getElementById('miningBalance').innerHTML = data.miningBalance;
+
+                // Update gems
+                document.getElementById('totalGems').innerHTML = data.getGems;
+              })
+            }
             count += 2;
             document.getElementById('total').innerText = count;
           
@@ -304,18 +346,46 @@
             setTimeout(() => {
               plusTwo.remove();
             }, 2000);
-          
-            // Start the auto-increase if life drops below 600
-            startAutoIncreaseLife();
           }
         }
+      }
+
+      // function to reset count
+      function resetCount(){
+        count = 0;
+        document.getElementById('total').innerText = count;
+      }
+
+      // function to update userStand
+      function updateUserStand(value) {
+        userStand = value;
+        startAutoIncreaseLife();
       }
 
       // Attach both touchstart and click event listeners
       coin.addEventListener('touchstart', handleCoinTap);
 
       // Start auto-increasing life if it's less than 600 when the page loads
-      startAutoIncreaseLife();
+      // startAutoIncreaseLife();
+
+      document.getElementById('boostBtn').addEventListener('click', ()=>{
+        fetch('/boost-account', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            amount: 50
+          })
+        })
+        .then((res)=>{
+          return res.json();
+        })
+        .then((data)=>{
+          // Update UserStand
+          updateUserStand(data.userStand)
+        })
+      })
     </script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
