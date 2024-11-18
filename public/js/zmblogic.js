@@ -5,7 +5,7 @@ const gift = document.querySelector('.mystery-gift');
 var giftValue = document.getElementsByClassName('mysteryGiftValue');
 const mysteryValue = document.getElementById('mysteryValue');
 var giftValue2 = document.getElementById('mysteryGiftValue');
-var closeBtn = document.getElementsByClassName('closeBtn');
+var closeBtn = document.getElementById('closeBtn');
 var mysteryGiftImg = document.getElementById('mysteryGiftImg'); 
 
 mysteryImg.addEventListener('click', () => {
@@ -26,7 +26,7 @@ setTimeout(() => {
     giftValue[0].style.marginTop = '80px';
 
     mysteryImg.style.marginTop = '-20px';
-    closeBtn[0].style.display = 'block';
+    closeBtn.style.display = 'block';
     }, 800);
 
     // Add the move-down class after a delay to animate the movement
@@ -79,6 +79,6 @@ function claimMysteryBoxReward() {
     })
 }
 
-closeBtn[0].addEventListener('click', ()=>{
+closeBtn.addEventListener('click', ()=>{
     location.assign('/user/dashboard');
 });

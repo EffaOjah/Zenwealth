@@ -62,11 +62,11 @@
     <!-- </div> -->
 
     <!-- Mystery Box Modal -->
-    <div class="modal fade" id="mysteryBoxModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-bg"></div>
-      <div class="modal-dialog modal-dialog-centered position-relative overflow-hidden">
+    <div class="modal fade overflow-hidden" id="mysteryBoxModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen position-relative overflow-hidden">
+        <div class="modal-bg"></div>
         <div class="modal-content position-static overflow-hidden">
-          <div class="d-flex gap-2 p-4 px-2 mystery-earnings position-absolute">
+          <div class="d-flex p-2 gap-2 px-2 mystery-earnings position-absolute">
             <div class="d-flex align-items-center">
               <img src="/img/coupon.png" class="img-fluid" alt="coupon">
               <p class="fs-5 fw-bold mt-3"><%= getFreeCoupons.length %></p>
@@ -76,22 +76,14 @@
               <p class="fs-5 fw-bold mt-3">$<%= Math.floor((getMysteryEarnings[0].amount / 1500) * 100) / 100 %></p>
             </div>
           </div>
-          <div class="modal-body d-grid" style="place-items: center;">
-            <img src="/img/money-bag-removebg-preview.png" id="mysteryGiftImg" class="mystery-gift img-fluid" alt="mystery gift">
+          <div class="modal-body d-grid overflow-hidden" style="place-items: center;">
+            <img src="/img/money-bag-removebg-preview.png" class="mystery-gift img-fluid" alt="mystery gift">
             <img src="/img/mystery-box-main.png" id="mysteryImg" class="img-fluid mystery-box-main" width="350px" alt="">
             <img src="/img/ezgif.com-animated-gif-maker (2).gif" id="mysteryGif" class="img-fluid" width="350px" alt="">
-            <% if (user.has_claimed_gift == 1) { %>
-              <h1 class="text-white text-center fw-bold display-5 mysteryGiftValue">Already claimed reward</h1>
-              <br><br><br>
-              <button type="button" id="closeBtn" class="d-block closeBtn text-white fs-2 fw-bold position-absolute" data-bs-dismiss="modal">
-                Tap to continue
-              </button>
-            <% } else{ %>
-              <h1 class="text-white fw-bold display-1 mysteryGiftValue" id="mysteryGiftValue"></h1>
-           <% } %>
+            <h1 class="text-white fw-bold display-1 mysteryGiftValue" id="mysteryGiftValue"></h1>
           </div>
           <div class="modal-footer d-flex align-items-center justify-content-center">
-            <button type="button" id="closeBtn" class="closeBtn text-white fs-2 fw-bold position-absolute" data-bs-dismiss="modal">
+            <button type="button" id="closeBtn" class="text-white fs-2 fw-bold position-absolute" data-bs-dismiss="modal">
               Tap to continue
             </button>
           </div>

@@ -987,7 +987,7 @@ router.post('/boost-account', verifyToken.verifyToken, async(req, res)=>{
     } catch (error) {
         console.log(error);
         
-        return res.status(500).json({error: 'Error updating the has_boosted_acct column'});
+        return res.status(500).json({error: 'An error occurred'});
     }
 })
 

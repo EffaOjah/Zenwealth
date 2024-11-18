@@ -65,14 +65,35 @@
         </div>
         <div class="modal-body">
           <div class="lfg-modal">
-            <img src="img/lfg.png" class="img-fluid lfg-lg" alt="lfg">
+            <img src="/img/lfg.png" class="img-fluid lfg-lg" alt="lfg">
             <p class="fs-5">Boost your tap earnings to unlimited taps per day</p>
+            <span class="text-white">'$0.33 will be deducted from your affiliate balance'</span>
           </div>
           <button id="boostBtn" class="btn btn-zen px-4 py-2 w-100 text-white mt-4" data-bs-target="#dailogBoxModal" data-bs-toggle="modal" data-bs-dismiss="modal">Boost</button>                
         </div>
       </div>
     </div>
 </div>
+
+<div class="modal fade" id="errorModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content progress-div bg-lfg-modal">
+      <div class="modal-header p-0">
+        <p class="fs-4 fw-bold">Tap Earnings Upgrade</p>
+        <button type="button" class="btn-close" style="transform: translateY(-3px);" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="lfg-modal">
+          <img src="/img/reddy.png" class="img-fluid lfg-lg" alt="lfg">
+          <p class="fs-5" id="errorMessage"></p>
+        </div>
+        <button class="border bg-transparent px-4 py-2 w-100 text-white mt-4 radius-three" data-bs-target="#dailogBoxModal" data-bs-toggle="modal" data-bs-dismiss="modal">Close</button>                
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!-- <div class="modal fade" id="dailogBoxModal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content progress-div bg-lfg-modal">
@@ -81,7 +102,7 @@
             </div>
             <div class="modal-body">
               <div class="lfg-modal">
-                <img src="img/lfg.png" class="img-fluid lfg-lg" alt="lfg">
+                <img src="/img/lfg.png" class="img-fluid lfg-lg" alt="lfg">
                 <p class="fs-5">Are you sure you want to boost your tap earnings?</p>
               </div>
             </div>
@@ -382,13 +403,21 @@
           return res.json();
         })
         .then((data)=>{
-          // Update UserStand
-          updateUserStand(data.userStand)
+
+          if (data.error) {
+            var myModal = new bootstrap.Modal(document.getElementById('errorModal'));
+
+            document.getElementById('errorMessage').innerHTML = data.error;
+            myModal.show();
+          } else{
+            // Update UserStand
+            updateUserStand(data.userStand)
+          }
         })
       })
     </script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

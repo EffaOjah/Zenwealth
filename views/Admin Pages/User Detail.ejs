@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zenwealth - User Detail | <%= userDetails[0].username %></title>
 
-    <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02">
+    <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02.png">
     <link href="css/css2.js" rel="stylesheet">
     <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/iziToast-master/dist/css/iziToast.min.css">
@@ -695,7 +695,9 @@
     
             //    console.log(data);
     
-            totalAffiliateBalanceSpan[0].innerHTML = '$' + (Math.floor((data.getTotalDirectReferralBalance[0].balance / 1500) * 100) / 100 + Math.floor((data.getTotalIndirectReferralBalance[0].balance / 1500) * 100) / 100);
+            let totalAffiliateBalanceValue = data.getTotalAffiliateBalanceView[0].affiliateBalance / 1500;
+
+            totalAffiliateBalanceSpan[0].innerHTML = `$${Math.floor(totalAffiliateBalanceValue * 100) / 100}`;
     
             totalAffiliateBalanceSpan[0].classList.remove('spinner-border');
     

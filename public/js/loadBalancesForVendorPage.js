@@ -31,20 +31,25 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 
       //  ZenCoinsSpan[0].classList.remove('spinner-border');
 
-       ZenPointsSpan[0].innerHTML = !data.getTotalZenPointsView[0].ZenPoints ? `$0` : `$${Math.floor((data.getTotalZenPointsView[0].ZenPoints / 1500) * 100) / 100}`;
+      let totalZenpointsValue = data.getTotalZenPointsView[0].ZenPoints / 1500;
+
+      ZenPointsSpan[0].innerHTML = !data.getTotalZenPointsView[0].ZenPoints ? `$0` : `$${Math.floor(totalZenpointsValue * 100) / 100}`;
+      
       //  ZenPointsSpan[1].innerHTML = !data.getTotalZenPointsView[0].ZenPoints ? `$0` : `$${Math.floor((data.getTotalZenPointsView[0].ZenPoints / 1500) * 100) / 100}`;
 
        ZenPointsSpan[0].classList.remove('spinner-border');
       //  ZenPointsSpan[1].classList.remove('spinner-border');
 
-       directReferralBalance[0].innerHTML = `$${Math.floor((data.getTotalDirectReferralBalance[0].balance / 1500) * 100) / 100}`;
-      //  directReferralBalance[1].innerHTML = `$${Math.floor((data.getTotalDirectReferralBalance[0].balance / 1500) * 100) / 100}`;
+      let getTotalDirectReferralValue = data.getTotalDirectReferralBalance[0].balance / 1500;
+
+      directReferralBalance[0].innerHTML = `$${Math.floor(getTotalDirectReferralValue * 100) / 100}`;
 
        directReferralBalance[0].classList.remove('spinner-border');
       //  directReferralBalance[1].classList.remove('spinner-border');
 
-       indirectReferralBalance[0].innerHTML = `$${Math.floor((data.getTotalIndirectReferralBalance[0].balance / 1500) * 100) / 100}`;
-      //  indirectReferralBalance[1].innerHTML = `$${Math.floor((data.getTotalIndirectReferralBalance[0].balance / 1500) * 100) / 100}`;
+      let getTotalIndirectReferralValue = data.getTotalIndirectReferralBalance[0].balance / 1500;
+
+      indirectReferralBalance[0].innerHTML = `$${Math.floor(getTotalIndirectReferralValue * 100) / 100}`;
 
        indirectReferralBalance[0].classList.remove('spinner-border');
       //  indirectReferralBalance[1].classList.remove('spinner-border');
