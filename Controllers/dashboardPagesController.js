@@ -676,20 +676,20 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
         if (withdrawalType == 'affiliate') {
             // Perform operations for affiliate withdrawal
             
-            // Ensure that affiliate withdrawal is 8000 and above
-            if ((amount * 1000) < 8000) {
+            // Ensure that affiliate withdrawal is $8 and above
+            if ((amount * 1500) < 12000) {
                 console.log('Affiliate withdrawal must be 8000 and above');
                 return res.status(404).json({error: 'Affiliate withdrawal must be $8 and above'});
             }
 
             // Check if user balance is up to 8000
-            if (getTotalAffiliateBalanceView[0].affiliateBalance < 8000) {
+            if (getTotalAffiliateBalanceView[0].affiliateBalance < 12000) {
                 console.log('Insufficient Balance');
                 return res.status(404).json({error: 'Insufficient Balance'});
             }
 
             // Ensure that withdrawal affiliate amount is not more than user's balance
-            if ((amount * 1000) > getTotalAffiliateBalanceView[0].affiliateBalance) {
+            if ((amount * 1500) > getTotalAffiliateBalanceView[0].affiliateBalance) {
                 console.log('You cannot withdraw more than your affiliate balance');
                 return res.status(404).json({error: 'Insufficient Balance'});
             }
@@ -701,20 +701,20 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
             }
 
             // Insert into the affiliate transactions table
-            const insertIntoAffiliateTransactions = await dashboardFunctions.insertIntoAffiliateTransactions(`${-(amount * 1000)}`, 'Affiliate Withdrawal', 'DEBIT', fetchUserByUsername[0].user_id);
+            const insertIntoAffiliateTransactions = await dashboardFunctions.insertIntoAffiliateTransactions(`${-(amount * 1500)}`, 'Affiliate Withdrawal', 'DEBIT', fetchUserByUsername[0].user_id);
 
             // Insert into the withdrawals table
-            const insertIntoWithdrawals = await dashboardFunctions.insertIntoWithdrawals(fetchUserByUsername[0].user_id, fetchUserByUsername[0].username, (amount * 1000), 'Affiliate Withdrawal', fetchUserByUsername[0].bank_name, fetchUserByUsername[0].account_number, fetchUserByUsername[0].account_name);
+            const insertIntoWithdrawals = await dashboardFunctions.insertIntoWithdrawals(fetchUserByUsername[0].user_id, fetchUserByUsername[0].username, (amount * 1500), 'Affiliate Withdrawal', fetchUserByUsername[0].bank_name, fetchUserByUsername[0].account_number, fetchUserByUsername[0].account_name);
 
             console.log(`Successfully placed withdrawal of $${amount}`);
             return res.status(200).json({success: `Successfully placed withdrawal of $${amount}`});
-        } else if (withdrawalType == 'earnings') {
-            // Perform operations for earnings withdrawal
+        } else if (withdrawalType == 'nonAffiliate') {
+            // Perform operations for nonAffiliate withdrawal
 
-            // Ensure that earnings withdrawal is 45000 and above
+            // Ensure that nonAffiliate withdrawal is 45000 and above
             if (amount < 45000) {
-                console.log('Earnings withdrawal must be 45000 or above');
-                return res.status(404).json({error: 'Earnings withdrawal must be 45000 and above'});
+                console.log('Non Affiliate withdrawal must be 45000 or above');
+                return res.status(404).json({error: 'Non Affiliate withdrawal must be 45000 and above'});
             }
 
             // Check if user balance is up to 45000
@@ -723,10 +723,45 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
                 return res.status(404).json({error: 'Insufficient Balance'});
             }
 
-            // Ensure that earnings affiliate amount is not more than user's balance
+            // Ensure that nonAffiliate amount is not more than user's balance
             if (amount > getTotalZenPointsView[0].nonAffiliateBalance) {
                 console.log('You cannot withdraw more than your affiliate balance');
-                return res.status(404).json({error: 'You cannot withdraw more than your affiliate balance'});
+                return res.status(404).json({error: 'Insufficient Balance'});
+            }
+
+            // Check if pin is correct
+            if(md5(pin) !== fetchUserByUsername[0].withdrawal_pin){
+                console.log('Incorrect pin');
+                return res.status(404).json({error: 'Incorrect pin'});
+            }
+
+            // Insert into the non affiliate transactions table
+            const insertIntoNonAffiliateTransactions = await dashboardFunctions.insertIntoNonAffiliateTransactions(`${-(amount)}`, 'Non Affiliate Withdrawal', 'DEBIT', fetchUserByUsername[0].user_id);
+
+            // Insert into the withdrawals table
+            const insertIntoWithdrawals = await dashboardFunctions.insertIntoWithdrawals(fetchUserByUsername[0].user_id, fetchUserByUsername[0].username, (amount), 'Non Affiliate Withdrawal', fetchUserByUsername[0].bank_name, fetchUserByUsername[0].account_number, fetchUserByUsername[0].account_name);
+
+            console.log(`Successfully placed withdrawal of ${amount}ZC`);
+            return res.status(200).json({success: `Successfully placed withdrawal of ${amount}ZC`});
+        } else if (withdrawalType == 'activity') {
+            // Perform operations for activity withdrawal
+            
+            // Ensure that activity withdrawal is $3 and above
+            if ((amount * 1500) < 4500) {
+                console.log('Affiliate withdrawal must be $3 and above');
+                return res.status(404).json({error: 'Activity withdrawal must be $3 and above'});
+            }
+
+            // Check if user balance is up to 8000
+            if (getTotalZenPointsView[0].ZenPoints < 4500) {
+                console.log('Insufficient Balance');
+                return res.status(404).json({error: 'Insufficient Balance'});
+            }
+
+            // Ensure that withdrawal amount is not more than user's balance
+            if ((amount * 1500) > getTotalZenPointsView[0].ZenPoints) {
+                console.log('You cannot withdraw more than your activity balance');
+                return res.status(404).json({error: 'Insufficient Balance'});
             }
 
             // Check if pin is correct
@@ -736,13 +771,13 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
             }
 
             // Insert into the affiliate transactions table
-            const insertIntoNonAffiliateTransactions = await dashboardFunctions.insertIntoNonAffiliateTransactions(`${-(amount)}`, 'Non Affiliate Withdrawal', 'DEBIT', fetchUserByUsername[0].user_id);
+            const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(`${-(amount * 1500)}`, 'Activity Withdrawal', fetchUserByUsername[0].user_id);
 
             // Insert into the withdrawals table
-            const insertIntoWithdrawals = await dashboardFunctions.insertIntoWithdrawals(fetchUserByUsername[0].user_id, fetchUserByUsername[0].username, (amount * 1000), 'Non Affiliate Withdrawal', fetchUserByUsername[0].bank_name, fetchUserByUsername[0].account_number, fetchUserByUsername[0].account_name);
+            const insertIntoWithdrawals = await dashboardFunctions.insertIntoWithdrawals(fetchUserByUsername[0].user_id, fetchUserByUsername[0].username, (amount * 1500), 'Activity Withdrawal', fetchUserByUsername[0].bank_name, fetchUserByUsername[0].account_number, fetchUserByUsername[0].account_name);
 
-            console.log(`Successfully placed withdrawal of ${amount}ZP`);
-            return res.status(200).json({success: `Successfully placed withdrawal of ${amount}ZP`});
+            console.log(`Successfully placed withdrawal of $${amount}`);
+            return res.status(200).json({success: `Successfully placed withdrawal of $${amount}`});
         } else{
             console.log('Invalid Withdrawal type');
             return res.status(404).json({error: 'Invalid Withdrawal type'});
