@@ -533,4 +533,61 @@ async function insertIntoEarningHistory(earning, amount, userId) {
     });
 }
 
-module.exports = {current_timestamp, validateEmail, generateReferralCode, separateId, checkEmail, checkUsername, checkCoupon, checkFreeCoupon, createUnreferredUser, createUnreferredUser2, createReferredUser, creditDirectReferral, creditFirstIndirectReferral, creditSecondIndirectReferral, checkDate, updateLastLoginDate, creditLoginBonus, createUserp2P, debitUser, creditNewUser, generatedFreeCouponCode, getVendors, shuffleArray, insertIntoEarningHistory};
+function formatDate() {
+    const date = new Date();  // Get current date and time
+  
+    // Array for month names
+    const months = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+  
+    // Get day, month, year, hours, minutes, and seconds
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+  
+    // Convert hours to 12-hour format
+    hours = hours % 12;
+    hours = hours ? hours : 12;  // the hour '0' should be '12'
+    
+    // Add leading zero to minutes and seconds if needed
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+  
+    // Format the final string
+    const formattedDate = `${day}-${month}-${year} ${hours}:${minutes}:${seconds} ${ampm}`;
+  
+    return formattedDate;
+  }
+  
+  function formatDate2() {
+    const date = new Date();  // Get current date and time
+  
+    // Array for day names and month names
+    const daysOfWeek = [
+      "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+    ];
+    const months = [
+      "January", "February", "March", "April", "May", "June", "July", "August", "September", 
+      "October", "November", "December"
+    ];
+  
+    // Get day, month, year, and weekday name
+    const dayOfWeek = daysOfWeek[date.getDay()];  // Get the day of the week (0-6)
+    const day = date.getDate();
+    const month = months[date.getMonth()];  // Get the month name (0-11)
+    const year = date.getFullYear();
+  
+    // Format the date string as "Thursday, November 7, 2024"
+    const formattedDate = `${dayOfWeek}, ${month} ${day}, ${year}`;
+  
+    return formattedDate;
+  }
+  
+  
+
+module.exports = {current_timestamp, validateEmail, generateReferralCode, separateId, checkEmail, checkUsername, checkCoupon, checkFreeCoupon, createUnreferredUser, createUnreferredUser2, createReferredUser, creditDirectReferral, creditFirstIndirectReferral, creditSecondIndirectReferral, checkDate, updateLastLoginDate, creditLoginBonus, createUserp2P, debitUser, creditNewUser, generatedFreeCouponCode, getVendors, shuffleArray, insertIntoEarningHistory, formatDate, formatDate2};

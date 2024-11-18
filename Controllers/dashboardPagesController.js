@@ -1,6 +1,15 @@
 const express = require('express');
+const session = require('express-session');
 
 const router = express.Router();
+
+// Set up session middleware
+router.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+  }));
 
 const md5 = require('md5');
 
@@ -513,6 +522,14 @@ router.get('/zen-mining', verifyToken.verifyToken, async(req, res)=>{
     }
 })
 
+// Route for withdrawal recepit
+router.get('/withdrawal-receipt', (req, res)=>{
+    let withdrawalDetails = session.withdrawalDetails;
+
+    res.render('receipt', {withdrawalDetails});
+});
+
+
 // POST ROUTES
 // Route for p2p-registration
 router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
@@ -707,7 +724,19 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
             const insertIntoWithdrawals = await dashboardFunctions.insertIntoWithdrawals(fetchUserByUsername[0].user_id, fetchUserByUsername[0].username, (amount * 1500), 'Affiliate Withdrawal', fetchUserByUsername[0].bank_name, fetchUserByUsername[0].account_number, fetchUserByUsername[0].account_name);
 
             console.log(`Successfully placed withdrawal of $${amount}`);
-            return res.status(200).json({success: `Successfully placed withdrawal of $${amount}`});
+
+            // Send the withdrawal details to the session
+            session.withdrawalDetails = {
+                type: withdrawalType,
+                date: functions.formatDate(),
+                date2: functions.formatDate2(),
+                account: fetchUserByUsername[0].account_number,
+                beneficiary: fetchUserByUsername[0].account_name,
+                bank: fetchUserByUsername[0].bank_name,
+                amount: `$${amount}`
+            }
+            
+            return res.status(200).json({success: `Your withdrawal of $${amount} to ${fetchUserByUsername[0].account_number} was successfull`});
         } else if (withdrawalType == 'nonAffiliate') {
             // Perform operations for nonAffiliate withdrawal
 
@@ -742,7 +771,19 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
             const insertIntoWithdrawals = await dashboardFunctions.insertIntoWithdrawals(fetchUserByUsername[0].user_id, fetchUserByUsername[0].username, (amount), 'Non Affiliate Withdrawal', fetchUserByUsername[0].bank_name, fetchUserByUsername[0].account_number, fetchUserByUsername[0].account_name);
 
             console.log(`Successfully placed withdrawal of ${amount}ZC`);
-            return res.status(200).json({success: `Successfully placed withdrawal of ${amount}ZC`});
+            
+            // Send the withdrawal details to the session
+            session.withdrawalDetails = {
+                type: withdrawalType,
+                date: functions.formatDate(),
+                date2: functions.formatDate2(),
+                account: fetchUserByUsername[0].account_number,
+                beneficiary: fetchUserByUsername[0].account_name,
+                bank: fetchUserByUsername[0].bank_name,
+                amount: `${amount}ZC`
+            }
+
+            return res.status(200).json({success: `Your withdrawal of ${amount}ZC to ${fetchUserByUsername[0].account_number} was successfull`});
         } else if (withdrawalType == 'activity') {
             // Perform operations for activity withdrawal
             
@@ -777,7 +818,19 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res)=>{
             const insertIntoWithdrawals = await dashboardFunctions.insertIntoWithdrawals(fetchUserByUsername[0].user_id, fetchUserByUsername[0].username, (amount * 1500), 'Activity Withdrawal', fetchUserByUsername[0].bank_name, fetchUserByUsername[0].account_number, fetchUserByUsername[0].account_name);
 
             console.log(`Successfully placed withdrawal of $${amount}`);
-            return res.status(200).json({success: `Successfully placed withdrawal of $${amount}`});
+
+            // Send the withdrawal details to the session
+            session.withdrawalDetails = {
+                type: withdrawalType,
+                date: functions.formatDate(),
+                date2: functions.formatDate2(),
+                account: fetchUserByUsername[0].account_number,
+                beneficiary: fetchUserByUsername[0].account_name,
+                bank: fetchUserByUsername[0].bank_name,
+                amount: `$${amount}`
+            }
+
+            return res.status(200).json({success: `Your withdrawal of$${amount} to ${fetchUserByUsername[0].account_number} was successfull`});
         } else{
             console.log('Invalid Withdrawal type');
             return res.status(404).json({error: 'Invalid Withdrawal type'});

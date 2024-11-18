@@ -35,14 +35,30 @@ myForm.addEventListener('submit', async(e)=>{
         console.log('result: ', result);
 
         if (result.success) {
-            izitoastAlert('Success:', result.success, 'light', 'green');
+            // izitoastAlert('Success:', result.success, 'light', 'green');
+
+            var myOffcanvas = new bootstrap.Offcanvas(document.getElementById('confirmCanvas'));
+
+            document.getElementById('successMessage').innerHTML = result.success;
+            myOffcanvas.show();
+
             fetchBalance();
         } else{
-            izitoastAlert('Error:', result.error, 'light', 'red');
+            // izitoastAlert('Error:', result.error, 'light', 'red');
+
+            var myOffcanvas = new bootstrap.Offcanvas(document.getElementById('failureCanvas'));
+
+            document.getElementById('errorMessage').innerHTML = result.error;
+            myOffcanvas.show();
         }
     })
     .catch((error)=>{
         console.log('error: ', error);
-        izitoastAlert('Error:', error.error, 'light', 'red');
+        // izitoastAlert('Error:', error.error, 'light', 'red');
+
+        var myOffcanvas = new bootstrap.Offcanvas(document.getElementById('failureCanvas'));
+
+            document.getElementById('errorMessage').innerHTML = error.error;
+            myOffcanvas.show();
     });
 });

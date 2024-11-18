@@ -6,7 +6,7 @@
     <title>Zenwealth - submit withdrawal</title>
     <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02.png">
     <link rel="stylesheet" href="/css/newstyles.css">
-    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/iziToast-master/dist/css/iziToast.min.css">
     <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
 </head>
@@ -181,24 +181,25 @@
     </div>
     </div>
 
-    <div class="offcanvas offcanvas-bottom px-3" style="height: fit-content;" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+    <!-- Success Off Canvas -->
+    <div class="offcanvas offcanvas-bottom px-3" style="height: fit-content;" data-bs-backdrop="static" tabindex="-1" id="confirmCanvas" aria-labelledby="staticBackdropLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="staticBackdropLabel">Success</h5>
         <button type="button" class="btn-close btn-dark" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <div class="text-center">
-          <p style="font-size: 17px;">Your withdrawal of 10 dollars to 0032648202 was successful</p>
+          <p style="font-size: 17px;" id="successMessage"></p>
           <ion-icon name="checkmark-circle-outline" class="color-three" style="font-size: 100px;"></ion-icon>
           <!-- <ion-icon name="checkmark-done-outline" class="color-three" style="font-size: 100px;"></ion-icon> -->
         </div>
       </div>
       <div class="offcanvas-footer mt-5">
         <div class="d-flex gap-3 w-100 mt-5">
-          <a href="receipt.html" class="btn btn-zen-sh text-white py-2 w-50">
+          <a href="/withdrawal-receipt" class="btn btn-zen-sh text-white py-2 w-50">
             View Reciept
           </a>
-          <a href="withdrawals-history.html" class="btn btn-zen-sh text-white py-2 w-50">
+          <a href="history/withdrawals" class="btn btn-zen-sh text-white py-2 w-50">
             Withdrawals
           </a>
         </div>
@@ -206,6 +207,24 @@
       </div>
     </div>
       
+    <!-- Failure OffCanvas -->
+    <div class="offcanvas offcanvas-bottom px-3" style="height: fit-content;" data-bs-backdrop="static" tabindex="-1" id="failureCanvas" aria-labelledby="staticBackdropLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="staticBackdropLabel">Failed</h5>
+        <button type="button" class="btn-close btn-dark" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="text-center">
+          <p style="font-size: 17px;" id="errorMessage"></p>
+          <ion-icon name="close-circle-outline" class="text-danger" style="font-size: 100px;"></ion-icon>
+        </div>
+      </div>
+      <div class="offcanvas-footer">
+        <button class="btn border bg-transparent radius-three text-white py-2 w-100 mt-4 mb-5" data-bs-dismiss="offcanvas">Close</button>
+      </div>
+    </div>
+
+
     <footer class="dashboard-footer shadow">
       <div class="h-100 w-25 d-flex align-items-center justify-content-center">
         <div class="h-100 w-50 position-relative">
@@ -296,7 +315,7 @@
         });
 
     </script>
-    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
     <script src="/iziToast-master/dist/js/iziToast.min.js"></script>
     <script src="/js/alert.js"></script>
 
