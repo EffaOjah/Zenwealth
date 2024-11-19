@@ -516,4 +516,21 @@ async function updateHasClaimedTapsColumn(status, userId) {
     });
 }
 
-module.exports = {fetchUserByUsername, getReferrals, getTotalWithdrawal, createAffiliateBalanceView, getTotalAffiliateBalanceView, getTotalReferralBalanceView, createZenpointsView, getTotalZenPointsView, createZenCoinsView, getTotalZenCoinsView, insertIntoAffiliateTransactions, insertIntoNonAffiliateTransactions, insertIntoActivityTransactions, insertIntoWithdrawals, getCoupons, getYoutubeVideoCode, updateYtStatus, getPosts, getSinglePost, updateHasSharedPostColumn, updateHasJoinedPlatform, creditedTask1Column, creditedTask2Column, getMysteryBoxSetting, updateHasClaimedColumn, assignFreeCoupon, getYoutubeVideo, mysteryBoxEarnings, freeCoupons, getUsersMiningBalance, rewardGems, getGems, updateHasBoostedColumn, updateHasClaimedTapsColumn};
+// Function to get withdrawal settings
+async function getWithdrawalSettings() {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM withdrawalsettings', (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else {
+                console.log('Settings: ', result);
+                resolve(result);
+            }
+        });
+    });
+}
+
+
+
+module.exports = {fetchUserByUsername, getReferrals, getTotalWithdrawal, createAffiliateBalanceView, getTotalAffiliateBalanceView, getTotalReferralBalanceView, createZenpointsView, getTotalZenPointsView, createZenCoinsView, getTotalZenCoinsView, insertIntoAffiliateTransactions, insertIntoNonAffiliateTransactions, insertIntoActivityTransactions, insertIntoWithdrawals, getCoupons, getYoutubeVideoCode, updateYtStatus, getPosts, getSinglePost, updateHasSharedPostColumn, updateHasJoinedPlatform, creditedTask1Column, creditedTask2Column, getMysteryBoxSetting, updateHasClaimedColumn, assignFreeCoupon, getYoutubeVideo, mysteryBoxEarnings, freeCoupons, getUsersMiningBalance, rewardGems, getGems, updateHasBoostedColumn, updateHasClaimedTapsColumn, getWithdrawalSettings};

@@ -214,7 +214,10 @@ router.get('/withdraw', verifyToken.verifyToken, async(req, res)=>{
     // Get the mystery_box setting
     const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
 
-    res.render('submit-withdrawal', {user: fetchUserByUsername[0], getMysteryBoxSetting});
+    // Get withdrawal settings
+    const getWithdrawalSettings = await dashboardFunctions.getWithdrawalSettings();
+
+    res.render('submit-withdrawal', {user: fetchUserByUsername[0], getMysteryBoxSetting, settings: getWithdrawalSettings});
 });
 
 // Route for user bank details page

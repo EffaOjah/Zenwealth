@@ -91,6 +91,50 @@
       </div>
     </div>
 
+        <!-- Modal -->
+  <div class="modal fade" id="couponModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="radius-three modal-content bg-overlay">
+        <div class="modal-header">
+          <h5 class="modal-title color-three" id="modalLabel">Free Coupons</h5>
+          <button type="button" class="btn-close btn-zen" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div class="container">
+              <% if (getFreeCoupons.length < 1) { %>
+                <h2 class="text-white text-center">You have no free coupon</h2>
+              <% } else { %>
+                <table class="table text-white" id="dataTable">
+                  <thead>
+                    <tr>
+                      <th>SN</th>
+                      <th>Coupon</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="userTableBody">
+                    <% for( let i = 0; i < getFreeCoupons.length; i++ ) { %>
+                      <tr>
+                        <td><%= i + 1 %></td>
+                        <td><%= getFreeCoupons[i].token %></td>
+                        <td><%= getFreeCoupons[i].is_used == 0 ? 'Active' : 'Used' %></td>
+                      </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+             <% } %>
+            </div>
+        </div>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
     <div class="page-wrapper">
       <!-- Sidebar -->
     <div class="d-flex align-items-center justify-content-center" id="mySidebar">
@@ -168,20 +212,20 @@
                 <div class="carousel-item active">
                   <div class="px-4 pt-3 pb-0 radius-three progress-div">
                     <h5 class="text-white mb-3">Total Sales Balance</h5><br>
-                    <p class="fs-1 text-white"><strong>$<span class="tester totalAffiliateBalance spinner-border spinner-border-md" aria-hidden="true"></span></strong></p>
+                    <p class="fs-1 text-white"><strong><span>$</span><span class="tester totalAffiliateBalance spinner-border spinner-border-md" aria-hidden="true"></span></strong></p>
                     <span class="d-flex justify-content-between mt-4">
                       <p class="text-white text-end">Affiliate</p>
-                      <p class="text-white text-end convert-span" style="cursor: pointer;"><i class="fa-solid fa-right-left"></i>convert</p>
+                      <p class="text-white text-end convert-span dollarNumber" style="cursor: pointer;"><i class="fa-solid fa-right-left"></i>convert</p>
                     </span>
                   </div>
                 </div>
                 <div class="carousel-item">
                   <div class="px-4 pt-3 pb-0 radius-three progress-div">
                     <h5 class="text-white mb-3">Available Balance</h5><br>
-                    <p class="fs-1 text-white"><strong>$<span class="tester availableAffiliateBalance spinner-border spinner-border-md" aria-hidden="true"></span></strong></p>
+                    <p class="fs-1 text-white"><strong><span>$</span><span class="tester availableAffiliateBalance spinner-border spinner-border-md" aria-hidden="true"></span></strong></p>
                     <span class="d-flex justify-content-between mt-4">
                       <p class="text-white text-end">Affiliate</p>
-                      <p class="text-white text-end convert-span" style="cursor: pointer;"><i class="fa-solid fa-right-left"></i>convert</p>
+                      <p class="text-white text-end convert-span dollarNumber" style="cursor: pointer;"><i class="fa-solid fa-right-left"></i>convert</p>
                     </span>
                   </div>
                 </div>
@@ -201,7 +245,6 @@
                     <p class="fs-1 text-white"><strong>$<%= totalWithdrawal == null ? 0 : totalWithdrawal / 1000 %></strong></p>
                     <span class="d-flex justify-content-between mt-4">
                       <p class="text-white text-end">Affiliate</p>
-                      <p class="text-white text-end" style="cursor: pointer;"><i class="fa-solid fa-right-left"></i>convert</p>
                     </span>
                   </div>
                 </div>
@@ -498,27 +541,50 @@
 
       // Handle conversion
       // Step 1: Find the paragraph that contains the "convert" text
-      // var convertParagraphs = document.getElementsByClassName('convert-span');
+      var convertParagraphs = document.getElementsByClassName('convert-span');
 
-      // for (let i = 0; i < convertParagraphs.length; i++) {
-      //     convertParagraphs[i].addEventListener('click', convertDollarToNaira);
-      // }
+      for (let i = 0; i < convertParagraphs.length; i++) {
+          convertParagraphs[i].addEventListener('click', convertDollarToNaira);
+      }
       
       // // Now you can access or manipulate the span element
-      // // console.log(convertParagraphs);
+      console.log(convertParagraphs);
 
-      // function convertDollarToNaira() {
-      //   // Step 2: Traverse upwards to the parent container with class 'progress-div'
-      //   var progressDiv = this.closest('.progress-div');
+      function convertDollarToNaira() {
+        // Step 2: Traverse upwards to the parent container with class 'progress-div'
+        var progressDiv = this.closest('.progress-div');
 
-      //   // Step 3: Find the span with class 'totalAffiliateBalance' inside the parent container
-      //   var balanceSpan = progressDiv.querySelector('.tester');        
+        // Step 3: Find the span with class 'totalAffiliateBalance' inside the parent container
+        var balanceSpan = progressDiv.querySelector('.tester');        
 
-      //     const conversionRate = 1500;
-      //     const nairaAmount = balanceSpan.innerHTML * conversionRate;
+          const conversionRate = 1500;
+          
 
-      //     balanceSpan.innerHTML = nairaAmount;
-      // }
+          // Check if the element has the class: formattedNumber
+          if (this.classList.contains('dollarNumber')) {
+              const nairaAmount = balanceSpan.innerHTML * conversionRate;
+
+              balanceSpan.innerHTML = nairaAmount.toLocaleString();
+
+              this.classList.remove('dollarNumber');
+
+              this.classList.add('formattedNumber');
+              balanceSpan.previousElementSibling.innerHTML = '₦';
+          } else{
+            const formattedNumber = balanceSpan.innerHTML.toString();
+            
+            var plainNumber = formattedNumber.replace(/,/g, '');
+
+            const dollarAmount = plainNumber / conversionRate;
+
+            balanceSpan.innerHTML = dollarAmount;
+
+            this.classList.remove('formattedNumber');
+
+            this.classList.add('dollarNumber');
+            balanceSpan.previousElementSibling.innerHTML = '$';
+          }          
+      }
 
       
     </script>

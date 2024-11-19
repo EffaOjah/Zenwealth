@@ -144,11 +144,11 @@
                   <select class="form-select" id="type" name="withdrawalType" required="">
                     <option>Select Withdrawal Type</option>
                     
-                    <option value="affiliate" class="affiliateBalance text-secondary"></option>
+                    <option value="affiliate" id="affiliateBalance" class="affiliateBalance text-secondary"></option>
                     
-                    <option value="nonAffiliate" class="nonAffiliateBalance text-secondary"></option>
+                    <option value="nonAffiliate" id="nonAffiliateBalance" class="nonAffiliateBalance text-secondary"></option>
 
-                    <option value="activity" class="activityBalance text-secondary"></option>
+                    <option value="activity" id="activityBalance" class="activityBalance text-secondary"></option>
                   </select>
                 </div>  
               </div>
@@ -258,7 +258,9 @@
     </div>
   </div>
 
-
+  <span id="affiliateStatus" class="d-none"><%= locals.settings[0].active_status %></span>
+  <span id="activityStatus" class="d-none"><%= locals.settings[2].active_status %></span>
+  <span id="nonAffiliateStatus" class="d-none"><%= locals.settings[1].active_status %></span>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -284,17 +286,34 @@
         }
       }
 
-      checkbox.addEventListener('change', function() {
-        if (this.checked) {
-          mobileSideBar.style.width = '60%';
-          menuIcon.style.marginLeft = '60%';
-        } else {
-          mobileSideBar.style.width = '0%';
-          menuIcon.style.marginLeft = '0%';
-        }
-      });
+      // checkbox.addEventListener('change', function() {
+      //   if (this.checked) {
+      //     mobileSideBar.style.width = '60%';
+      //     menuIcon.style.marginLeft = '60%';
+      //   } else {
+      //     mobileSideBar.style.width = '0%';
+      //     menuIcon.style.marginLeft = '0%';
+      //   }
+      // });
 
 
+      if (document.getElementById('affiliateStatus').innerHTML == 'OFF') {        
+        document.getElementById('affiliateBalance').setAttribute('disabled', 'disabled');
+       } else{
+        // Do nothing
+      }
+
+      if (document.getElementById('nonAffiliateStatus').innerHTML == 'OFF') {        
+        document.getElementById('nonAffiliateBalance').setAttribute('disabled', 'disabled');
+       } else{
+        // Do nothing
+      }
+
+      if (document.getElementById('activityStatus').innerHTML == 'OFF') {        
+        document.getElementById('activityBalance').setAttribute('disabled', 'disabled');
+       } else{
+        // Do nothing
+      }
     </script>
 
     <script>

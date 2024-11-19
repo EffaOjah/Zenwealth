@@ -14,9 +14,10 @@
   <div class="ms-4">
     <h4 class="fw-bold greeting text-white">Hello, <%= user.username %></h4>
   </div>
-  <div class="navbar-nav align-items-center ms-auto dashboard-nav">
+  <div class="navbar-nav align-items-center gap-3 ms-auto dashboard-nav">
+    <img src="/img/coupon.png" class="img-fluid" width="30px" alt="free coupons" title="Free Coupons" style="cursor: pointer;" data-bs-target="#couponModal" data-bs-toggle="modal">
     <% if (getMysteryBoxSetting[0].active_status == 'ON' && user.has_claimed_gift == 0) { %>
-      <img src="/img/mystery-box.png" class="img-fluid mystery-box-icon" width="30px" alt="mystery box" data-bs-toggle="modal" data-bs-target="#mysteryBoxModal">
+      <img src="/img/mystery-box.png" class="img-fluid mystery-box-icon" width="30px" alt="mystery box" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#mysteryBoxModal">
     <% } %>
       <div class="nav-item dropdown">
           <a href="#" class="nav-link" data-bs-toggle="dropdown">
