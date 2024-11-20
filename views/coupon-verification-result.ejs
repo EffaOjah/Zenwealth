@@ -101,6 +101,14 @@
                           <% } %>
                           </tr>
                           <tr>
+                            <th>Upline:</th>
+                            <% if (info[0].upline) { %>
+                              <td><%= info[0].upline %></td>
+                            <% } else { %>
+                              <td><%= 'ADMIN' %></td>
+                           <% } %>
+                          </tr>
+                          <tr>
                             <th>Date Used:</th>
                             <td><%= coupon[0].date_used == null ? 'NULL' : coupon[0].date_used %></td>
                           </tr>
