@@ -813,5 +813,26 @@ router.post('/toggle-off-mystery-box', verifyToken.verifyAdminToken, async (req,
     });
 });
 
+// Route to approve withdrawal
+router.get('/withdrawal/approve/:id', async(req, res)=>{
+    let withdrawalId = req.params.id;
+    console.log('Withdarwal Id: ', withdrawalId);
+    
+    try {
+        
+        // Use id to fetch withdrawal details
+        const withdrawal = await adminFunctions.specificWithdrawal(withdrawalId);
+
+        // Now insert into the approved withdrawals table
+        const insertDetails = await adminFunctions.insertIntoApprovedWithdrawals(withdrawalId, withdrawal.user_id, withdrawal.user, withdrawal.amount, withdrawal.withdrawal_date, withdrawal.withdrawal_type, withdrawal.bank, withdrawal.account_number, withdrawal.account_name);
+
+        res.redirect('/pending-affiliate-withdrawals');
+    } catch (error) {
+        console.log('Internal server error: ', error);
+        res.redirect('/pending-affiliate-withdrawals');
+    }
+
+    
+});
 
 module.exports = router;
