@@ -1,8 +1,5 @@
 // Require sql connection
-const router = require('../Controllers/dashboardPagesController');
 const connection = require('../db/db');
-
-const md5 = require('md5');
 
 // Function to get total number of users
 async function numberOfUsers() {

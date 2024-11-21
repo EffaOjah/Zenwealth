@@ -35,5 +35,8 @@
     "parser": "^0.1.4",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "globals": "^15.12.0"
   }
 }
