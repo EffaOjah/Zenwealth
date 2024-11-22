@@ -154,8 +154,8 @@
                 <div class="w-100" style="display: grid; place-items: center;">
                   <small style="font-size: 15px;">Earn per tap</small>
                   <span class="d-flex align-items-center gap-1 mt-1">
-                    <img src="img/ZEN COIN.png" class="img-fluid zen-coin" alt="zen coin">
-                    <p class="m-0">+2</p>
+                    <img src="/img/ZEN COIN.png" class="img-fluid zen-coin" alt="zen coin">
+                    <p class="m-0">+1</p>
                   </span>
                 </div>
               </div>
@@ -294,12 +294,12 @@
           coin.classList.remove('heartbeat');
         }, 100);
 
-        if (life > 0) {
+        if (life > 0 && touchCount < 2) {
           for (let i = 0; i < touchCount; i++) {
-            // Create the "+2" element
+            // Create the "+1" element
             const plusTwo = document.createElement('div');
             plusTwo.classList.add('float-text');
-            plusTwo.textContent = '+2';
+            plusTwo.textContent = '+1';
           
             // Possible starting positions
             const positions = ['left', 'center', 'right'];
@@ -318,14 +318,15 @@
             // Add the element to the container
             document.querySelector('.addon').appendChild(plusTwo);
           
-            // Decrease life by 2, but ensure it doesn't drop below 0
-            life -= 2;
+            // Decrease life by 3, but ensure it doesn't drop below 0
+            life -= 3;
             if (life < 0) life = 0;
 
             // console.log("Decreasing life to: ", life);
             bar.textContent = life;
             
-            if (life < 2) {
+            if (life < 3) {
+              alert('Claim now: ');
               if (userStand == 1) {
               // Start the auto-increase if life drops below 600
               startAutoIncreaseLife(); 
@@ -337,7 +338,7 @@
                   'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  amount: (count + 2)
+                  amount: (count + 1)
                 })
               }, ()=>{
                 resetCount();
@@ -357,13 +358,13 @@
                 document.getElementById('totalGems').innerHTML = data.getGems;
               })
             }
-            count += 2;
+            count += 1;
             document.getElementById('total').innerText = count;
           
             // Update battery visuals
             updateBatteryVisual();
           
-            // Remove the "+2" element after the animation finishes (2s)
+            // Remove the "+3" element after the animation finishes (2s)
             setTimeout(() => {
               plusTwo.remove();
             }, 2000);
@@ -385,9 +386,6 @@
 
       // Attach both touchstart and click event listeners
       coin.addEventListener('touchstart', handleCoinTap);
-
-      // Start auto-increasing life if it's less than 600 when the page loads
-      // startAutoIncreaseLife();
 
       document.getElementById('boostBtn').addEventListener('click', ()=>{
         fetch('/boost-account', {

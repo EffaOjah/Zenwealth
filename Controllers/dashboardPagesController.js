@@ -1000,8 +1000,8 @@ router.post('/claim-zen-mining-reward', verifyToken.verifyToken, async (req, res
         // Update has_claimed_taps column
         const updateHasClaimedTapsColumn = await dashboardFunctions.updateHasClaimedTapsColumn(true, fetchUserByUsername[0].user_id);
 
-        // Check if mining was 600, if so, reward Gem
-        if (amount > 599) {
+        // Check if mining was 200, if so, reward Gem
+        if (amount > 199) {
             // Reward Gems
             const rewardGems = await dashboardFunctions.rewardGems(fetchUserByUsername[0].user_id, 1);
         }
