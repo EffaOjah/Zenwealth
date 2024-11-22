@@ -937,6 +937,14 @@ router.post('/youtube-reward', verifyToken.verifyToken, async (req, res) => {
 
     const videoCode = req.body.code;
 
+    // Check if there is an uploaded video
+    const getYoutubeVideo = await dashboardFunctions.getYoutubeVideo();
+
+    if (getYoutubeVideo[0].video_link == null) {
+        console.log('No video available');
+        return res.json({ error: 'No video available' });
+    }
+
     // Check if user has already completed yt task
     if (fetchUserByUsername[0].has_completed_yt_reward == true) {
         console.log('User has already gotten youtube reward');

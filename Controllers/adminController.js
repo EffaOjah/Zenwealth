@@ -572,7 +572,7 @@ router.post('/generate-coupon-code', verifyToken.verifyAdminToken, async(req, re
 });
 
 // Route to add youtube video
-router.post('/add-youtube-video', verifyToken.verifyAdminToken, upload.single('image'), (req, res)=>{
+router.post('/add-youtube-video', verifyToken.verifyAdminToken, (req, res)=>{
     const {videoDescription, videoLink, videoCode} = req.body;
     console.log('req.body: ', req.body);
     
@@ -582,21 +582,9 @@ router.post('/add-youtube-video', verifyToken.verifyAdminToken, upload.single('i
         
         return res.render(path.join(__dirname , '../views/Admin Pages/Upload Yt Video'), {alertTitle: 'Error:', alertMessage: 'Please provide all details', alertColor: 'red'});
     } 
-    
-    // Check if file was uploaded
-    if (!req.file) {
-        console.log('Please provide an image');
 
-        return res.render(path.join(__dirname , '../views/Admin Pages/Upload Yt Video'), {alertTitle: 'Error:', alertMessage: 'Please provide an image', alertColor: 'red'});
-    }
-    if (!req.file.mimetype.startsWith('image/')) {
-        console.log('Only image files are allowed!');
-
-        return res.render(path.join(__dirname , '../views/Admin Pages/Upload Yt Video'), {alertTitle: 'Error:', alertMessage: 'Only image files are allowed!', alertColor: 'red'});
-    }
-    
     // Update the database
-    connection.query('UPDATE youtube_video SET video_description = ?, video_link = ?, video_code = ?, video_thumbnail = ? WHERE id = ?', [videoDescription, videoLink, videoCode, req.file.filename, 1], async (err)=>{
+    connection.query('UPDATE youtube_video SET video_description = ?, video_link = ?, video_code = ? WHERE id = ?', [videoDescription, videoLink, videoCode, 1], async (err)=>{
         if (err) {
             console.log('Error adding youtube video: ', err);
             

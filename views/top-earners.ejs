@@ -58,6 +58,7 @@
                       <span>
                         <p class="color-two"><%= earners[i].username %></p>
                         <p class="color-one">$<%= Math.floor((earners[i].total_amount / 1500) * 100) / 100 %></p>
+                        <span class="color-one" style="font-size: 17px;"><%= earners[i].total_amount.toLocaleString() %></span>
                       </span>
                     </div>
                     <p class="text-center blue-paste"><%= i + 1 %></p>

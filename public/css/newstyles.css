@@ -1045,6 +1045,13 @@ footer .footer-links p {
     .mtop {
         margin-top: 15px;
     }
+    /* #previewContainer {
+        scale: .9;
+        margin-top: -20px;
+    } */
+    .link-text {
+        font-size: 18px !important;
+    }    
 }
 @media screen and (max-width: 390px) {
     .flex-gap {
@@ -1435,19 +1442,22 @@ footer .footer-links p {
     justify-content: center;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+    padding: 15px 15px;
 }
 .keys-wrapper {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
 .key, #backspace {
     width: 29%;
-    height: 50px;
+    height: 45px;
     text-align: center !important;
     display: grid !important;
     place-items: center !important;
-    font-size: 30px;
+    font-size: 25px;
     cursor: pointer;
     color: white;
     margin: 7px;
@@ -1505,8 +1515,8 @@ footer .footer-links p {
     margin: auto;
 }
 .box {
-    width: 21%;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border: 1px solid #f1f1f1;
     display: flex;
     align-items: center;
@@ -1515,21 +1525,71 @@ footer .footer-links p {
     color: #fff;
     border-radius: 5px;
 }
+#previewContainer {
+    background: rgba(255, 255, 255, 0.1) !important; /* Transparent white */
+    border-radius: 15px !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important; /* Border for the frosted effect */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    text-align: center;
+    overflow: hidden;
+    scale: .5 !important;
+    margin-top: -120px !important;
+    margin-bottom: -120px !important;
+}
+.link-text {
+    font-size: 28px;
+}
+
+@media screen and (min-width: 361px) {
+    #previewContainer {
+        scale: 1 !important;
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+    .box {
+        width: 60px;
+        height: 60px;
+    }
+}
+@media screen and (min-width: 1000px) {
+    #previewContainer {
+        scale: .5 !important;
+        margin-top: -120px !important;
+        margin-bottom: -120px !important;    
+    }
+}
+@media screen and (max-width: 360px) {
+    #previewContainer {
+        scale: .9 !important;
+        margin-top: -10px !important;
+        margin-bottom: 0px !important;
+    }
+}
 @media screen and (max-width: 325px) {
+    #previewContainer {
+        scale: .7 !important;
+        margin-top: -40px !important;
+        margin-bottom: 0px !important;
+    }
+    .number-boxes {
+        margin-top: -40px !important;
+    }
     .keyboard {
         height: 40% !important;
+        padding: 15px 10px;
     }
     .keys-wrapper {
         position: relative;
         height: 100% !important;
     }
     .key, #backspace {
-        width: 33%;
-        height: 50px;
+        width: 28%;
+        height: 35px;
         font-size: 20px;
     }
     .box {
-        height: 50px;
+        width: 45px;
+        height: 45px;
     }
 }
 .container {

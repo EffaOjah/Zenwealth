@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zenwealth - youtube earning</title>
-    <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02.png">
-    <link rel="stylesheet" href="/css/newstyles.css">
-    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/newstyles.css" />
+    <link rel="stylesheet" href="/bootstrap-5.3.3-dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/iziToast-master/dist/css/iziToast.min.css">
     <style>
+        #thumbnail {
+            width: 100%;
+            cursor: pointer;
+        }
         /* Absolute Center Spinner */
         .loading {
         position: fixed;
@@ -130,275 +133,341 @@
             transform: rotate(360deg);
         }
         }
-    </style>
-</head>
-<body class="bg-one">
-
+      </style>
+  </head>
+  <body class="bg-one">
     <div id="loading" class=""></div>
-
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-      <div class="offcanvas-cover "></div>
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="offcanvasExample"
+      aria-labelledby="offcanvasExampleLabel"
+    >
+      <div class="offcanvas-cover"></div>
       <div class="offcanvas-header d-flex bg-">
-        <div class="w-100 text-center" style=" z-index: 5;">
-          <img src="img/ZEN logo.png" class="img-fluid" style="width: 90%; height: 80px;">
+        <div class="w-100 text-center" style="z-index: 5">
+          <img
+            src="/img/ZEN logo.png"
+            class="img-fluid"
+            style="width: 90%; height: 80px"
+          />
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
       </div>
-      <div class="offcanvas-body d-flex align-items-center justify-content-center">
+      <div
+        class="offcanvas-body d-flex align-items-center justify-content-center"
+      >
         <div class="sidenav-wrapper">
-          <ul class="mobile-sidenav-nav h-100">
-              <li class="unactive-item">
-                  <a href="/user/dashboard"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
-              </li>
-              <li class="unactive-item">
-                  <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
+            <ul class="mobile-sidenav-nav h-100">
+                <li class="unactive-item">
+                    <a href="/user/dashboard"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
+                </li>
+                <li class="unactive-item">
+                    <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
+                    </a>
+                </li>
+                <li class="unactive-item">
+                  <a href="/history/earnings"><ion-icon name="albums-outline"></ion-icon></ion-icon><span>Earning History</span>
                   </a>
               </li>
-              <li class="unactive-item">
-                <a href="/history/earnings"><ion-icon name="albums-outline"></ion-icon></ion-icon><span>Earning History</span>
-                </a>
-            </li>
-              <li class="unactive-item">
-                  <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
-              </li>
-              <li class="unactive-item">
-                  <a href="#"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
-              </li>
-              <li class="active-item">
-                <a href="/youtube-earning"><ion-icon name="phone-portrait-outline"></ion-icon><span>Youtube Earning</span>
-                </a>
-              </li>
-              <li class="unactive-item">
-                  <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
-              </li>
-              <% if (user.is_a_vendor == true) { %>
                 <li class="unactive-item">
-                  <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+                    <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
                 </li>
-              <% } %>
-              <li class="logout unactive-item">
-                  <a href="/user/logout"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
-              </li>
-          </ul>
+                <li class="unactive-item">
+                    <a href="#"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
+                </li>
+                <li class="active-item">
+                  <a href="/youtube-earning"><ion-icon name="phone-portrait-outline"></ion-icon><span>Youtube Earning</span>
+                  </a>
+                </li>
+                <li class="unactive-item">
+                    <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
+                </li>
+                <% if (user.is_a_vendor == true) { %>
+                  <li class="unactive-item">
+                    <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+                  </li>
+                <% } %>
+                <li class="logout unactive-item">
+                    <a href="/user/logout"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
+                </li>
+            </ul>
         </div>
       </div>
     </div>
 
     <div class="page-wrapper">
-        <!-- Sidebar -->
-        <div class="d-flex align-items-center justify-content-center" id="mySidebar">
-            <div class="sidenav-wrapper p-3 bg-white radius-three">
-              <div class="w-100 text-center mt-2" style=" z-index: 5;">
-                <img src="/img/Zenwealth Logo Alone-02.png" class="img-fluid" style="width: 50px; height: 50px;">
-              </div>
-              <ul class="sidenav-nav ps-0 h-100" style="margin-top: 40px;">
-                  <li class="unactive-item">
-                      <a href="/user/dashboard"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
-                  </li>
-                  <li class="unactive-item">
-                      <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
-                      </a>
-                  </li>
-                  <li class="unactive-item">
-                    <a href="/history/earnings"><ion-icon name="albums-outline"></ion-icon></ion-icon><span>Earning History</span>
-                    </a>
-                </li>
-                  <li class="unactive-item">
-                      <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
-                  </li>
-                  <li class="unactive-item">
-                      <a href="#"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
-                  </li>
-                  <li class="active-item">
-                    <a href="/youtube-earning"><ion-icon name="phone-portrait-outline"></ion-icon><span>Youtube Earning</span>
-                    </a>
-                  </li>
-                  <li class="unactive-item">
-                      <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
-                  </li>
-                  <% if (user.is_a_vendor == true) { %>
-                    <li class="unactive-item">
-                      <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
-                    </li>
-                  <% } %>
-                  <li class="logout unactive-item">
-                    <a href="/user/logout"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
-                  </li>
-              </ul>
-            </div>
+      <!-- Sidebar -->
+      <div
+        class="d-flex align-items-center justify-content-center"
+        id="mySidebar"
+      >
+        <div class="sidenav-wrapper p-3 bg-white radius-three">
+          <div class="w-100 text-center mt-2" style="z-index: 5">
+            <img
+              src="/img/Zenwealth Logo Alone-02.png"
+              class="img-fluid"
+              style="width: 50px; height: 50px"
+            />
           </div>
-     <!-- Sidebar ends -->
+          <ul class="sidenav-nav ps-0 h-100" style="margin-top: 40px;">
+            <li class="unactive-item">
+                <a href="/user/dashboard"><ion-icon name="home"></ion-icon><span>Dashboard</span></a>
+            </li>
+            <li class="unactive-item">
+                <a href="/history/withdrawals"><ion-icon name="card-outline"></ion-icon><span>Withdrawals</span>
+                </a>
+            </li>
+            <li class="unactive-item">
+              <a href="/history/earnings"><ion-icon name="albums-outline"></ion-icon></ion-icon><span>Earning History</span>
+              </a>
+          </li>
+            <li class="unactive-item">
+                <a href="/product/upload"><ion-icon name="cart-outline"></ion-icon><span>Upload Product</span></a>
+            </li>
+            <li class="unactive-item">
+                <a href="#"><ion-icon name="pricetags-outline"></ion-icon><span>Purchased Courses</span></a>
+            </li>
+            <li class="active-item">
+              <a href="/youtube-earning"><ion-icon name="phone-portrait-outline"></ion-icon><span>Youtube Earning</span>
+              </a>
+            </li>
+            <li class="unactive-item">
+                <a href="/downlines"><ion-icon name="people-outline"></ion-icon><span>Downlines</span></a>
+            </li>
+            <% if (user.is_a_vendor == true) { %>
+              <li class="unactive-item">
+                <a href="/vendor/dashboard"><ion-icon name="people-outline"></ion-icon><span>Vendor Dashboard</span></a>
+              </li>
+            <% } %>
+            <li class="logout unactive-item">
+              <a href="/user/logout"><ion-icon name="log-out-outline"></ion-icon><span>Logout</span></a>
+            </li>
+        </ul>
+        </div>
+      </div>
+      <!-- Sidebar ends -->
 
-    <div id="main" class="bottom-space" style="overflow-y: scroll;">
-        <div class="trydiv2"></div>
-  
-       <!-- Navbar Start -->
+      <div id="main" class="bottom-space" style="overflow-y: scroll">
+        <!-- <div class="trydiv2"></div> -->
+
+        <!-- Navbar Start -->
       <%- include('./partials/dashboard-nav') %>
       <!-- Navbar End -->
 
         <div class="container-fluid position-relative">
-            <% if (getYoutubeVideo.length < 1) { %>
-                <h2>No video available</h2>
+            <% if (getYoutubeVideo[0].video_link == null) { %>
+                <h2 class="text-white text-center">No video available</h2>
             <% } else { %>
-                <div class="progress-div" style="padding: 10px !important;">
-                    <p class="fs-3 mb-0"><%= getYoutubeVideo[0].video_description %></p>
-                    <span class="d-flex gap-2 justify-content-center">
-                        <p class="fw-bold" style="transform: translateY(4px);">link:</p>
-                        <a href="<%= getYoutubeVideo[0].video_link %>" class="text-white" id="referral-link" style="width: 75%;"><%= getYoutubeVideo[0].video_link %></a>
-                    </span>    
-                </div> 
-           <% } %>               
+                <div class="" id="previewContainer">
+                    <!-- <p class="fs-3 mb-0">How to Brush your Teeth</p> -->
+                    <a href="<%= getYoutubeVideo[0].video_link %>" id="preview">
+                        <input
+                        type="hidden"
+                        id="youtubeLink"
+                        value="<%= getYoutubeVideo[0].video_link %>"
+                        />
+                    </a>
+                  </div>
+                  <h1 class="text-white text-center"><%= getYoutubeVideo[0].video_description %></h1>
+            <% } %>
 
-            <div class="mt-4">
-                <h2 class="color-three fw-bold text-center mb-4">Verify Code</h2>
-                <div class="number-boxes">
-                    <div class="box" id="box1"></div>
-                    <div class="box" id="box2"></div>
-                    <div class="box" id="box3"></div>
-                    <div class="box" id="box4"></div>
-                </div>
+          <div class="mt-6">
+            <!-- <h2 class="color-three fw-bold text-center mb-4">Verify Code</h2> -->
+            <div class="number-boxes">
+              <div class="box" id="box1"></div>
+              <div class="box" id="box2"></div>
+              <div class="box" id="box3"></div>
+              <div class="box" id="box4"></div>
             </div>
-    
-            <div class="container w-100 text-center">
-                <input type="hidden" id="hiddenInput" class="input-field bg-transparent text-white" readonly />
-            </div>
+          </div>
 
-            <!-- <div class="yt-div sm">
+          <div class="container w-100 text-center">
+            <input
+              type="hidden"
+              id="hiddenInput"
+              class="input-field bg-transparent text-white"
+              readonly
+            />
+          </div>
+
+          <!-- <div class="yt-div sm">
                 <img src="img/yt-icon.png" class="img-fluid yt-icon" alt="youtube icon">
             </div> -->
         </div>
 
-    
-        <div class="keyboard w-100 bg-overlay py-4 px-2">
-            <div class="keys-wrapper w-100 bg-">
-                <div class="key" data-number="1">1</div>
-                <div class="key" data-number="2">2</div>
-                <div class="key" data-number="3">3</div>
-                <div class="key" data-number="4">4</div>
-                <div class="key" data-number="5">5</div>
-                <div class="key" data-number="6">6</div>
-                <div class="key" data-number="7">7</div>
-                <div class="key" data-number="8">8</div>
-                <div class="key" data-number="9">9</div>
-                <div class="key bg-transparent"></div>
-                <div class="key" data-number="0">0</div>
-                <div class="bg-transparent" id="backspace"><ion-icon name="backspace-outline"></ion-icon></div>
+        <br><br>
+        <div class="keyboard w-100 bg-overlay mt-3">
+          <div class="keys-wrapper w-100 bg-">
+            <div class="key" data-number="1">1</div>
+            <div class="key" data-number="2">2</div>
+            <div class="key" data-number="3">3</div>
+            <div class="key" data-number="4">4</div>
+            <div class="key" data-number="5">5</div>
+            <div class="key" data-number="6">6</div>
+            <div class="key" data-number="7">7</div>
+            <div class="key" data-number="8">8</div>
+            <div class="key" data-number="9">9</div>
+            <div class="key bg-transparent"></div>
+            <div class="key" data-number="0">0</div>
+            <div class="bg-" id="backspace">
+              <ion-icon name="backspace-outline"></ion-icon>
             </div>
+          </div>
         </div>
-    </div>
+      </div>
     </div>
 
-
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
     <script src="/iziToast-master/dist/js/iziToast.min.js"></script>
     <script src="/js/alert.js"></script>
 
-<script>
-var loader = document.getElementById('loading');
-const boxes = document.querySelectorAll('.box');
-const keys = document.querySelectorAll('.key');
-const backspace = document.getElementById('backspace');
-const hiddenInput = document.getElementById('hiddenInput');
+    <script>
+      var loader = document.getElementById('loading');
+      const boxes = document.querySelectorAll(".box");
+      const keys = document.querySelectorAll(".key");
+      const backspace = document.getElementById("backspace");
+      const hiddenInput = document.getElementById("hiddenInput");
+      const input = document.getElementById("youtubeLink");
+      const previewContainer = document.getElementById("previewContainer");
+      const preview = document.getElementById("preview");
 
-let currentIndex = 0; // Track which box is being filled
 
-// Function to handle key clicks
-keys.forEach(key => {
-    key.addEventListener('click', () => {
-        const number = key.getAttribute('data-number');
-        if (currentIndex < 4) { // Ensure only 4 digits are added
+      document.addEventListener('DOMContentLoaded', () => {
+        const url = input.value;
+        const videoID = extractVideoID(url);
+
+        if (videoID) {
+          const thumbnailURL = `https://img.youtube.com/vi/${videoID}/maxresdefault.jpg`;
+          preview.innerHTML = `
+          <img id="thumbnail" src="${thumbnailURL}" class="rounded" alt="Video Thumbnail" />
+          <p class="link-text pt-2 px-2">${url}</p>
+        `;
+        console.log('video id found: ', videoID);
+        } else {
+          previewContainer.innerHTML = `<p>Video preview will appear here</p>`;
+          console.log('video id not found');
+        }
+      });
+
+      function extractVideoID(url) {
+        const regex = /(?:youtube\.com\/.*v=|youtu\.be\/)([^&#]+)/;
+        const match = url.match(regex);
+        return match ? match[1] : null;
+      }
+
+      let currentIndex = 0; // Track which box is being filled
+
+      // Function to handle key clicks
+      keys.forEach((key) => {
+        key.addEventListener("click", () => {
+          const number = key.getAttribute("data-number");
+          if (currentIndex < 4) {
+            // Ensure only 4 digits are added
             boxes[currentIndex].innerText = number;
             currentIndex++;
+
             updateHiddenInput(); // Update hidden input field for submission
-            checkCompletion(); // Check if all digits have been entered
+
+            checkCompletion();
+          }
+        });
+      });
+
+      // Function to handle backspace
+      backspace.addEventListener("click", () => {
+        if (currentIndex > 0) {
+          currentIndex--; // Move back one box
+          boxes[currentIndex].innerText = ""; // Clear the last box
+          updateHiddenInput(); // Update hidden input field after deletion
         }
-    });
-});
+      });
 
-// Function to handle backspace
-backspace.addEventListener('click', () => {
-    if (currentIndex > 0) {
-        currentIndex--; // Move back one box
-        boxes[currentIndex].innerText = ''; // Clear the last box
-        updateHiddenInput(); // Update hidden input field after deletion
-    }
-});
+      // Function to handle key presses from the physical keyboard
+      document.addEventListener("keydown", (e) => {
+        const key = e.key;
 
-// Function to handle key presses from the physical keyboard
-document.addEventListener('keydown', (e) => {
-    const key = e.key;
-
-    // Check if the pressed key is a number between 0-9
-    if (!isNaN(key) && key !== ' ') {
-        if (currentIndex < 4) { // Ensure only 4 digits are added
+        // Check if the pressed key is a number between 0-9
+        if (!isNaN(key) && key !== " ") {
+          if (currentIndex < 4) {
+            // Ensure only 4 digits are added
             boxes[currentIndex].innerText = key;
             currentIndex++;
             updateHiddenInput(); // Update hidden input field for submission
-            checkCompletion(); // Check if all digits have been entered
-        }
-    }
-
-    // Handle backspace key press
-    if (key === 'Backspace' && currentIndex > 0) {
-        currentIndex--; // Move back one box
-        boxes[currentIndex].innerText = ''; // Clear the last box
-        updateHiddenInput(); // Update hidden input field after deletion
-    }
-});
-
-// Function to update the hidden input field with the entered numbers
-function updateHiddenInput() {
-    let inputValue = '';
-    boxes.forEach(box => {
-        inputValue += box.innerText; // Concatenate all box values
-    });
-    hiddenInput.value = inputValue; // Set the hidden input value
-    console.log(hiddenInput.value);
-}
-
-// Function to check if all 4 digits are entered
-function checkCompletion() {
-    if (currentIndex === 4) {
-        getReward(hiddenInput.value); // Call the function when all digits are entered
-        loader.className = 'loading';
-        currentIndex = 400000; // Set the currentIndex to a very high number to avoid insertion
-    }
-}
-
-// Function to get yt reward
-async function getReward(code) {
-        let data = {
-            code: code
+          }
         }
 
-        setTimeout(async()=>{
-            // Send the request to the server
-            const response = await fetch('/youtube-reward', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
+        // Handle backspace key press
+        if (key === "Backspace" && currentIndex > 0) {
+          currentIndex--; // Move back one box
+          boxes[currentIndex].innerText = ""; // Clear the last box
+          updateHiddenInput(); // Update hidden input field after deletion
+        }
+      });
 
-            const result = await response.json();
+      // Function to update the hidden input field with the entered numbers
+      function updateHiddenInput() {
+        let inputValue = "";
+        boxes.forEach((box) => {
+          inputValue += box.innerText; // Concatenate all box values
+        });
+        hiddenInput.value = inputValue; // Set the hidden input value
+        console.log(hiddenInput.value);
+      }
 
-            if (result.error) {
-                currentIndex = 4;
-                // First take out the loader
-                loader.classList.remove('loading');
-                izitoastAlert('Error', result.error, 'light', 'red');
-            } else{
-                currentIndex = 4;
-                // First take out the loader
-                loader.classList.remove('loading');
-                izitoastAlert('Success', 'You have successfully completed this task', 'light', 'green');
+      // Function to check if all 4 digits are entered
+        function checkCompletion() {
+            if (currentIndex === 4) {
+                getReward(hiddenInput.value); // Call the function when all digits are entered
+                loader.className = 'loading';
+                currentIndex = 400000; // Set the currentIndex to a very high number to avoid insertion
             }
-            }, 1500);
-    }
+        }
+
+      // Function to get yt reward
+        async function getReward(code) {
+                let data = {
+                    code: code
+                }
+
+                setTimeout(async()=>{
+                    // Send the request to the server
+                    const response = await fetch('/youtube-reward', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.error) {
+                        currentIndex = 4;
+                        // First take out the loader
+                        loader.classList.remove('loading');
+                        izitoastAlert('Error', result.error, 'light', 'red');
+                    } else{
+                        currentIndex = 4;
+                        // First take out the loader
+                        loader.classList.remove('loading');
+                        izitoastAlert('Success', 'You have successfully completed this task', 'light', 'green');
+                    }
+                    }, 1500);
+            }
     </script>
-    
-</body>
+  </body>
 </html>
