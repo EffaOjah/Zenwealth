@@ -348,7 +348,7 @@
 
       document.addEventListener('DOMContentLoaded', () => {
         const url = input.value;
-        const videoID = extractVideoID(url);
+        const videoID = extractYouTubeVideoId(url);
 
         if (videoID) {
           const thumbnailURL = `https://img.youtube.com/vi/${videoID}/maxresdefault.jpg`;
@@ -363,11 +363,11 @@
         }
       });
 
-      function extractVideoID(url) {
-        const regex = /(?:youtube\.com\/.*v=|youtu\.be\/)([^&#]+)/;
-        const match = url.match(regex);
-        return match ? match[1] : null;
-      }
+      function extractYouTubeVideoId(url) {
+      const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|v\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+      const match = url.match(regex);
+      return match ? match[1] : null;
+    }
 
       let currentIndex = 0; // Track which box is being filled
 

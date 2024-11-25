@@ -244,7 +244,7 @@ async function getYoutubeVideoCode() {
 }
 
 
-// Function to update the user's has_completed_yt_reward column to true
+// Function to update the user's has_completed_yt_reward column
 async function updateYtStatus(status, userId) {
     return new Promise((resolve, reject) => {
         connection.query('UPDATE users SET has_completed_yt_reward = ? WHERE user_id = ?', [status, userId], (err, result)=>{
@@ -256,6 +256,22 @@ async function updateYtStatus(status, userId) {
                 resolve(result);
             }
         })
+    });
+}
+
+
+// Function to update the user's has_withdrawn column to true
+async function updateHasWithdrawnColumn(status, userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET has_withdrawn = ? WHERE user_id = ?', [status, userId], (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log(`Successfully updated the has_withdrawn column of the user to ${status}`);
+                resolve(result);
+            }
+        });
     });
 }
 
@@ -548,4 +564,4 @@ async function getWithdrawalSettings() {
 
 
 
-module.exports = {fetchUserByUsername, getReferrals, getTotalWithdrawal, createAffiliateBalanceView, getTotalAffiliateBalanceView, getTotalReferralBalanceView, createZenpointsView, getTotalZenPointsView, createZenCoinsView, getTotalZenCoinsView, insertIntoAffiliateTransactions, insertIntoNonAffiliateTransactions, insertIntoActivityTransactions, insertIntoWithdrawals, getCoupons, getYoutubeVideoCode, updateYtStatus, getPosts, getSinglePost, updateHasSharedPostColumn, updateHasJoinedPlatform, creditedTask1Column, creditedTask2Column, getMysteryBoxSetting, updateHasClaimedColumn, assignFreeCoupon, getYoutubeVideo, mysteryBoxEarnings, freeCoupons, getUsersMiningBalance, rewardGems, getGems, updateHasBoostedColumn, updateHasClaimedTapsColumn, updateHasTappedBefore, getWithdrawalSettings};
+module.exports = {fetchUserByUsername, getReferrals, getTotalWithdrawal, createAffiliateBalanceView, getTotalAffiliateBalanceView, getTotalReferralBalanceView, createZenpointsView, getTotalZenPointsView, createZenCoinsView, getTotalZenCoinsView, insertIntoAffiliateTransactions, insertIntoNonAffiliateTransactions, insertIntoActivityTransactions, insertIntoWithdrawals, getCoupons, getYoutubeVideoCode, updateYtStatus, getPosts, getSinglePost, updateHasSharedPostColumn, updateHasJoinedPlatform, creditedTask1Column, creditedTask2Column, getMysteryBoxSetting, updateHasClaimedColumn, assignFreeCoupon, getYoutubeVideo, mysteryBoxEarnings, freeCoupons, getUsersMiningBalance, rewardGems, getGems, updateHasBoostedColumn, updateHasClaimedTapsColumn, updateHasTappedBefore, getWithdrawalSettings, updateHasWithdrawnColumn};

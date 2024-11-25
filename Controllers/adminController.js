@@ -358,10 +358,15 @@ router.post('/update-withdrawal-status', verifyToken.verifyAdminToken, (req, res
     console.log(req.body);
     
     // Update the status of the withdrawal
-    connection.query('UPDATE withdrawalsettings SET active_status = ? WHERE setting = ?', [status, withdrawalType], (err)=>{
+    connection.query('UPDATE withdrawalsettings SET active_status = ? WHERE setting = ?', [status, withdrawalType], async(err)=>{
         if (err) {
             console.log('Error updating the active_status of the withdrawal: ', err);
             return res.status(500).json({error: `Error updating the active_status of the withdrawal: ${err}`});
+        }
+        // Check the withdrawal status
+        if(status == 'ON'){
+            // Update the has_withdrawn column of the user to 1
+            const updateHasWithdrawnColumn = await dashboardFunctions.updateHasWithdrawnColumn(false, fetchUserByUsername[0].user_id);
         }
         console.log(`Successfully updated the active status of the ${withdrawalType} to ${status}`);
         return res.status(200).json({success: `Successfully updated the active status of the ${withdrawalType} to ${status}`});

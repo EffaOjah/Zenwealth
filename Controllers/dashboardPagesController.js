@@ -695,6 +695,12 @@ router.post('/submit-withdrawal', verifyToken.verifyToken, async (req, res) => {
             return res.status(200).json({ error: 'Please set pin' });
         }
 
+        // Check if the user has withdrawn already
+        if(fetchUserByUsername[0].has_withdrawn == 1){
+            console.log('User has already withdrawn');
+            return res.status(200).json({ error: 'You have already withdrawn' });
+        }
+
         // Check withdrawal type
         if (withdrawalType == 'affiliate') {
             // Perform operations for affiliate withdrawal
@@ -722,6 +728,9 @@ router.post('/submit-withdrawal', verifyToken.verifyToken, async (req, res) => {
                 console.log('Incorrect pin');
                 return res.status(404).json({ error: 'Incorrect pin' });
             }
+
+            // Update the has_withdrawn column of the user to 1
+            const updateHasWithdrawnColumn = await dashboardFunctions.updateHasWithdrawnColumn(true, fetchUserByUsername[0].user_id);
 
             // Insert into the affiliate transactions table
             const insertIntoAffiliateTransactions = await dashboardFunctions.insertIntoAffiliateTransactions(`${-(amount * 1500)}`, 'Affiliate Withdrawal', 'DEBIT', fetchUserByUsername[0].user_id);
@@ -770,6 +779,9 @@ router.post('/submit-withdrawal', verifyToken.verifyToken, async (req, res) => {
                 return res.status(404).json({ error: 'Incorrect pin' });
             }
 
+            // Update the has_withdrawn column of the user to 1
+            const updateHasWithdrawnColumn = await dashboardFunctions.updateHasWithdrawnColumn(true, fetchUserByUsername[0].user_id);
+
             // Insert into the non affiliate transactions table
             const insertIntoNonAffiliateTransactions = await dashboardFunctions.insertIntoNonAffiliateTransactions(`${-(amount)}`, 'Non Affiliate Withdrawal', 'DEBIT', fetchUserByUsername[0].user_id);
 
@@ -816,6 +828,9 @@ router.post('/submit-withdrawal', verifyToken.verifyToken, async (req, res) => {
                 console.log('Incorrect pin');
                 return res.status(404).json({ error: 'Incorrect pin' });
             }
+
+            // Update the has_withdrawn column of the user to 1
+            const updateHasWithdrawnColumn = await dashboardFunctions.updateHasWithdrawnColumn(true, fetchUserByUsername[0].user_id);
 
             // Insert into the affiliate transactions table
             const insertIntoActivityTransactions = await dashboardFunctions.insertIntoActivityTransactions(`${-(amount * 1500)}`, 'Activity Withdrawal', fetchUserByUsername[0].user_id);
