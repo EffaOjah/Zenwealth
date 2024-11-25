@@ -644,7 +644,7 @@ router.post('/add-advert-post', verifyToken.verifyAdminToken, upload.single('ima
                 const updateHasSharedPostColumn = await adminFunctions.updateHasSharedPostColumn();
 
                 // Update the credited_task1 column
-                const creditedTask1Column = await adminFunctions.creditedTask1Column(0);
+                const creditedTask1Column = await adminFunctions.creditedTask1Column(1);
 
                 return res.render(path.join(__dirname , '../views/Admin Pages/Add Post1'), {alertTitle: 'Success: ', alertMessage: 'Successfully added advert post', alertColor: 'green'});
             } catch (error) {

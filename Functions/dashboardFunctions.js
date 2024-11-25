@@ -516,6 +516,21 @@ async function updateHasClaimedTapsColumn(status, userId) {
     });
 }
 
+// Function to update the has_boosted_column of the user
+async function updateHasTappedBefore(status, userId) {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET has_tapped_before = ? WHERE user_id = ?', [status, userId], (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log(`Successfully updated the has_tapped_before column to ${status}`);
+                resolve(result);
+            }
+        });
+    });
+}
+
 // Function to get withdrawal settings
 async function getWithdrawalSettings() {
     return new Promise((resolve, reject) => {
@@ -533,4 +548,4 @@ async function getWithdrawalSettings() {
 
 
 
-module.exports = {fetchUserByUsername, getReferrals, getTotalWithdrawal, createAffiliateBalanceView, getTotalAffiliateBalanceView, getTotalReferralBalanceView, createZenpointsView, getTotalZenPointsView, createZenCoinsView, getTotalZenCoinsView, insertIntoAffiliateTransactions, insertIntoNonAffiliateTransactions, insertIntoActivityTransactions, insertIntoWithdrawals, getCoupons, getYoutubeVideoCode, updateYtStatus, getPosts, getSinglePost, updateHasSharedPostColumn, updateHasJoinedPlatform, creditedTask1Column, creditedTask2Column, getMysteryBoxSetting, updateHasClaimedColumn, assignFreeCoupon, getYoutubeVideo, mysteryBoxEarnings, freeCoupons, getUsersMiningBalance, rewardGems, getGems, updateHasBoostedColumn, updateHasClaimedTapsColumn, getWithdrawalSettings};
+module.exports = {fetchUserByUsername, getReferrals, getTotalWithdrawal, createAffiliateBalanceView, getTotalAffiliateBalanceView, getTotalReferralBalanceView, createZenpointsView, getTotalZenPointsView, createZenCoinsView, getTotalZenCoinsView, insertIntoAffiliateTransactions, insertIntoNonAffiliateTransactions, insertIntoActivityTransactions, insertIntoWithdrawals, getCoupons, getYoutubeVideoCode, updateYtStatus, getPosts, getSinglePost, updateHasSharedPostColumn, updateHasJoinedPlatform, creditedTask1Column, creditedTask2Column, getMysteryBoxSetting, updateHasClaimedColumn, assignFreeCoupon, getYoutubeVideo, mysteryBoxEarnings, freeCoupons, getUsersMiningBalance, rewardGems, getGems, updateHasBoostedColumn, updateHasClaimedTapsColumn, updateHasTappedBefore, getWithdrawalSettings};

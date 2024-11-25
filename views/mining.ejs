@@ -228,43 +228,118 @@
     <span id="userStand" class="d-none"><%= user.has_boosted_acct %></span>
     <span id="claimedTaps" class="d-none"><%= user.has_claimed_taps %></span>
 
-
+    <span id="hasTappedBefore" class="d-none"><%= user.has_tapped_before %></span>
 
     <script>
       const bar = document.getElementById('barLife');
       const battery = document.getElementById('battery');
       const coin = document.getElementById('coin');
+      const hasTappedBefore = document.getElementById('hasTappedBefore');
       var userStand = document.getElementById('userStand').innerHTML;
       var claimedTaps = document.getElementById('claimedTaps').innerHTML;
-      var life = 600;
+      var life = 0;
       var count = 0;
       let autoIncreaseInterval = null; // Store the interval ID for auto-increasing
+
+      // Maximum life value
+      const MAX_LIFE = 600;
+
+      // Refill rate (2 per 2 seconds)
+      const REFILL_RATE = 2; // Amount to refill
+      const REFILL_INTERVAL = 2000; // Time in ms
+
+      // saveState(0)
+
+      // Initialize state on page load
+      loadState();
+      if (life < MAX_LIFE && userStand == 1) {
+        startAutoIncreaseLife(); // Start refilling if life isn't full
+      }
 
       if (claimedTaps == 1 && userStand == 0) {
         life = 0;
         battery.style.backgroundColor = 'transparent'; 
+      } 
+
+      // Load state from localStorage
+      function loadState() {
+        const savedLife = parseInt(localStorage.getItem("life"), 10);
+        const lastTimestamp = parseInt(localStorage.getItem("lastRefillTime"), 10);
+
+        // If life and timestamp exist, calculate elapsed time
+        if (!isNaN(savedLife) && !isNaN(lastTimestamp)) {
+          const now = Date.now();
+          const elapsedTime = now - lastTimestamp;
+
+          // Calculate how much life should have been refilled
+          const refilledLife = Math.floor(elapsedTime / REFILL_INTERVAL) * REFILL_RATE;
+          life = Math.min(savedLife + refilledLife, MAX_LIFE); // Cap at MAX_LIFE
+        } else {
+          if (hasTappedBefore.innerHTML == 0) {
+            life = 600;
+          } else{
+            life = 0;
+          } 
+        }
+
+        if (userStand == 1) {
+          // Update the visual bar and display life
+          updateBatteryVisual();
+          bar.textContent = life; 
+        }
       }
-      // Function to increase life every 2 seconds
+
+      // Save state to localStorage
+      function saveState(life) {
+        localStorage.setItem("life", life);
+        localStorage.setItem("lastRefillTime", Date.now());
+      }
+
+      // Function to increase life over time
       function startAutoIncreaseLife() {
         // Prevent multiple intervals from being created
         if (!autoIncreaseInterval) {
           autoIncreaseInterval = setInterval(() => {
-            if (life < 600) {
-              life += 2; // Increase life by 2
-              if (life > 600) life = 600; // Cap at 600 if it exceeds
+            if (life < MAX_LIFE) {
+              life += REFILL_RATE; // Increase life
+              if (life > MAX_LIFE) life = MAX_LIFE; // Cap at MAX_LIFE
 
               console.log("Increasing life to: ", life); // Debug log
               bar.textContent = life;
               updateBatteryVisual();
+              saveState(life); // Save updated life value
             }
-          
-            if (life >= 600) {
+
+            if (life >= MAX_LIFE) {
               clearInterval(autoIncreaseInterval);
               autoIncreaseInterval = null; // Clear interval when full life is reached
             }
-          }, 2000); // 2 seconds
+          }, REFILL_INTERVAL); // 2 seconds
         }
       }
+
+
+      // Function to increase life every 2 seconds
+      // function startAutoIncreaseLife() {
+      //   // Prevent multiple intervals from being created
+      //   if (!autoIncreaseInterval) {
+      //     autoIncreaseInterval = setInterval(() => {
+      //       if (life < 600) {
+      //         life += 2; // Increase life by 2
+      //         if (life > 600) life = 600; // Cap at 600 if it exceeds
+
+      //         console.log("Increasing life to: ", life); // Debug log
+      //         bar.textContent = life;
+      //         updateBatteryVisual();
+      //       }
+          
+      //       if (life >= 600) {
+      //         clearInterval(autoIncreaseInterval);
+      //         autoIncreaseInterval = null; // Clear interval when full life is reached
+      //       }
+      //     }, 2000); // 2 seconds
+      //   }
+      // }
 
       // Update battery height and color based on life
       function updateBatteryVisual() {
@@ -285,6 +360,7 @@
 
       // Handle both touch and click events
       function handleCoinTap(event) {
+        // alert(life)
         event.preventDefault(); // Prevent default touch behavior
         const touchCount = event.touches?.length; // Handle touch and click
 
@@ -326,10 +402,11 @@
             bar.textContent = life;
             
             if (life < 3) {
-              alert('Claim now: ');
               if (userStand == 1) {
               // Start the auto-increase if life drops below 600
               startAutoIncreaseLife(); 
+            } else{
+              saveState(600);
             }
               // Credit the user for what he/she has tapped
               fetch('/claim-zen-mining-reward', {
@@ -410,6 +487,8 @@
           } else{
             // Update UserStand
             updateUserStand(data.userStand)
+            // start autoIncreasal
+            startAutoIncreaseLife();
           }
         })
       })

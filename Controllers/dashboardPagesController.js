@@ -239,6 +239,11 @@ router.get('/user/set-pin', verifyToken.verifyToken, async (req, res) => {
     // Fetch user details using username
     const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
 
+    // Check if the user has already set pin
+    // if(fetchUserByUsername[0].withdrawal_pin !== null){
+    //     return res.send('You have already set your withdrawal pin, contact the admin to update it');
+    // }
+
     // Get the mystery_box setting
     const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
 
@@ -999,6 +1004,9 @@ router.post('/claim-zen-mining-reward', verifyToken.verifyToken, async (req, res
 
         // Update has_claimed_taps column
         const updateHasClaimedTapsColumn = await dashboardFunctions.updateHasClaimedTapsColumn(true, fetchUserByUsername[0].user_id);
+
+        // Update has_tapped_before column
+        const updateHasTappedBefore = await dashboardFunctions.updateHasTappedBefore(true, fetchUserByUsername[0].user_id);
 
         // Check if mining was 200, if so, reward Gem
         if (amount > 199) {
