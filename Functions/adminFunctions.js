@@ -227,6 +227,21 @@ async function approvedWithdrawals() {
     });
 }
 
+// Function to get rejected withdrawals
+async function rejectedWithdrawals() {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM rejected_withdrawals  ORDER BY withdrawal_id DESC', (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log('Rejected Withdrawals: ', result);
+                resolve(result);
+            }
+        });
+    });
+}
+
 // Function to update has_shared_post column of the users table to 0
 async function updateHasSharedPostColumn() {
     return new Promise((resolve, reject) => {
@@ -356,4 +371,28 @@ async function insertIntoApprovedWithdrawals(withdrawalId , userId, username, am
     });
 }
 
-module.exports = {numberOfUsers, couponCodes, sumOfWithdrawals, allVendors, allCouponCodes, allUsers, withdrawals, sponsoredPosts, allProducts, allCourses, toggleVendorVerification, getNotification, getSettings, getWithdrawalSettings, approvedWithdrawals, updateHasSharedPostColumn, updateHasJoinedPlatformColumn, toggleSetting, creditedTask1Column, creditedTask2Column, updateYtStatus, specificWithdrawal, insertIntoApprovedWithdrawals};
+// Function to insert into rejected_withdrawals table
+async function insertIntoRejectedWithdrawals(withdrawalId , userId, username, amount, withdrawalDate, withdrawalType, bank, accountNumber, accountName) {
+    return new Promise((resolve, reject) => {
+        connection.query('INSERT INTO rejected_withdrawals (user_id, user, amount, withdrawal_date, withdrawal_type, bank, account_number, account_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [userId, username, amount, withdrawalDate, withdrawalType, bank, accountNumber, accountName], (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log('Successfully inserted into rejected_withdrawals table');
+
+                // Update the status of the withdrawal in the withdrawals table
+                connection.query('UPDATE withdrawals SET status = ? WHERE withdrawal_id = ?', ['Declined', withdrawalId], (err)=>{
+                    if (err) {
+                        console.log(err);
+                        reject(err);
+                    } else{
+                        resolve(result);
+                    }
+                });
+            }
+        });
+    });
+}
+
+module.exports = {numberOfUsers, couponCodes, sumOfWithdrawals, allVendors, allCouponCodes, allUsers, withdrawals, sponsoredPosts, allProducts, allCourses, toggleVendorVerification, getNotification, getSettings, getWithdrawalSettings, approvedWithdrawals, rejectedWithdrawals, updateHasSharedPostColumn, updateHasJoinedPlatformColumn, toggleSetting, creditedTask1Column, creditedTask2Column, updateYtStatus, specificWithdrawal, insertIntoApprovedWithdrawals, insertIntoRejectedWithdrawals};

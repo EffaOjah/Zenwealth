@@ -621,6 +621,16 @@ router.post('/p2p', verifyToken.verifyToken, async (req, res) => {
 router.post('/update-bank-details', verifyToken.verifyToken, async (req, res) => {
     console.log(req.body);
 
+    // Fetch user details using username
+    const fetchUserByUsername = await dashboardFunctions.fetchUserByUsername(req.user.username);
+
+    // Check if user has already set bank details
+    if (fetchUserByUsername[0].account_name !== null && fetchUserByUsername[0].account_number !== null && fetchUserByUsername[0].bank_name !== null) {
+        console.log('User has already set bank details');
+        
+        return res.render('blank', {message: 'You have already set your bank details'});
+    }
+
     // Get the mystery_box setting
     const getMysteryBoxSetting = await dashboardFunctions.getMysteryBoxSetting();
 

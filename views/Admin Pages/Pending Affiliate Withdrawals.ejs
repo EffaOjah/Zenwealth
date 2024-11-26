@@ -166,6 +166,12 @@
                                         </a>
                                     </li>
         
+                                    <li class="sidebar-menu-item ">
+                                        <a href="/rejected-withdrawals" class="nav-link text-white">
+                                            <i class="menu-icon fa-regular fa-circle-dot"></i>
+                                            <span class="menu-title text-white">Rejected Withdrawals</span>
+                                        </a>
+                                    </li>
                                     <!-- <li class="sidebar-menu-item ">
                                         <a href="Rejected Withdrawals.html" class="nav-link text-white">
                                             <i class="menu-icon fa-regular fa-circle-dot"></i>
@@ -448,12 +454,12 @@
                         <table class="table table--light style--two">
                             <thead>
                             <tr>
-                                <th>Payment Proof</th>
-                                <th>Date Initiated</th>
-                                <th>User</th>
-                                <th>Amount</th>
+                                <th class="text-center">Payment Proof</th>
+                                <th class="text-center">Date Initiated</th>
+                                <th class="text-center">User</th>
+                                <th class="text-center">Amount</th>
                                 
-                                <th>Action</th>
+                                <th class="text-center">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -488,6 +494,9 @@
                                        <td data-label="Action">
                                         <a href="/withdrawal/approve/<%= pendingWithdrawals[i].withdrawal_id %>" class="btn btn-sm btn--success ms-1 text-white">
                                             APPROVE
+                                        </a>
+                                        <a href="/withdrawal/reject/<%= pendingWithdrawals[i].withdrawal_id %>" class="btn btn-sm btn--danger ms-1 text-white">
+                                            DECLINE
                                         </a>
                                         </td>
         

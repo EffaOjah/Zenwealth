@@ -179,6 +179,12 @@
                                         </a>
                                     </li>
         
+                                    <li class="sidebar-menu-item ">
+                                        <a href="/rejected-withdrawals" class="nav-link text-white">
+                                            <i class="menu-icon fa-regular fa-circle-dot"></i>
+                                            <span class="menu-title text-white">Rejected Withdrawals</span>
+                                        </a>
+                                    </li>
                                     <!-- <li class="sidebar-menu-item ">
                                         <a href="Rejected Withdrawals.html" class="nav-link text-white">
                                             <i class="menu-icon fa-regular fa-circle-dot"></i>
@@ -435,10 +441,10 @@
                         <i class="las la-bell"></i>Notifications                    </a>
                 </div> -->
 
-                <!-- <div class="flex-fill">
-                    <a href="#" class="btn btn--primary btn--gradi btn--shadow w-100 btn-lg text-white">
+                <div class="flex-fill">
+                    <a href="/admin/user/<%= userDetails[0].username %>" target="_blank" class="btn btn--primary btn--gradi btn--shadow w-100 btn-lg text-white">
                         <i class="las la-sign-in-alt"></i>Login as User                    </a>
-                </div> -->
+                </div>
 
                 <% if (userDetails[0].is_banned == 0) { %>
                     <div class="flex-fill">

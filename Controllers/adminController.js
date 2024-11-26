@@ -170,6 +170,14 @@ router.get('/approved-withdrawals', verifyToken.verifyAdminToken, async(req, res
     res.render(path.join(__dirname , '../views/Admin Pages/Approved Withdrawals'), {approvedWithdrawals});
 });
 
+// Route to get all rejected withdrawals
+router.get('/rejected-withdrawals', verifyToken.verifyAdminToken, async(req, res)=>{
+    // Get the withdrawals
+    const rejectedWithdrawals = await adminFunctions.rejectedWithdrawals();
+
+    res.render(path.join(__dirname , '../views/Admin Pages/Rejected Withdrawals'), {rejectedWithdrawals});
+});
+
 // Route to select post type
 router.get('/add-post', (req, res)=>{
     res.render(path.join(__dirname, '../views/Admin Pages/Select Post Type'));
@@ -818,6 +826,28 @@ router.get('/withdrawal/approve/:id', async(req, res)=>{
 
         // Now insert into the approved withdrawals table
         const insertDetails = await adminFunctions.insertIntoApprovedWithdrawals(withdrawalId, withdrawal.user_id, withdrawal.user, withdrawal.amount, withdrawal.withdrawal_date, withdrawal.withdrawal_type, withdrawal.bank, withdrawal.account_number, withdrawal.account_name);
+
+        res.redirect('/pending-affiliate-withdrawals');
+    } catch (error) {
+        console.log('Internal server error: ', error);
+        res.redirect('/pending-affiliate-withdrawals');
+    }
+
+    
+});
+
+// Route to reject withdrawal
+router.get('/withdrawal/reject/:id', async(req, res)=>{
+    let withdrawalId = req.params.id;
+    console.log('Withdarwal Id: ', withdrawalId);
+    
+    try {
+        
+        // Use id to fetch withdrawal details
+        const withdrawal = await adminFunctions.specificWithdrawal(withdrawalId);
+
+        // Now insert into the rejected withdrawals table
+        const insertDetails = await adminFunctions.insertIntoRejectedWithdrawals(withdrawalId, withdrawal.user_id, withdrawal.user, withdrawal.amount, withdrawal.withdrawal_date, withdrawal.withdrawal_type, withdrawal.bank, withdrawal.account_number, withdrawal.account_name);
 
         res.redirect('/pending-affiliate-withdrawals');
     } catch (error) {
