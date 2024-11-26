@@ -849,6 +849,10 @@ router.get('/withdrawal/reject/:id', async(req, res)=>{
         // Now insert into the rejected withdrawals table
         const insertDetails = await adminFunctions.insertIntoRejectedWithdrawals(withdrawalId, withdrawal.user_id, withdrawal.user, withdrawal.amount, withdrawal.withdrawal_date, withdrawal.withdrawal_type, withdrawal.bank, withdrawal.account_number, withdrawal.account_name);
 
+        // Reverse the money to the user
+        // Insert into the affiliate transactions table
+        const insertIntoAffiliateTransactions = await dashboardFunctions.insertIntoAffiliateTransactions(withdrawal.amount, 'Reverse Withdrawal', 'CREDIT', fetchUserByUsername[0].user_id);
+
         res.redirect('/pending-affiliate-withdrawals');
     } catch (error) {
         console.log('Internal server error: ', error);
