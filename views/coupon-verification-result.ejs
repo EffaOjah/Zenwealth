@@ -102,7 +102,9 @@
                           </tr>
                           <tr>
                             <th>Upline:</th>
-                            <% if (info[0].upline) { %>
+                            <% if (info[0].upline == 'Emmanuella Ene') { %>
+                              <td><%= 'ADMIN' %></td>
+                            <% } else if (info[0].upline) { %>
                               <td><%= info[0].upline %></td>
                             <% } else { %>
                               <td><%= 'ADMIN' %></td>

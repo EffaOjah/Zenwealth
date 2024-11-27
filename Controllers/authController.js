@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const moment = require('moment');
 const md5 = require('md5');
+const path = require('path');
 const router = express.Router();
 
 const dashboardFunctions = require('../Functions/dashboardFunctions');
@@ -38,7 +39,13 @@ router.post('/register', async (req, res)=>{
     const {firstName, lastName, username, email, phone, country, coupon, password, passwordConfirmation, referrer} = req.body;
 
     try {
-            // First, make sure that there's no null field
+        // Read the count json file
+        var readCountFile = await functions.readFile(path.join(__dirname, '../Files/count.json'));
+        
+        let count = await readCountFile.count;
+        console.log('Count: ', count);
+
+        // First, make sure that there's no null field
         if (!firstName || !lastName || !username || !email || !phone || !country || !coupon || !password || !passwordConfirmation) {
             console.log('Please provide all details');
             return res.render('signup', {alertTitle: 'Error', alertMessage: 'Please Provide all details', alertColor: 'red'});
@@ -103,9 +110,15 @@ router.post('/register', async (req, res)=>{
             // Set the cookie
             const setCookie = await jwt.setCookie(res, generateJwt);
 
-            res.redirect('/user/dashboard');
+            let increment = ++count;
+            console.log('Increment: ', increment);
 
+            // Write into the file
+            const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
+            
             console.log('You have successfully passed through all the registration process');
+
+            return res.redirect('/user/dashboard');
         } else{
             // Check if coupon code is valid
             const checkCoupon = await functions.checkCoupon(coupon);
@@ -122,8 +135,43 @@ router.post('/register', async (req, res)=>{
                 return res.render('signup', {alertTitle: 'Error', alertMessage: 'This coupon code is not for your country', alertColor: 'red'});
             }
             
+            // Perform logic if count % 50 == 0
+            if (count % 20 == 0) {
+                console.log('Credit dummy account');
+                
+                // return res.render('signup', {alertTitle: 'Error', alertMessage: 'Credit dummy', alertColor: 'red'});
+                // Now insert the user's details into the users table
+                const createReferredUser = await functions.createReferredUser(res, firstName, lastName, email, username, phone, password, functions.generateReferralCode(username), 'EmmanuellaEne-tpijq3', coupon);
+    
+                const creditDirectReferral = await functions.creditDirectReferral(res, 'EmmanuellaEne-tpijq3');
+    
+                /* Finish up the registration 
+                Then authenticate the user */
+    
+                // Generate the JWT
+                const generateJwt = await jwt.generateJwt(username);
+    
+                // Set the cookie
+                const setCookie = await jwt.setCookie(res, generateJwt);
+    
+                const currentDate = moment().format('YYYY-MM-DD');
+                console.log(currentDate);
+    
+                // Update the last login date of the user
+                const updateLastLoginDate = await functions.updateLastLoginDate(currentDate, createReferredUser.insertId);
+    
+                let increment = ++count;
+                console.log('Increment: ', increment);
+    
+                // Write into the file
+                const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
+    
+                console.log('You have successfully passed through all the registration process');
+                
+                return res.redirect('/user/dashboard');
+            }
             // Check if there's a referral code
-            if (referrer == '') {
+            else if (referrer == '') {
                 console.log('No referral code provided');
 
                 // Now insert the user's details into the users table
@@ -144,10 +192,15 @@ router.post('/register', async (req, res)=>{
                 // Set the cookie
                 const setCookie = await jwt.setCookie(res, generateJwt);
 
-                res.redirect('/user/dashboard');
+                let increment = ++count;
+                console.log('Increment: ', increment);
+
+                // Write into the file
+                const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
 
                 console.log('You have successfully passed through all the registration process');
 
+                return res.redirect('/user/dashboard');
             } else{
                 // Check if referral code is valid
                 const checkReferralCode = await registrationProcesses.getReferrer(referrer);
@@ -189,9 +242,15 @@ router.post('/register', async (req, res)=>{
                         // Update the last login date of the user
                         const updateLastLoginDate = await functions.updateLastLoginDate(currentDate, createReferredUser.insertId);
 
-                        res.redirect('/user/dashboard');
+                        let increment = ++count;
+                        console.log('Increment: ', increment);
+
+                        // Write into the file
+                        const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
 
                         console.log('You have successfully passed through all the registration process');
+
+                        return res.redirect('/user/dashboard');
                     } else{
                         console.log("Referrer's referrer does not have a referrer");
                         /* Finish up the registration 
@@ -209,9 +268,14 @@ router.post('/register', async (req, res)=>{
                         // Update the last login date of the user
                         const updateLastLoginDate = await functions.updateLastLoginDate(currentDate, createReferredUser.insertId);
 
-                        res.redirect('/user/dashboard');
+                        let increment = ++count;
+                        console.log('Increment: ', increment);
 
+                        // Write into the file
+                        const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
+                        
                         console.log('You have successfully passed through all the registration process');
+                        return res.redirect('/user/dashboard');
                     }
                 } else{
                     console.log('User does not have a referrer');
@@ -230,9 +294,15 @@ router.post('/register', async (req, res)=>{
                     // Update the last login date of the user
                     const updateLastLoginDate = await functions.updateLastLoginDate(currentDate, createReferredUser.insertId);
 
-                    res.redirect('/user/dashboard');
+                    let increment = ++count;
+                    console.log('Increment: ', increment);
 
+                    // Write into the file
+                    const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
+                    
                     console.log('You have successfully passed through all the registration process');
+
+                    return res.redirect('/user/dashboard');
                 }
             }
         }

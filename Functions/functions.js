@@ -1,3 +1,6 @@
+// Require file system
+const fs = require('fs');
+
 // Require sql connection
 const connection = require('../db/db');
 
@@ -588,6 +591,34 @@ function formatDate() {
     return formattedDate;
   }
   
+// Function to read file
+async function readFile(filePath) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(filePath, (err, data)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log(`Successfully read file, contents: ${data}`);
+                resolve(JSON.parse(data));
+            }
+        });
+    });
+}
   
+// Function to write into file
+async function writeIntoFile(filePath, content) {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(filePath, JSON.stringify(content), (err, data)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log(`Successfully written into file: ${content.count}`);
+                resolve(data);
+            }
+        });
+    });
+}
 
-module.exports = {current_timestamp, validateEmail, generateReferralCode, separateId, checkEmail, checkUsername, checkCoupon, checkFreeCoupon, createUnreferredUser, createUnreferredUser2, createReferredUser, creditDirectReferral, creditFirstIndirectReferral, creditSecondIndirectReferral, checkDate, updateLastLoginDate, creditLoginBonus, createUserp2P, debitUser, creditNewUser, generatedFreeCouponCode, getVendors, shuffleArray, insertIntoEarningHistory, formatDate, formatDate2};
+module.exports = {current_timestamp, validateEmail, generateReferralCode, separateId, checkEmail, checkUsername, checkCoupon, checkFreeCoupon, createUnreferredUser, createUnreferredUser2, createReferredUser, creditDirectReferral, creditFirstIndirectReferral, creditSecondIndirectReferral, checkDate, updateLastLoginDate, creditLoginBonus, createUserp2P, debitUser, creditNewUser, generatedFreeCouponCode, getVendors, shuffleArray, insertIntoEarningHistory, formatDate, formatDate2, readFile, writeIntoFile};
