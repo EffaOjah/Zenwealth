@@ -395,4 +395,19 @@ async function insertIntoRejectedWithdrawals(withdrawalId , userId, username, am
     });
 }
 
-module.exports = {numberOfUsers, couponCodes, sumOfWithdrawals, allVendors, allCouponCodes, allUsers, withdrawals, sponsoredPosts, allProducts, allCourses, toggleVendorVerification, getNotification, getSettings, getWithdrawalSettings, approvedWithdrawals, rejectedWithdrawals, updateHasSharedPostColumn, updateHasJoinedPlatformColumn, toggleSetting, creditedTask1Column, creditedTask2Column, updateYtStatus, specificWithdrawal, insertIntoApprovedWithdrawals, insertIntoRejectedWithdrawals};
+// Function to update the user's has_withdrawn column to true
+async function updateHasWithdrawnColumn(status) {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET has_withdrawn = ?', status, (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log(`Successfully updated the has_withdrawn column of the users to ${status}`);
+                resolve(result);
+            }
+        });
+    });
+}
+
+module.exports = {numberOfUsers, couponCodes, sumOfWithdrawals, allVendors, allCouponCodes, allUsers, withdrawals, sponsoredPosts, allProducts, allCourses, toggleVendorVerification, getNotification, getSettings, getWithdrawalSettings, approvedWithdrawals, rejectedWithdrawals, updateHasSharedPostColumn, updateHasJoinedPlatformColumn, toggleSetting, creditedTask1Column, creditedTask2Column, updateYtStatus, specificWithdrawal, insertIntoApprovedWithdrawals, insertIntoRejectedWithdrawals, updateHasWithdrawnColumn};
