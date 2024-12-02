@@ -39,27 +39,29 @@ setTimeout(() => {
 
 document.addEventListener('DOMContentLoaded', ()=>{
     // First, display the users' reward based on the value gotten from tyhe db
-    if (mysteryValue.innerHTML > 0 && mysteryValue.innerHTML < 51) {
+    if (mysteryValue.innerHTML > 0 && mysteryValue.innerHTML < 77) {
         // Update the nystery reward
         giftValue2.innerHTML = '100 naira';
-    } else if (mysteryValue.innerHTML > 50 && mysteryValue.innerHTML < 71){
+    } else if (mysteryValue.innerHTML > 76 && mysteryValue.innerHTML < 87){
         // Update the nystery reward
         giftValue2.innerHTML = '200 naira';
-    } else if (mysteryValue.innerHTML > 70 && mysteryValue.innerHTML < 81){
+    } else if (mysteryValue.innerHTML > 86 && mysteryValue.innerHTML < 92){
         // Update the nystery reward
         giftValue2.innerHTML = '300 naira';
-    } else if (mysteryValue.innerHTML > 80 && mysteryValue.innerHTML < 86){
+    } else if (mysteryValue.innerHTML > 91 && mysteryValue.innerHTML < 97){
         // Update the nystery reward
         giftValue2.innerHTML = '400 naira';
-    } else if (mysteryValue.innerHTML > 85 && mysteryValue.innerHTML < 91) {
+    } else if (mysteryValue.innerHTML > 96 && mysteryValue.innerHTML < 101) {
         // Update the nystery reward
         giftValue2.innerHTML = '500 naira';
-    } else if (mysteryValue.innerHTML > 90 && mysteryValue.innerHTML < 101) {
-        // Update the nystery reward
-        giftValue2.innerHTML = 'A free coupon code';
-        // Set the mystery gift image
-        mysteryGiftImg.src = '/img/coupon.png';
-    } else {
+    } 
+    // else if (mysteryValue.innerHTML > 96 && mysteryValue.innerHTML < 101) {
+    //     // Update the nystery reward
+    //     giftValue2.innerHTML = 'A free coupon code';
+    //     // Set the mystery gift image
+    //     mysteryGiftImg.src = '/img/coupon.png';
+    // } 
+    else {
        ('Invalid reward value');
         // Update the nystery reward
         giftValue2.innerHTML = 'null';

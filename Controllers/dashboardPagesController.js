@@ -430,7 +430,7 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async (req, res) =>
 
     try {
         // Check the user's reward
-        if (fetchUserByUsername[0].mystery_value > 0 && fetchUserByUsername[0].mystery_value < 51) {
+        if (fetchUserByUsername[0].mystery_value > 0 && fetchUserByUsername[0].mystery_value < 77) {
             console.log('User is about to claim 100 naira');
 
             // Insert into the activity transactions table
@@ -441,7 +441,7 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async (req, res) =>
 
             // Update the has_claimed_gift column of the user to 1
             const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
-        } else if (fetchUserByUsername[0].mystery_value > 50 && fetchUserByUsername[0].mystery_value < 71) {
+        } else if (fetchUserByUsername[0].mystery_value > 76 && fetchUserByUsername[0].mystery_value < 87) {
             console.log('User is about to claim 200 naira');
 
             // Insert into the activity transactions table
@@ -452,7 +452,7 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async (req, res) =>
 
             // Update the has_claimed_gift column of the user to 1
             const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
-        } else if (fetchUserByUsername[0].mystery_value > 70 && fetchUserByUsername[0].mystery_value < 81) {
+        } else if (fetchUserByUsername[0].mystery_value > 86 && fetchUserByUsername[0].mystery_value < 92) {
             console.log('User is about to claim 300 naira');
 
             // Insert into the activity transactions table
@@ -463,7 +463,7 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async (req, res) =>
 
             // Update the has_claimed_gift column of the user to 1
             const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
-        } else if (fetchUserByUsername[0].mystery_value > 80 && fetchUserByUsername[0].mystery_value < 86) {
+        } else if (fetchUserByUsername[0].mystery_value > 91 && fetchUserByUsername[0].mystery_value < 97) {
             console.log('User is about to claim 400 naira');
 
             // Insert into the activity transactions table
@@ -474,7 +474,7 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async (req, res) =>
 
             // Update the has_claimed_gift column of the user to 1
             const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
-        } else if (fetchUserByUsername[0].mystery_value > 85 && fetchUserByUsername[0].mystery_value < 91) {
+        } else if (fetchUserByUsername[0].mystery_value > 96 && fetchUserByUsername[0].mystery_value < 101) {
             console.log('User is about to claim 500 naira');
 
             // Insert into the activity transactions table
@@ -485,21 +485,23 @@ router.get('/claim-mystery-reward', verifyToken.verifyToken, async (req, res) =>
 
             // Update the has_claimed_gift column of the user to 1
             const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
-        } else if (fetchUserByUsername[0].mystery_value > 90 && fetchUserByUsername[0].mystery_value < 101) {
-            console.log('User is about to claim a free coupon code');
+        } 
+        // else if (fetchUserByUsername[0].mystery_value > 96 && fetchUserByUsername[0].mystery_value < 101) {
+        //     console.log('User is about to claim a free coupon code');
 
-            // Generate the free coupon for the user
-            const generateFreeCoupon = await functions.generatedFreeCouponCode();
+        //     // Generate the free coupon for the user
+        //     const generateFreeCoupon = await functions.generatedFreeCouponCode();
 
-            // Now assign it to the user
-            const assignFreeCoupon = await dashboardFunctions.assignFreeCoupon(fetchUserByUsername[0].user_id, generateFreeCoupon);
+        //     // Now assign it to the user
+        //     const assignFreeCoupon = await dashboardFunctions.assignFreeCoupon(fetchUserByUsername[0].user_id, generateFreeCoupon);
 
-            // Insert into earning history
-            // const insertIntoEarningHistory = await functions.insertIntoEarningHistory('Mystery Box Reward', 'Free Coupon', fetchUserByUsername[0].user_id);
+        //     // Insert into earning history
+        //     // const insertIntoEarningHistory = await functions.insertIntoEarningHistory('Mystery Box Reward', 'Free Coupon', fetchUserByUsername[0].user_id);
 
-            // Update the has_claimed_gift column of the user to 1
-            const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
-        } else {
+        //     // Update the has_claimed_gift column of the user to 1
+        //     const updateHasClaimedColumn = await dashboardFunctions.updateHasClaimedColumn(true, fetchUserByUsername[0].user_id);
+        // } 
+        else {
             console.log('Invalid reward type');
 
             return res.status(500).json({ error: 'Invalid reward type' });

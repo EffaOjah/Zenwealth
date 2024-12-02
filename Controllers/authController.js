@@ -136,42 +136,42 @@ router.post('/register', async (req, res)=>{
             }
             
             // Perform logic if count % 50 == 0
-            if (count % 20 == 0) {
-                console.log('Credit dummy account');
+            // if (count % 20 == 0) {
+            //     console.log('Credit dummy account');
                 
-                // return res.render('signup', {alertTitle: 'Error', alertMessage: 'Credit dummy', alertColor: 'red'});
-                // Now insert the user's details into the users table
-                const createReferredUser = await functions.createReferredUser(res, firstName, lastName, email, username, phone, password, functions.generateReferralCode(username), 'EmmanuellaEne-tpijq3', coupon);
+            //     // return res.render('signup', {alertTitle: 'Error', alertMessage: 'Credit dummy', alertColor: 'red'});
+            //     // Now insert the user's details into the users table
+            //     const createReferredUser = await functions.createReferredUser(res, firstName, lastName, email, username, phone, password, functions.generateReferralCode(username), 'EmmanuellaEne-tpijq3', coupon);
     
-                const creditDirectReferral = await functions.creditDirectReferral(res, 'EmmanuellaEne-tpijq3');
+            //     const creditDirectReferral = await functions.creditDirectReferral(res, 'EmmanuellaEne-tpijq3');
     
-                /* Finish up the registration 
-                Then authenticate the user */
+            //     /* Finish up the registration 
+            //     Then authenticate the user */
     
-                // Generate the JWT
-                const generateJwt = await jwt.generateJwt(username);
+            //     // Generate the JWT
+            //     const generateJwt = await jwt.generateJwt(username);
     
-                // Set the cookie
-                const setCookie = await jwt.setCookie(res, generateJwt);
+            //     // Set the cookie
+            //     const setCookie = await jwt.setCookie(res, generateJwt);
     
-                const currentDate = moment().format('YYYY-MM-DD');
-                console.log(currentDate);
+            //     const currentDate = moment().format('YYYY-MM-DD');
+            //     console.log(currentDate);
     
-                // Update the last login date of the user
-                const updateLastLoginDate = await functions.updateLastLoginDate(currentDate, createReferredUser.insertId);
+            //     // Update the last login date of the user
+            //     const updateLastLoginDate = await functions.updateLastLoginDate(currentDate, createReferredUser.insertId);
     
-                let increment = ++count;
-                console.log('Increment: ', increment);
+            //     let increment = ++count;
+            //     console.log('Increment: ', increment);
     
-                // Write into the file
-                const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
+            //     // Write into the file
+            //     const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
     
-                console.log('You have successfully passed through all the registration process');
+            //     console.log('You have successfully passed through all the registration process');
                 
-                return res.redirect('/user/dashboard');
-            }
+            //     return res.redirect('/user/dashboard');
+            // }
             // Check if there's a referral code
-            else if (referrer == '') {
+            if (referrer == '') {
                 console.log('No referral code provided');
 
                 // Now insert the user's details into the users table
