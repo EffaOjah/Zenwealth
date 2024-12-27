@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="/bootstrap-5.3.3-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/iziToast-master/dist/css/iziToast.min.css">
     <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
+    <style>
+      #eye-off {
+        display: none;
+      }
+      #eye, #eye-off {
+        position: absolute;
+        bottom: 15px;
+        right: 10px;
+      }
+    </style>
 </head>
 <body class="bg-one">
 
@@ -164,8 +174,10 @@
     
                   <div class="col-md-6">
                     <div class="form-floating mtop">
-                      <input class="form-control" placeholder="pin" type="pin" name="pin" maxlength="4" required="">
+                      <input class="form-control" placeholder="pin" type="password" id="pssd-input" name="pin" maxlength="4" required="">
                       <label class="form-label">Withdrawal Pin</label>
+                      <ion-icon name="eye-outline" class="fs-4 mt-3 me-3 text-white" id="eye" onclick="toggleVisibility()"></ion-icon>
+                    <ion-icon name="eye-off-outline" class="fs-4 mt-3 me-3 text-white" id="eye-off" onclick="toggleVisibility()"></ion-icon>
                     </div>
                   </div>
                 </div>
@@ -285,6 +297,22 @@
           mainDiv.style.borderRadius = "0";
         }
       }
+      
+      function toggleVisibility() {
+        var input = document.getElementById("pssd-input");
+        var eye = document.getElementById("eye");
+        var eyeOff = document.getElementById("eye-off");
+        if (input.type === "password") {
+          eye.style.display = 'none';
+          eyeOff.style.display = 'block';
+          input.type = "text";
+        } else {
+          eyeOff.style.display = 'none';
+          eye.style.display = 'block';
+          input.type = "password";
+        }
+    }
+
 
       // checkbox.addEventListener('change', function() {
       //   if (this.checked) {

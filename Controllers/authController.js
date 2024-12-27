@@ -216,67 +216,138 @@ router.post('/register', async (req, res)=>{
                 // Run the crediting process of the uplines
                 // Credit direct referral
                 const creditDirectReferral = await functions.creditDirectReferral(res, referrer);
+                
+                // Increase the contest count of the user
+                const increaseContestCount = await functions.increaseContestCount(referrer, 1);
 
                 // Check if the referrer also has a referrer
                 if (creditDirectReferral[0].referrer) {
-                    // Credit first indirect referral
-                    const creditFirstIndirectReferral = await functions.creditFirstIndirectReferral(res, creditDirectReferral[0].referrer);
 
-                    // Check if the referrer's referrer also has a referrer
-                    if (creditFirstIndirectReferral[0].referrer) {
-                        // Credit second indirect referral
-                        const creditSecondIndirectReferral = await functions.creditSecondIndirectReferral(res, creditFirstIndirectReferral[0].referrer);
+                    // Code to divert WinnerTv indirect
+                    // First check if the referrer is is Kokolor
+                    const checkReferrer = await registrationProcesses.getReferrer(creditDirectReferral[0].referrer);
 
-                        /* Finish up the registration 
-                        Then authenticate the user */
+                    if (referrer == 'Winnertv-d5u2ij' && checkReferrer[0].user_id == 11) {
+                        // Credit first indirect referral into the diverted account
+                        const creditFirstIndirectReferral = await functions.creditFirstIndirectReferral(res, 'Simarose09-9pnbq0');
 
-                        // Generate the JWT
-                        const generateJwt = await jwt.generateJwt(username);
+                        // Check if the referrer's referrer also has a referrer
+                        if (creditFirstIndirectReferral[0].referrer) {
+                            // Credit second indirect referral
+                            const creditSecondIndirectReferral = await functions.creditSecondIndirectReferral(res, creditFirstIndirectReferral[0].referrer);
 
-                        // Set the cookie
-                        const setCookie = await jwt.setCookie(res, generateJwt);
+                            /* Finish up the registration 
+                            Then authenticate the user */
 
-                        const currentDate = moment().format('YYYY-MM-DD');
-                        console.log(currentDate);
+                            // Generate the JWT
+                            const generateJwt = await jwt.generateJwt(username);
 
-                        // Update the last login date of the user
-                        const updateLastLoginDate = await functions.updateLastLoginDate(currentDate, createReferredUser.insertId);
+                            // Set the cookie
+                            const setCookie = await jwt.setCookie(res, generateJwt);
 
-                        let increment = ++count;
-                        console.log('Increment: ', increment);
+                            const currentDate = moment().format('YYYY-MM-DD');
+                            console.log(currentDate);
 
-                        // Write into the file
-                        const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
+                            // Update the last login date of the user
+                            const updateLastLoginDate = await functions.updateLastLoginDate(currentDate, createReferredUser.insertId);
 
-                        console.log('You have successfully passed through all the registration process');
+                            // let increment = ++count;
+                            // console.log('Increment: ', increment);
 
-                        return res.redirect('/user/dashboard');
+                            // // Write into the file
+                            // const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
+
+                            console.log('You have successfully passed through all the registration process');
+
+                            return res.redirect('/user/dashboard');
+                        } else{
+                            console.log("Referrer's referrer does not have a referrer");
+                            /* Finish up the registration 
+                            Then authenticate the user */
+
+                            // Generate the JWT
+                            const generateJwt = await jwt.generateJwt(username);
+
+                            // Set the cookie
+                            const setCookie = await jwt.setCookie(res, generateJwt);
+        
+                            const currentDate = moment().format('YYYY-MM-DD');
+                            console.log(currentDate);
+
+                            // Update the last login date of the user
+                            const updateLastLoginDate = await functions.updateLastLoginDate(currentDate, createReferredUser.insertId);
+
+                            // let increment = ++count;
+                            // console.log('Increment: ', increment);
+
+                            // // Write into the file
+                            // const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
+                            
+                            console.log('You have successfully passed through all the registration process');
+                            return res.redirect('/user/dashboard');
+                        }
                     } else{
-                        console.log("Referrer's referrer does not have a referrer");
-                        /* Finish up the registration 
-                        Then authenticate the user */
+                       // Credit first indirect referral into normal account
+                       const creditFirstIndirectReferral = await functions.creditFirstIndirectReferral(res, creditDirectReferral[0].referrer); 
 
-                        // Generate the JWT
-                        const generateJwt = await jwt.generateJwt(username);
+                       // Check if the referrer's referrer also has a referrer
+                        if (creditFirstIndirectReferral[0].referrer) {
+                            // Credit second indirect referral
+                            const creditSecondIndirectReferral = await functions.creditSecondIndirectReferral(res, creditFirstIndirectReferral[0].referrer);
 
-                        // Set the cookie
-                        const setCookie = await jwt.setCookie(res, generateJwt);
-    
-                        const currentDate = moment().format('YYYY-MM-DD');
-                        console.log(currentDate);
+                            /* Finish up the registration 
+                            Then authenticate the user */
 
-                        // Update the last login date of the user
-                        const updateLastLoginDate = await functions.updateLastLoginDate(currentDate, createReferredUser.insertId);
+                            // Generate the JWT
+                            const generateJwt = await jwt.generateJwt(username);
 
-                        let increment = ++count;
-                        console.log('Increment: ', increment);
+                            // Set the cookie
+                            const setCookie = await jwt.setCookie(res, generateJwt);
 
-                        // Write into the file
-                        const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
-                        
-                        console.log('You have successfully passed through all the registration process');
-                        return res.redirect('/user/dashboard');
+                            const currentDate = moment().format('YYYY-MM-DD');
+                            console.log(currentDate);
+
+                            // Update the last login date of the user
+                            const updateLastLoginDate = await functions.updateLastLoginDate(currentDate, createReferredUser.insertId);
+
+                            // let increment = ++count;
+                            // console.log('Increment: ', increment);
+
+                            // // Write into the file
+                            // const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
+
+                            console.log('You have successfully passed through all the registration process');
+
+                            return res.redirect('/user/dashboard');
+                        } else{
+                            console.log("Referrer's referrer does not have a referrer");
+                            /* Finish up the registration 
+                            Then authenticate the user */
+
+                            // Generate the JWT
+                            const generateJwt = await jwt.generateJwt(username);
+
+                            // Set the cookie
+                            const setCookie = await jwt.setCookie(res, generateJwt);
+        
+                            const currentDate = moment().format('YYYY-MM-DD');
+                            console.log(currentDate);
+
+                            // Update the last login date of the user
+                            const updateLastLoginDate = await functions.updateLastLoginDate(currentDate, createReferredUser.insertId);
+
+                            // let increment = ++count;
+                            // console.log('Increment: ', increment);
+
+                            // // Write into the file
+                            // const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
+                            
+                            console.log('You have successfully passed through all the registration process');
+                            return res.redirect('/user/dashboard');
+                        }
                     }
+
+                    
                 } else{
                     console.log('User does not have a referrer');
                     /* Finish up the registration 
@@ -294,11 +365,11 @@ router.post('/register', async (req, res)=>{
                     // Update the last login date of the user
                     const updateLastLoginDate = await functions.updateLastLoginDate(currentDate, createReferredUser.insertId);
 
-                    let increment = ++count;
-                    console.log('Increment: ', increment);
+                    // let increment = ++count;
+                    // console.log('Increment: ', increment);
 
                     // Write into the file
-                    const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
+                    // const writeIntoCountFile = await functions.writeIntoFile(path.join(__dirname, '../Files/count.json'), {count: increment});
                     
                     console.log('You have successfully passed through all the registration process');
 

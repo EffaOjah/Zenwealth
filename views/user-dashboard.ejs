@@ -10,7 +10,7 @@
     <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-one">
-    
+    1
     <!-- <div class="offcanvas-bg color-one"> -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
       <div class="offcanvas-cover "></div>
@@ -61,6 +61,27 @@
     </div>
     <!-- </div> -->
 
+    <!-- Pop-up Modal -->
+    <!--<div class="modal fade" id="popUpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">-->
+    <!--<div class="modal-dialog modal-dialog-centered">-->
+    <!--<div class="modal-content bg-transparent radius-three">-->
+    <!--<div class="modal-body">-->
+    <!--<div class="video-div p-1" style="height: 300px !important;">-->
+    <!--<% if (getPopUpContent[0].notification_type == 'video') { %>-->
+    <!--<video src="/uploads/admin/<%= getPopUpContent[0].notification_media %>" controls autoplay loop width="100%" id="adVideo"></video>-->
+    <!--<% } else { %>-->
+    <!--<img src="/uploads/admin/<%= getPopUpContent[0].notification_media %>" class="img-fluid img-rounded" alt="zen image">-->
+    <!--<% } %>-->
+    <!--<a href="<%= getPopUpContent[0].notification_link %>" id="joinBtn" class="btn btn-zen px-4 py-2 w-100 text-white mt-3"><%= getPopUpContent[0].button_name %></a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<button type="button" class="bg-dark py-1 px-2 border-0 gap-1 position-absolute text-white" id="skip" data-bs-dismiss="modal" aria-label="Close">-->
+    <!--close <ion-icon name="play-skip-forward-circle-outline" class="fs-1 text-white"></ion-icon>-->
+    <!--</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    
     <!-- Mystery Box Modal -->
     <div class="modal fade overflow-hidden" id="mysteryBoxModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-fullscreen position-relative overflow-hidden">
@@ -282,7 +303,7 @@
                 <div class="text-center">
                   <a href="/task">
                     <div class="icon-div d-flex align-items-center justify-content-center mb-2">
-                      <i class="fa-solid fa-list-check fs-4 text-secondary text-white"></i>
+                      <ion-icon name="gift-outline" class="text-white"></ion-icon>
                     </div>
                     <p class="text-white">Task</p>
                   </a>
@@ -367,7 +388,7 @@
                 <div class="text-center">
                   <a href="/task">
                     <div class="bg-six icon-div d-flex align-items-center justify-content-center mb-2">
-                      <i class="fa-solid fa-list-check fs-4 text-secondary text-white"></i>
+                      <ion-icon name="gift-outline" class="text-white"></ion-icon>
                     </div>
                     <p class="color-two">Task</p>
                   </a>
@@ -480,6 +501,22 @@
       var menuIcon = document.getElementById("hamburger");
       var mobileSideBar = document.getElementById("myMobileSidebar");
       const checkbox = document.querySelector('.hamburger input');
+      
+      const skipBtn = document.getElementById('skip');
+      const popUp = document.getElementById('popUpModal');
+
+      document.addEventListener('DOMContentLoaded', () => {
+        // Initialize the modal
+        const adModal = new bootstrap.Modal(popUp);
+        // Show the modal on page load after 3 seconds
+        setTimeout(() => {
+          adModal.show();
+        }, 2000);
+
+        setTimeout(() => {
+          skipBtn.style.display = 'flex';
+        }, 7000);
+      });
       
       function togglenav() {
         if (mainDiv.style.marginLeft === "0%"){

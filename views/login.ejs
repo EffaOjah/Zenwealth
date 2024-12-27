@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/iziToast-master/dist/css/iziToast.min.css">
     <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
+    <style>
+      #eye-off {
+        display: none;
+      }
+    </style>
 </head>
 <body class="">
 
@@ -31,7 +36,9 @@
 
                   <div class="input-group flex-nowrap">
                     <span class="input-group-text px-3"><ion-icon name="lock-closed"></ion-icon></span>
-                    <input type="password" name="password" class="form-control py-3" placeholder="Password">
+                    <input type="password" name="password" id="pssd-input" class="form-control py-3" placeholder="Password">
+                    <ion-icon name="eye-outline" class="fs-4 mt-3 me-3" id="eye" onclick="toggleVisibility()"></ion-icon>
+                    <ion-icon name="eye-off-outline" class="fs-4 mt-3 me-3" id="eye-off" onclick="toggleVisibility()"></ion-icon>
                   </div>
                   
                   <div class="col-md-12 mt-4">
@@ -67,6 +74,21 @@
         return;
       }
     })
+    
+    function toggleVisibility() {
+        var input = document.getElementById("pssd-input");
+        var eye = document.getElementById("eye");
+        var eyeOff = document.getElementById("eye-off");
+        if (input.type === "password") {
+          eye.style.display = 'none';
+          eyeOff.style.display = 'block';
+          input.type = "text";
+        } else {
+          eyeOff.style.display = 'none';
+          eye.style.display = 'block';
+          input.type = "password";
+        }
+    }
 
    </script>
 

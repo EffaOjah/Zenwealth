@@ -170,7 +170,6 @@
           <div class="addon"></div>
           <img src="img/ZEN COIN.png" class="img-fluid" id="coin" alt="zen coin">
 
-
           <div class="d-flex align-items-center justify-content-between">
             <span class="text-white progress-div radius-three py-1 px-3 d-flex align-items-center justify-content-center" style="width: fit-content;" data-bs-target="#boostModal" data-bs-toggle="modal">
               <img src="img/lfg.png" class="img-fluid lfg" alt="lfg">
@@ -231,6 +230,8 @@
     <span id="hasTappedBefore" class="d-none"><%= user.has_tapped_before %></span>
 
     <script>
+      var randomNo = Math.floor(Math.random() * 2 ) + 1;
+
       const bar = document.getElementById('barLife');
       const battery = document.getElementById('battery');
       const coin = document.getElementById('coin');
@@ -275,11 +276,7 @@
           const refilledLife = Math.floor(elapsedTime / REFILL_INTERVAL) * REFILL_RATE;
           life = Math.min(savedLife + refilledLife, MAX_LIFE); // Cap at MAX_LIFE
         } else {
-          if (hasTappedBefore.innerHTML == 0) {
-            life = 600;
-          } else{
-            life = 0;
-          } 
+          life = 600;
         }
 
         if (userStand == 1) {
@@ -460,7 +457,6 @@
         userStand = value;
         startAutoIncreaseLife();
       }
-
       // Attach both touchstart and click event listeners
       coin.addEventListener('touchstart', handleCoinTap);
 
@@ -493,6 +489,7 @@
         })
       })
     </script>
+    
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>

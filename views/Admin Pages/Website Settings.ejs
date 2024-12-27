@@ -189,7 +189,13 @@
                                                                             </a>
                                     </li>
                                     
-                                    
+                                    <li class="sidebar-menu-item ">
+                                        <a href="/pending-activity-withdrawals" class="nav-link text-white">
+                                            <i class="menu-icon fa-regular fa-circle-dot"></i>
+                                            <span class="menu-title text-white">Activity Withdrawals</span>
+        
+                                                                            </a>
+                                    </li>
                                     
                                     <li class="sidebar-menu-item ">
                                         <a href="/pending-earnings-withdrawals" class="nav-link text-white">
@@ -396,14 +402,21 @@
                             <div class="col-md-6">
                             <div class="form-group">
                             <label for="image">Notification Image</label>
-                            <input class="form-control" type="file" name="image" accept="image/*" id="image" required>
+                            <input class="form-control" type="file" name="image" id="image" required>
                             </div>
                             </div>
                             
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="title">Notification Title</label>
                                     <input class="form-control" type="text" name="title" value="<%= getNotification.notification_title %>" id="title">
+                                </div>
+                            </div> -->
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="link">Notification link</label>
+                                    <input class="form-control" type="text" name="link" value="<%= getNotification.notification_link %>" id="link">
                                 </div>
                             </div>
                             
@@ -414,19 +427,12 @@
                                 </div>
                             </div>
                             
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="link">Notification link</label>
-                                    <input class="form-control" type="text" name="link" value="<%= getNotification.notification_link %>" id="link">
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-12">
+                            <!-- <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-control-label" for="details">Notification Details</label>
                                     <textarea class="form-control" type="text" name="details" value="" id="details" rows="5"><%= getNotification.notification_details %></textarea>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
 
@@ -469,7 +475,7 @@
                         </div>
                         
                         <div class="form-group col-xl-3 col-md- col-12">
-                            <label for="earnings">Zen Points Withdrawal </label>
+                            <label for="earnings">Zen Coins Withdrawal </label>
                             <div class="container earnings">
                                 <div class="active-div activities-active-div">Active</div>
                                 <div class="off-div activities-off-div">Off</div>
@@ -477,7 +483,7 @@
                         </div>
 
                         <div class="form-group col-xl-3 col-md- col-12">
-                            <label for="earnings">Zen Coins Withdrawal </label>
+                            <label for="earnings">Activity Withdrawal </label>
                             <div class="container games">
                                 <div class="active-div games-active-div">Active</div>
                                 <div class="off-div games-off-div">Off</div>

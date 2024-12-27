@@ -149,7 +149,13 @@
                                                                             </a>
                                     </li>
                                     
-                                    
+                                    <li class="sidebar-menu-item ">
+                                        <a href="/pending-activity-withdrawals" class="nav-link text-white">
+                                            <i class="menu-icon fa-regular fa-circle-dot"></i>
+                                            <span class="menu-title text-white">Activity Withdrawals</span>
+        
+                                                                            </a>
+                                    </li>
                                     
                                     <li class="sidebar-menu-item ">
                                         <a href="/pending-earnings-withdrawals" class="nav-link text-white">
@@ -492,8 +498,11 @@
                                             </span>
                                         </td>
                                        <td data-label="Action">
-                                        <a href="#" class="btn btn-sm btn--success ms-1 text-white">
+                                        <a href="/withdrawal/approve/<%= pendingWithdrawals[i].withdrawal_id %>" class="btn btn-sm btn--success ms-1 text-white">
                                             APPROVE
+                                        </a>
+                                        <a href="/withdrawal/reject/<%= pendingWithdrawals[i].withdrawal_id %>" class="btn btn-sm btn--danger ms-1 text-white">
+                                            DECLINE
                                         </a>
                                         </td>
         

@@ -10,15 +10,15 @@
     <meta property="og:description" content="<%= getSinglePost[0].post_description %>" />
     <meta property="og:image" content="https://zenwealth.app/uploads/admin/<%= getSinglePost[0].post_image %>" />
     <meta property="og:url" content="https://zenwealth.app/post/<%= getSinglePost[0].post_id %>" />
-
+    <meta property="og:type" content="article" />
+    
     <!-- Handle sharing for X -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="<%= getSinglePost[0].post_title %>">
     <meta name="twitter:description" content="<%= getSinglePost[0].post_description %>">
     <meta name="twitter:image" content="https://zenwealth.app/uploads/admin/<%= getSinglePost[0].post_image %>">
-    <!-- <meta name="twitter:site" content="@Finvest"> -->
-    <meta property="og:type" content="article" />
 
+    
     <title>Zenwealth - Post Detail</title>
 
     <link rel="shortcut icon" type="image/png" href="/img/Zenwealth Logo Alone-02.png">
@@ -37,6 +37,10 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/a207e207d8.js" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5149215667049868"
+     crossorigin="anonymous"></script>
+     
 </head>
 <body>
 
@@ -83,16 +87,16 @@
                         <!-- <a href="#" class="card-link color-three">Share</a> -->
                          <% if (getSinglePost[0].post_type == 'advert') { %>
                             <p class="color-three">Share Post</p>
-                                                    <div id="share-icons" class="p-2">
+                                                    <div id="share-icons" class="p-2 d-flex gap-3">
                                                         <a onclick="sharePost()" href="https://wa.me/?text=https://zenwealth.app/post/<%= getSinglePost[0].post_id %>">
-                                                        <i class="fa-brands fa-square-whatsapp fs-1" style="color: #075e54"></i>
+                                                        <ion-icon name="logo-whatsapp" style="color: #211f4e; font-size: 25px;"></ion-icon>
                                                         </a>
                                                                                      <a onclick="sharePost()" href="https://www.facebook.com/sharer/sharer.php?u=https://zenwealth.app/post/<%= getSinglePost[0].post_id %>" target="_blank">
-                                                                                    <i class="fa-brands fa-facebook ms-3 fs-1" style="color: blue"></i>
+                                                                                    <ion-icon name="logo-facebook" style="color: #211f4e; font-size: 25px;"></ion-icon>
                                                                                 </a>
                                                     
                                                                                                        <a onclick="sharePost()" href="https://twitter.com/intent/tweet?url=https://https://zenwealth.app/post/<%= getSinglePost[0].post_id %>" target="_blank">
-                                                                                                       <i class="fa-brands fa-square-twitter  ms-3  fs-1" style="color: #1DA1F2"></i>
+                                                                                                       <ion-icon name="logo-twitter" style="color: #211f4e; font-size: 25px;"></ion-icon>
                                                                                                        </a>
                                                                                                        </div>
                          <% } else{ %>
@@ -117,7 +121,7 @@
 
     <a href="#up">
       <div class="bg-three" id="scrollBtn" style="display: none;">
-        <i class="fa-solid fa-angle-up text-white"></i>
+        <ion-icon name="chevron-up-outline" class="text-white"></ion-icon>
       </div>
     </a>
   </div>

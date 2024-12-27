@@ -13,6 +13,8 @@ const adminFunctions = require('../Functions/adminFunctions');
 
 const dashboardFunctions = require('../Functions/dashboardFunctions');
 
+const notification = require('../Functions/notification.js');
+
 // Require JWT middleware
 const jwt = require('../Functions/jwt');
 
@@ -130,6 +132,18 @@ router.get('/coupon-codes', verifyToken.verifyAdminToken, async(req, res)=>{
     res.render(path.join(__dirname , '../views/Admin Pages/Admin Coupons'), {allCouponCodes})
 });
 
+router.get('/notify-users', verifyToken.verifyAdminToken, async(req, res) => {
+    const notificationType = req.query.type;
+
+    if (notificationType === 'mystery') {
+      notification.sendNotification('🎁 Claim Your Mystery Gift!', 'The Mystery Box is now open! Claim your reward.');
+    } else if (notificationType === 'affiliate') {
+      notification.sendNotification('💸 Affiliate Withdrawal is Live!', 'You can now withdraw your affiliate earnings. Don’t miss out—check your balance and withdraw today!');
+    } else {
+      notification.sendNotification('Default Notification', 'Check out the app for updates.');
+    }
+});
+
 // Route to get all active users
 router.get('/active-users', verifyToken.verifyAdminToken, async(req, res)=>{
     // Get all users
@@ -160,6 +174,14 @@ router.get('/pending-earnings-withdrawals', verifyToken.verifyAdminToken, async(
     const pendingWithdrawals = await adminFunctions.withdrawals('Non Affiliate Withdrawal', 'PENDING');
 
     res.render(path.join(__dirname , '../views/Admin Pages/Pending Earnings Withdrawals'), {pendingWithdrawals});
+});
+
+// Route to get all pending activity withdrawals
+router.get('/pending-activity-withdrawals', verifyToken.verifyAdminToken, async(req, res)=>{
+    // Get the withdrawals
+    const pendingWithdrawals = await adminFunctions.withdrawals('Activity Withdrawal', 'PENDING');
+
+    res.render(path.join(__dirname , '../views/Admin Pages/Pending Activity Withdrawals'), {pendingWithdrawals});
 });
 
 // Route to get all approved withdrawals
@@ -305,14 +327,24 @@ router.get('/delete-post', verifyToken.verifyAdminToken, (req, res)=>{
 // POST ROUTES
 // Route to update pop up ad
 router.post('/popUpAd/update', upload.single('image'), verifyToken.verifyAdminToken, async(req, res)=>{
-    // Get settings
-    const getSettings = await adminFunctions.getSettings();
+   // Get the notification
+   const getNotification = await adminFunctions.getNotification();
 
-    const affiliateWithdrawalSetting = getSettings[0].active_status;
-    const nonAffiliateWithdrawalSetting = getSettings[1].active_status;
-    const gameWithdrawalSetting = getSettings[2].active_status;
+   // Get settings
+   const getSettings = await adminFunctions.getSettings();
+
+   // Get withdrawal settings
+   const getWithdrawalSettings = await adminFunctions.getWithdrawalSettings();
+
+   const affiliateWithdrawalSetting = getWithdrawalSettings[0].active_status;
+   const nonAffiliateWithdrawalSetting = getWithdrawalSettings[1].active_status;
+   const gameWithdrawalSetting = getWithdrawalSettings[2].active_status;
+
+   const mysteryBoxSetting = getSettings[0].active_status;
 
     const {title, link, details, button} = req.body;
+    var fileType;
+
     console.log('req.body: ', req.body);
 
     // Check if file was uploaded
@@ -322,10 +354,10 @@ router.post('/popUpAd/update', upload.single('image'), verifyToken.verifyAdminTo
         // Get the notification
         const getNotification = await adminFunctions.getNotification();
 
-        return res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting, alertTitle: 'Error: ', alertMessage: 'Please provide an image', alertColor: 'red'});
+        return res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting, mysteryBoxSetting, alertTitle: 'Error: ', alertMessage: 'Please provide an image', alertColor: 'red'});
     }
-    if (!req.file.mimetype.startsWith('image/')) {
-        console.log('Only image files are allowed!');
+    if (!req.file.mimetype.startsWith('video/') && !req.file.mimetype.startsWith('image/')) {
+        console.log('Only image or video files are allowed!');
 
         // Get the notification
         const getNotification = await adminFunctions.getNotification();
@@ -333,29 +365,69 @@ router.post('/popUpAd/update', upload.single('image'), verifyToken.verifyAdminTo
         // Get settings
         const getSettings = await adminFunctions.getSettings();
 
-        const affiliateWithdrawalSetting = getSettings[0].active_status;
-        const nonAffiliateWithdrawalSetting = getSettings[1].active_status;
-        const gameWithdrawalSetting = getSettings[2].active_status;
+        // Get withdrawal settings
+        const getWithdrawalSettings = await adminFunctions.getWithdrawalSettings();
 
-        return res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting, alertTitle: 'Error: ', alertMessage: 'Only image files are allowed', alertColor: 'red'});
+        const affiliateWithdrawalSetting = getWithdrawalSettings[0].active_status;
+        const nonAffiliateWithdrawalSetting = getWithdrawalSettings[1].active_status;
+        const gameWithdrawalSetting = getWithdrawalSettings[2].active_status;
+
+        const mysteryBoxSetting = getSettings[0].active_status;
+
+        return res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting, mysteryBoxSetting, alertTitle: 'Error: ', alertMessage: 'Only image or video files are allowed', alertColor: 'red'});
     }
 
     console.log('File uploaded successfully: ', req.file);
 
+    // Check the file type
+    if (req.file.mimetype.startsWith('image/')) {
+        fileType = 'image';
+    } else if (req.file.mimetype.startsWith('video/')) {
+        fileType = 'video';
+    } else{
+        fileType = 'null';
+    }
+
+    console.log('File type: ', fileType);
+    
     // Update the database
-        connection.query('UPDATE pop_up_ad SET notification_image = ?, notification_title = ?, notification_link = ?, notification_details = ?, button_name = ?', [req.file.filename, title, link, details, button], async(err)=>{
+        connection.query('UPDATE pop_up_ad SET notification_media = ?, notification_title = ?, notification_link = ?, notification_details = ?, notification_type = ?, button_name = ?', [req.file.filename, title, link, details, fileType, button], async(err)=>{
             if (err) {
                 console.log('Error Updating Ad!: ', err);
 
                 // Get the notification
                 const getNotification = await adminFunctions.getNotification();
 
-                return res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting, alertTitle: 'Error: ', alertMessage: 'Error updating Ad!', alertColor: 'red'});
+                // Get settings
+                const getSettings = await adminFunctions.getSettings();
+
+                // Get withdrawal settings
+                const getWithdrawalSettings = await adminFunctions.getWithdrawalSettings();
+
+                const affiliateWithdrawalSetting = getWithdrawalSettings[0].active_status;
+                const nonAffiliateWithdrawalSetting = getWithdrawalSettings[1].active_status;
+                const gameWithdrawalSetting = getWithdrawalSettings[2].active_status;
+
+                const mysteryBoxSetting = getSettings[0].active_status;
+
+                return res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting, mysteryBoxSetting, alertTitle: 'Error: ', alertMessage: 'Error updating Ad!', alertColor: 'red'});
             } else {
                 // Get the notification
                 const getNotification = await adminFunctions.getNotification();
 
-                return res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting, alertTitle: 'Success', alertMessage: 'Ad updated successfully!', alertColor: 'green'});
+                // Get settings
+                const getSettings = await adminFunctions.getSettings();
+
+                // Get withdrawal settings
+                const getWithdrawalSettings = await adminFunctions.getWithdrawalSettings();
+
+                const affiliateWithdrawalSetting = getWithdrawalSettings[0].active_status;
+                const nonAffiliateWithdrawalSetting = getWithdrawalSettings[1].active_status;
+                const gameWithdrawalSetting = getWithdrawalSettings[2].active_status;
+
+                const mysteryBoxSetting = getSettings[0].active_status;
+
+                return res.render(path.join(__dirname , '../views/Admin Pages/Website Settings'), {getNotification, affiliateWithdrawalSetting, nonAffiliateWithdrawalSetting, gameWithdrawalSetting, mysteryBoxSetting, alertTitle: 'Success', alertMessage: 'Ad updated successfully!', alertColor: 'green'});
             }
         });
 });
@@ -827,10 +899,10 @@ router.get('/withdrawal/approve/:id', async(req, res)=>{
         // Now insert into the approved withdrawals table
         const insertDetails = await adminFunctions.insertIntoApprovedWithdrawals(withdrawalId, withdrawal.user_id, withdrawal.user, withdrawal.amount, withdrawal.withdrawal_date, withdrawal.withdrawal_type, withdrawal.bank, withdrawal.account_number, withdrawal.account_name);
 
-        res.redirect('/pending-affiliate-withdrawals');
+        res.redirect('/admin/dashboard');
     } catch (error) {
         console.log('Internal server error: ', error);
-        res.redirect('/pending-affiliate-withdrawals');
+        res.redirect('/admin/dashboard');
     }
 
     
@@ -853,10 +925,10 @@ router.get('/withdrawal/reject/:id', async(req, res)=>{
         // Insert into the affiliate transactions table
         const insertIntoAffiliateTransactions = await dashboardFunctions.insertIntoAffiliateTransactions(withdrawal.amount, 'Reverse Withdrawal', 'CREDIT', fetchUserByUsername[0].user_id);
 
-        res.redirect('/pending-affiliate-withdrawals');
+        res.redirect('/admin/dashboard');
     } catch (error) {
         console.log('Internal server error: ', error);
-        res.redirect('/pending-affiliate-withdrawals');
+        res.redirect('/admin/dashboard');
     }
 
     

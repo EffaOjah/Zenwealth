@@ -621,4 +621,19 @@ async function writeIntoFile(filePath, content) {
     });
 }
 
-module.exports = {current_timestamp, validateEmail, generateReferralCode, separateId, checkEmail, checkUsername, checkCoupon, checkFreeCoupon, createUnreferredUser, createUnreferredUser2, createReferredUser, creditDirectReferral, creditFirstIndirectReferral, creditSecondIndirectReferral, checkDate, updateLastLoginDate, creditLoginBonus, createUserp2P, debitUser, creditNewUser, generatedFreeCouponCode, getVendors, shuffleArray, insertIntoEarningHistory, formatDate, formatDate2, readFile, writeIntoFile};
+// Function to increase the contest count of a user
+async function increaseContestCount(referralCode, value) {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE users SET contest_count = contest_count + ? WHERE referral_code = ?', [value, referralCode], (err, result)=>{
+            if (err) {
+                console.log(err);
+                reject(err);
+            } else{
+                console.log(`Successfully increased the contest_count of the user by ${value}`);
+                resolve(value);
+            }
+        });
+    });
+}
+
+module.exports = {current_timestamp, validateEmail, generateReferralCode, separateId, checkEmail, checkUsername, checkCoupon, checkFreeCoupon, createUnreferredUser, createUnreferredUser2, createReferredUser, creditDirectReferral, creditFirstIndirectReferral, creditSecondIndirectReferral, checkDate, updateLastLoginDate, creditLoginBonus, createUserp2P, debitUser, creditNewUser, generatedFreeCouponCode, getVendors, shuffleArray, insertIntoEarningHistory, formatDate, formatDate2, readFile, writeIntoFile, increaseContestCount};

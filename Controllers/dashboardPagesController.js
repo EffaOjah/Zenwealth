@@ -84,7 +84,10 @@ router.get('/user/dashboard', verifyToken.verifyToken, async (req, res) => {
         // Get the user's free coupons
         const getFreeCoupons = await dashboardFunctions.freeCoupons(fetchUserByUsername[0].user_id);
 
-        res.render('user-dashboard', { user: fetchUserByUsername[0], referrals: getReferrals[0].referrals, totalWithdrawal: getTotalWithdrawal[0].totalWithdrawal, getMysteryBoxSetting, getMysteryEarnings, getFreeCoupons });
+        // Get the pop up content
+        const getPopUpContent = await dashboardFunctions.getPopUpContent();
+
+        res.render('user-dashboard', { user: fetchUserByUsername[0], referrals: getReferrals[0].referrals, totalWithdrawal: getTotalWithdrawal[0].totalWithdrawal, getMysteryBoxSetting, getMysteryEarnings, getFreeCoupons, getPopUpContent });
 
     } catch (error) {
         console.log(error);

@@ -38,12 +38,25 @@ router.get('/coupon-code/verify', (req, res)=>{
 // Route for top earners
 router.get('/top-earners', (req, res)=>{
     // Get the top earners
-    connection.query(`SELECT u.username, u.display_image, SUM(t.amount) AS total_amount FROM affiliate_transactions t JOIN users u ON t.user_id = u.user_id WHERE t.type = 'CREDIT' GROUP BY u.username, u.user_id ORDER BY	total_amount DESC LIMIT 15`, (err, result)=>{
+    connection.query(`SELECT u.username, u.display_image, SUM(t.amount) AS total_amount FROM affiliate_transactions t JOIN users u ON t.user_id = u.user_id WHERE t.type = 'CREDIT' GROUP BY u.username, u.user_id ORDER BY	total_amount DESC LIMIT 20`, (err, result)=>{
         if (err) {
             console.log(err);
         } else{
             console.log('Result: ', result);
             res.render('top-earners', {earners: result});
+        }
+    });
+});
+
+// Route for affiliate contest
+router.get('/affiliate-contest', (req, res)=>{
+    // Get the top earners
+    connection.query(`SELECT * FROM users ORDER BY contest_count DESC LIMIT 50`, (err, result)=>{
+        if (err) {
+            console.log(err);
+        } else{
+            console.log('Result: ', result);
+            res.render('affiliate-contest', {contestants: result});
         }
     });
 });
