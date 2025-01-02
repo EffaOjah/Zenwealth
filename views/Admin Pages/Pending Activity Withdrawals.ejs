@@ -468,7 +468,7 @@
                                 <th>Action</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="userTableBody">
 
                                 <% for( let i = 0; i < pendingWithdrawals.length; i++ ) { %>
                                     <tr>
@@ -488,7 +488,7 @@
                                         
         
                                         <td data-label="User">
-                                            <%= pendingWithdrawals[i].user %>
+                                            <a href="/user/<%= pendingWithdrawals[i].user %>"><%= pendingWithdrawals[i].user %></a>
                                         </td>
         
         
@@ -596,6 +596,27 @@
         }
     </script>
 
+<script>
+    // Function to filter table rows based on search input
+    function filterTable() {
+        const searchValue = document.getElementById("search").value.trim().toLowerCase();
+        const tableRows = document.querySelectorAll("#userTableBody tr");
+
+        tableRows.forEach(row => {
+            const userColumn = row.querySelector("td[data-label='User']"); // Adjust for 'User' column
+            const username = userColumn ? userColumn.textContent.toLowerCase() : ""; // Extract text if exists
+
+            if (username.includes(searchValue)) {
+                row.style.display = ""; // Show row if it matches search
+            } else {
+                row.style.display = "none"; // Hide row if it does not match search
+            }
+        });
+    }
+
+    // Event listener for input change
+    document.getElementById("search").addEventListener("input", filterTable);
+</script>
 
 
 

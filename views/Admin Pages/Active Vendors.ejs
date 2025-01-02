@@ -446,7 +446,7 @@
     <div class="d-flex flex-wrap justify-content-end gap-2 align-items-center breadcrumb-plugins">
             <form action="#" method="GET" class="d-flex flex-wrap gap-2">
             <div class="input-group w-auto flex-fill">
-    <input type="search" name="search" class="form-control bg--white" placeholder="Username / Email" value="" id="search">
+    <input type="search" name="search" class="form-control bg--white" placeholder="Search Username" value="" id="search">
     <button class="btn search" type="submit"><i class="la la-search"></i></button>
 </div>
         
@@ -468,7 +468,7 @@
                                 <th>Action</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="userTableBody">
 
                                 <% for( let i = 0; i < allVendors.length; i++ ) { %>
                                     <tr>
@@ -584,7 +584,27 @@
         }
     </script>
 
+<script>
+    // Function to filter table rows based on search input
+    function filterTable() {
+        const searchValue = document.getElementById("search").value.trim().toLowerCase();
+        const tableRows = document.querySelectorAll("#userTableBody tr");
 
+        tableRows.forEach(row => {
+            const userColumn = row.querySelector("td[data-label='User']"); // Adjust for 'User' column
+            const username = userColumn ? userColumn.textContent.toLowerCase() : ""; // Extract text if exists
+
+            if (username.includes(searchValue)) {
+                row.style.display = ""; // Show row if it matches search
+            } else {
+                row.style.display = "none"; // Hide row if it does not match search
+            }
+        });
+    }
+
+    // Event listener for input change
+    document.getElementById("search").addEventListener("input", filterTable);
+</script>
 
 
 </body></html>

@@ -13,7 +13,7 @@ const adminFunctions = require('../Functions/adminFunctions');
 
 const dashboardFunctions = require('../Functions/dashboardFunctions');
 
-const notification = require('../Functions/notification.js');
+// const notification = require('../Functions/notification.js');
 
 // Require JWT middleware
 const jwt = require('../Functions/jwt');
