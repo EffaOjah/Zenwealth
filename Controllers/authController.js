@@ -27,6 +27,10 @@ router.get('/user/register', (req, res)=>{
     res.render('signup');
 });
 
+router.get('/register', (req, res)=>{
+    res.redirect('/user/register');
+});
+
 // LOGIN ROUTE (METHOD: GET)
 router.get('/user/login', (req, res)=>{
     res.render('login');
